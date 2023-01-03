@@ -7,40 +7,23 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    Text gameTimerText;
-    [SerializeField]
-    Text player1ScoreText;
-    [SerializeField]
-    Text player2ScoreText;
-    [SerializeField]
-    GameObject pauseScreen;
-    [SerializeField]
-    float gameTimer;
-    [SerializeField]
-    GameObject map;
-    [SerializeField]
-    float mapSpinSpeed;
-    [SerializeField]
-    GameObject goalParticles;
-    [SerializeField]
-    GameObject announcementScore;
-    [SerializeField]
-    GameObject cam;
-    [SerializeField]
-    GameObject[] goalsToTurn;
-    [SerializeField]
-    GameObject[] walls;
-    [SerializeField]
-    Animator UICanvasAnim;
-    [SerializeField]
-    PostProcessVolume ppVolume;
-    [SerializeField]
-    float celebrationFireworks;
-    [SerializeField]
-    Color[] celebrationFireworksColors;
-    [SerializeField]
-    float camShakeMagnitude;
+    [SerializeField] Text gameTimerText;
+    [SerializeField] Text player1ScoreText;
+    [SerializeField] Text player2ScoreText;
+    [SerializeField] GameObject pauseScreen;
+    [SerializeField] float gameTimer;
+    [SerializeField] GameObject map;
+    [SerializeField] float mapSpinSpeed;
+    [SerializeField] GameObject goalParticles;
+    [SerializeField] GameObject announcementScore;
+    [SerializeField] GameObject cam;
+    [SerializeField] GameObject[] goalsToTurn;
+    [SerializeField] GameObject[] walls;
+    [SerializeField] Animator UICanvasAnim;
+    [SerializeField] PostProcessVolume ppVolume;
+    [SerializeField] float celebrationFireworks;
+    [SerializeField] Color[] celebrationFireworksColors;
+    [SerializeField] float camShakeMagnitude;
 
     Ball savedBall;
     float mapRotDir;
@@ -182,7 +165,6 @@ public class GameManager : MonoBehaviour
         }
         Destroy(gParticles, 3);
     }
-
     void UpdatePostProcessing()
     {
         if (updatingPP)
