@@ -156,14 +156,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Fireworks(Vector3 pos, bool multiColor)
+    void Fireworks(Vector3 position, bool multiColor)
     {
-        GameObject gParticles = Instantiate(goalParticles, pos, Quaternion.identity);
-        if (multiColor)
+        GameObject particles = Instantiate(goalParticles, position, Quaternion.identity);
+        if (multiColor && particles.TryGetComponent(out ParticleSystem particleSystem))
         {
-            gParticles.GetComponent<ParticleSystem>().startColor = celebrationFireworksColors[Random.Range(0, celebrationFireworksColors.Length)];
+            var main = particleSystem.main;
+            main.startColor = celebrationFireworksColors[Random.Range(0, celebrationFireworksColors.Length)];
+            // gParticles.GetComponent<ParticleSystem>().startColor = celebrationFireworksColors[Random.Range(0, celebrationFireworksColors.Length)];
         }
-        Destroy(gParticles, 3);
+        Destroy(particles, 3);
     }
     void UpdatePostProcessing()
     {

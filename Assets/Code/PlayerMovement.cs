@@ -4,26 +4,20 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    int playerNum;
-    [SerializeField]
-    float playerSpeed;
-    [SerializeField]
-    float rotationAmmount;
-    [SerializeField]
-    float distFromCenter;
-    [SerializeField]
-    bool interpolatedRotation;
-    [SerializeField]
-    float interpolatedRotationSpeed;
+    [SerializeField] int playerNum;
+    [SerializeField] float playerSpeed;
+    [SerializeField] float rotationAmmount;
+    [SerializeField] float distFromCenter;
+    [SerializeField] bool interpolatedRotation;
+    [SerializeField] float interpolatedRotationSpeed;
 
-    Rigidbody rb;
-    Vector3 startingPoint;
-    bool leftRotInput;
-    bool rightRotInput;
-    float h;
-    float v;
-    float timeOutside;
+    private Rigidbody rb;
+    private Vector3 startingPoint;
+    private bool leftRotInput;
+    private bool rightRotInput;
+    private float h;
+    private float v;
+    private float timeOutside;
 
     private void Start()
     {
@@ -32,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         startingPoint = transform.position;
     }
 
+    ///<summary> Toma los valores almacenados en PlayerPrefs de cada variable </summary>
     void GetPlayerPrefs()
     {
         if (PlayerPrefs.HasKey("playerSpeed"))
