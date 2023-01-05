@@ -2,198 +2,205 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BallPaint
+namespace RotaryPong
 {
-    noPaint,
-    pink,
-    blue
-}
-
-public class Ball : MonoBehaviour
-{
-    public BallPaint paint;
-    public Material[] playerMaterials;
-    public bool canScore;
-    [SerializeField]
-    float ballSpeed;
-    [SerializeField]
-    float distFromCenter;
-    [SerializeField]
-    float minVelocity;
-    [SerializeField]
-    float colorDuration;
-    [SerializeField]
-    Rigidbody rb;
-    [SerializeField]
-    AudioClip[] playerAudioClips;
-
-    AudioSource aud;
-    float colorTimer;
-    float timeOutside;
-    Material startingMaterial;
-    Color startingColor;
-    Vector3 lastFrameVelocity;
-    Vector3 startingPoint;
-    Renderer rend;
-    Collider coll;
-    TrailRenderer trailRend;
-
-    private void Start()
+    public enum BallPaint
     {
-        if (PlayerPrefs.HasKey("ballSpeed"))
-        {
-            ballSpeed = PlayerPrefs.GetFloat("ballSpeed");
-        }
-        if (PlayerPrefs.HasKey("ballDrag"))
-        {
-            rb.drag = PlayerPrefs.GetFloat("ballDrag");
-        }
-        if (PlayerPrefs.HasKey("ballMinSpeed"))
-        {
-            minVelocity = PlayerPrefs.GetFloat("ballMinSpeed");
-        }
-        if (PlayerPrefs.HasKey("ballColorDuration"))
-        {
-            colorDuration = PlayerPrefs.GetFloat("ballColorDuration");
-        }
-        aud = GetComponent<AudioSource>();
-        rend = GetComponent<Renderer>();
-        coll = GetComponent<Collider>();
-        trailRend = GetComponent<TrailRenderer>();
-        startingMaterial = rend.material;
-        startingColor = trailRend.startColor;
-        startingPoint = transform.position;
-        canScore = true;
+        White,
+        Pink,
+        Blue
     }
-
-    public void TurnBackOn()
+    [RequireComponent(typeof(Rigidbody))]
+    public class Ball : MonoBehaviour
     {
-        transform.position = startingPoint;
-        rb.velocity = Vector3.zero;
-        rend.enabled = true;
-        coll.enabled = true;
-        trailRend.enabled = true;
-        canScore = true;
-    }
+        public BallPaint Paint;
+        public Material[] PlayerMaterials;
+        public bool CanScore;
+        [SerializeField] float _ballSpeed;
+        [SerializeField] float _distanceFromCenter;
+        [SerializeField] float _minVelocity;
+        [SerializeField] float _colorDuration;
+        [SerializeField] AudioClip[] _playerAudioClips;
 
-    public void SetInvis()
-    {
-        LosePaint();
-        rend.enabled = false;
-        coll.enabled = false;
-        trailRend.enabled = false;
-        canScore = false;
-    }
+        [Header("Configurations")]
+        private Rigidbody _rigidbody;
+        private AudioSource _audioSource;
+        private Renderer _renderer;
+        private Collider _collider;
+        private TrailRenderer _trailRenderer;
+        private Material _startingMaterial;
+        private Color _startingColor;
+        private Vector3 lastFrameVelocity;
+        private Vector3 _startingPoint;
+        private float _colorTimer;
+        private float _timeOutside;
 
-    private void Bounce(Vector3 collisionNormal)
-    {
-        float speed = lastFrameVelocity.magnitude;
-        if (speed <= minVelocity)
+        private void Start()
         {
-            rb.velocity = collisionNormal * ballSpeed;
+            GetComponents();
+            GetPlayerPrefs();
+
+            _startingMaterial = _renderer.material;
+            _startingColor = _trailRenderer.startColor;
+            _startingPoint = transform.position;
+            CanScore = true;
         }
-        else
+        ///<summary> Toma los componentes para cada variable </summary>
+        private void GetComponents()
         {
-            Vector3 ballVelocity = lastFrameVelocity.normalized;
-            Vector3 direction = Vector3.Reflect(ballVelocity, collisionNormal);
-            if (speed <= ballSpeed)
+            _rigidbody = GetComponent<Rigidbody>();
+            _audioSource = GetComponent<AudioSource>();
+            _renderer = GetComponent<Renderer>();
+            _collider = GetComponent<Collider>();
+            _trailRenderer = GetComponent<TrailRenderer>();
+        }
+        ///<summary> Toma los valores almacenados en PlayerPrefs de cada variable </summary>
+        private void GetPlayerPrefs()
+        {
+            if (PlayerPrefs.HasKey("ballSpeed"))
             {
-                speed = ballSpeed;
+                _ballSpeed = PlayerPrefs.GetFloat("ballSpeed");
             }
-            rb.velocity = direction * Mathf.Max(speed, minVelocity);
-            Debug.DrawRay(transform.position, direction * 3, Color.red, 5);
-        }
-    }
-
-    void CheckForPlayer(GameObject collObject)
-    {
-        if (collObject.tag == "Player")
-        {
-            if (collObject.name == "p1")
+            if (PlayerPrefs.HasKey("ballDrag"))
             {
-                PlayAudio(0);
-                ColorChange(0);
+                _rigidbody.drag = PlayerPrefs.GetFloat("ballDrag");
             }
-            else if (collObject.name == "p2")
+            if (PlayerPrefs.HasKey("ballMinSpeed"))
             {
-                PlayAudio(1);
-                ColorChange(1);
+                _minVelocity = PlayerPrefs.GetFloat("ballMinSpeed");
+            }
+            if (PlayerPrefs.HasKey("ballColorDuration"))
+            {
+                _colorDuration = PlayerPrefs.GetFloat("ballColorDuration");
             }
         }
-    }
-
-    void PlayAudio(int who)
-    {
-        aud.clip = playerAudioClips[who];
-        aud.Play();
-    }
-
-    void ColorChange(int who)
-    {
-        colorTimer = colorDuration;
-        if (who == 0)
+        ///<summary> Reinicia las configuraciones del objeto, dejandole en el estado y posicion incial </summary>
+        public void TurnBackOn()
         {
-            paint = BallPaint.pink;
+            transform.position = _startingPoint;
+            _rigidbody.velocity = Vector3.zero;
+            _renderer.enabled = true;
+            _collider.enabled = true;
+            _trailRenderer.enabled = true;
+            CanScore = true;
         }
-        else if (who == 1)
+        ///<summary> Apaga el aspecto visual y desactiva CanScore </summary>
+        public void SetInvis()
         {
-            paint = BallPaint.blue;
+            LosePaint();
+            _renderer.enabled = false;
+            _collider.enabled = false;
+            _trailRenderer.enabled = false;
+            CanScore = false;
         }
-        rend.material = playerMaterials[who];
-        trailRend.material = rend.material;
-    }
-
-    private void Update()
-    {
-        lastFrameVelocity = rb.velocity;
-        CheckPaint();
-        CheckDistanceFromCenter();
-    }
-
-    void CheckDistanceFromCenter()
-    {
-        float dist = Vector2.Distance(transform.position, Vector2.zero);
-        if (dist >= distFromCenter)
+        ///<summary> Permite el rebote del objeto calculando la velocidad y direccion del rigidbody en relacion a <paramref name="collisionNormal"/></summary>
+        private void Bounce(Vector3 collisionNormal)
         {
-            timeOutside += Time.deltaTime;
-            if (timeOutside >= 1)
+            float speed = lastFrameVelocity.magnitude;
+
+            if (speed > _minVelocity)
             {
-                transform.position = startingPoint;
+                Vector3 ballVelocity = lastFrameVelocity.normalized;
+                Vector3 direction = Vector3.Reflect(ballVelocity, collisionNormal);
+                if (speed <= _ballSpeed)
+                {
+                    speed = _ballSpeed;
+                }
+                _rigidbody.velocity = direction * Mathf.Max(speed, _minVelocity);
+                Debug.DrawRay(transform.position, direction * 3, Color.red, 5);
+                return;
+            }
+            _rigidbody.velocity = collisionNormal * _ballSpeed;
+        }
+        ///<summary> Comprueba si el tag corresponde a player para luego comparar el nombre de <paramref name="collObject"/> y asi sonar audio a la vez que cambiar colores </summary>
+        private void CheckForPlayer(GameObject collObject)
+        {
+            if (collObject.tag == "Player")
+            {
+                if (collObject.name == "p1")
+                {
+                    PlayAudio(0);
+                    ColorChange(0);
+                }
+                else if (collObject.name == "p2")
+                {
+                    PlayAudio(1);
+                    ColorChange(1);
+                }
             }
         }
-        else
+        ///<summary> Reproduce la pista de audio cuyo index es <paramref name="who"/></summary>
+        private void PlayAudio(int who)
         {
-            timeOutside = 0;
+            _audioSource.clip = _playerAudioClips[who];
+            _audioSource.Play();
         }
-    }
-
-    void CheckPaint()
-    {
-        if (paint != BallPaint.noPaint)
+        ///<summary> Cambia el color del objeto referenciando el index <paramref name="who"/> </summary>
+        private void ColorChange(int who)
         {
-            colorTimer -= Time.deltaTime;
-            if (colorTimer <= 0)
+            _colorTimer = _colorDuration;
+            if (who == 0)
             {
-                LosePaint();
+                Paint = BallPaint.Pink;
+            }
+            else if (who == 1)
+            {
+                Paint = BallPaint.Blue;
+            }
+            _renderer.material = PlayerMaterials[who];
+            _trailRenderer.material = _renderer.material;
+        }
+
+        private void Update()
+        {
+            lastFrameVelocity = _rigidbody.velocity;
+            CheckPaint();
+            CheckDistanceFromCenter();
+        }
+        ///<summary> Comprueba la distancia del objeto respecto al centro del mapa para considerar su posible reinicio de posicion </summary>
+        private void CheckDistanceFromCenter()
+        {
+            float distanceFromZero = Vector2.Distance(transform.position, Vector2.zero);
+            if (distanceFromZero < _distanceFromCenter)
+            {
+                _timeOutside = 0;
+                return;
+            }
+            _timeOutside += Time.deltaTime;
+            if (_timeOutside >= 1)
+            {
+                transform.position = _startingPoint;
             }
         }
-    }
+        ///<summary> Comprueba la pintura actual, en caso que no sea blanca cambiara su color cuando <paramref name="_colorTimer"/> llegue a 0 </summary>
+        private void CheckPaint()
+        {
+            if (Paint != BallPaint.White)
+            {
+                _colorTimer -= Time.deltaTime;
+                if (_colorTimer <= 0)
+                {
+                    LosePaint();
+                }
+            }
+        }
+        ///<summary> Configura <paramref name="Paint"/> a White, a la vez que vuelve las propiedades visuales del objeto a su estado inciail</summary>
+        private void LosePaint()
+        {
+            Debug.Log("lose paint");
+            Paint = BallPaint.White;
+            _renderer.material = _startingMaterial;
+            //trailRend.startColor = startingColor;
+            //trailRend.endColor = startingColor;
+            _renderer.material.SetColor("_EmissionColor", _renderer.material.color);
+            _trailRenderer.material = _renderer.material;
+        }
 
-    void LosePaint()
-    {
-        Debug.Log("lose paint");
-        paint = BallPaint.noPaint;
-        rend.material = startingMaterial;
-        //trailRend.startColor = startingColor;
-        //trailRend.endColor = startingColor;
-        rend.material.SetColor("_EmissionColor", rend.material.color);
-        trailRend.material = rend.material;
+        private void OnCollisionEnter(Collision collision)
+        {
+            Bounce(collision.contacts[0].normal);
+            CheckForPlayer(collision.gameObject);
+        }
+        
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Bounce(collision.contacts[0].normal);
-        CheckForPlayer(collision.gameObject);
-    }
-    
 }

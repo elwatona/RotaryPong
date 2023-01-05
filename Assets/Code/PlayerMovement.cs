@@ -1,174 +1,134 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+namespace RotaryPong
 {
-    [SerializeField] int playerNum;
-    [SerializeField] float playerSpeed;
-    [SerializeField] float rotationAmmount;
-    [SerializeField] float distFromCenter;
-    [SerializeField] bool interpolatedRotation;
-    [SerializeField] float interpolatedRotationSpeed;
-
-    private Rigidbody rb;
-    private Vector3 startingPoint;
-    private bool leftRotInput;
-    private bool rightRotInput;
-    private float h;
-    private float v;
-    private float timeOutside;
-
-    private void Start()
+    public class PlayerMovement : MonoBehaviour
     {
-        GetPlayerPrefs();
-        rb = GetComponent<Rigidbody>();
-        startingPoint = transform.position;
-    }
+        [SerializeField] float _playerSpeed;
+        [SerializeField] float _rotationAmmount;
+        [SerializeField] float _distanceFromCenter;
+        [SerializeField] bool _hasInterpolatedRotation;
+        [SerializeField] float _interpolatedRotationSpeed;
 
-    ///<summary> Toma los valores almacenados en PlayerPrefs de cada variable </summary>
-    void GetPlayerPrefs()
-    {
-        if (PlayerPrefs.HasKey("playerSpeed"))
-        {
-            playerSpeed = PlayerPrefs.GetFloat("playerSpeed");
-        }
-        if (PlayerPrefs.HasKey("playerSpeed"))
-        {
-            rotationAmmount = PlayerPrefs.GetFloat("playerRotAmmount");
-        }
-        if (PlayerPrefs.HasKey("playerRotSmooth"))
-        {
-            int interpolatedRotBool = PlayerPrefs.GetInt("playerRotSmooth");
-            if (interpolatedRotBool == 0)
-            {
-                interpolatedRotation = false;
-            }
-            else if (interpolatedRotBool == 1)
-            {
-                interpolatedRotation = true;
-            }
-        }
-        if (PlayerPrefs.HasKey("playerRotSpeed"))
-        {
-            interpolatedRotationSpeed = PlayerPrefs.GetFloat("playerRotSpeed");
-        }
-    }
+        private Rigidbody _rigidbody;
+        private Vector3 _startingPoint;
+        private bool _leftRotationInput;
+        private bool _rightRotationInput;
+        private float _timeOutside;
 
-    private void Update()
-    {
-        GetInput();
-        CheckDistanceFromCenter();
-    }
+        private Vector2 _movementInput;
 
-    void CheckDistanceFromCenter()
-    {
-        float dist = Vector2.Distance(transform.position, Vector2.zero);
-        if (dist >= distFromCenter)
-        {
-            timeOutside += Time.deltaTime;
-            if (timeOutside >= 1)
-            {
-                transform.position = startingPoint;
-            }
-        }
-        else
-        {
-            timeOutside = 0;
-        }
-    }
+        public void OnMove(InputAction.CallbackContext ctx) => _movementInput = ctx.ReadValue<Vector2>();
+        public void OnRotateLeft(InputAction.CallbackContext ctx) => _leftRotationInput = ctx.ReadValueAsButton();
+        public void OnRotateRight(InputAction.CallbackContext ctx) => _rightRotationInput = ctx.ReadValueAsButton();
 
-    private void FixedUpdate()
-    {
-        Movement();
-        Rotation();
-    }
-
-    void Rotation()
-    {
-        float rotationInZ = transform.eulerAngles.z;
-
-        if (leftRotInput)
+        private void Start()
         {
-            rotationInZ -= rotationAmmount;
-        }
-        else if (rightRotInput)
-        {
-            rotationInZ += rotationAmmount;
+            GetPlayerPrefs();
+            _rigidbody = GetComponent<Rigidbody>();
+            _startingPoint = transform.position;
         }
 
-        if (!interpolatedRotation)
+        ///<summary> Toma los valores almacenados en PlayerPrefs de cada variable </summary>
+        void GetPlayerPrefs()
         {
-            if (leftRotInput)
+            if (PlayerPrefs.HasKey("playerSpeed"))
             {
-                leftRotInput = false;
+                _playerSpeed = PlayerPrefs.GetFloat("playerSpeed");
             }
-            if (rightRotInput)
+            if (PlayerPrefs.HasKey("playerSpeed"))
             {
-                rightRotInput = false;
+                _rotationAmmount = PlayerPrefs.GetFloat("playerRotAmmount");
             }
-
-            rb.rotation = Quaternion.Euler(0, 0, rotationInZ);
-        }
-        else
-        {
-            rb.rotation = Quaternion.Lerp(rb.rotation, Quaternion.Euler(0, 0, rotationInZ), Time.deltaTime * interpolatedRotationSpeed);
-        }
-    }
-
-    private void Movement()
-    {
-        rb.velocity = Vector3.zero;
-        Vector3 toMove = new Vector3(h, v, 0);
-        float step = Time.deltaTime * playerSpeed;
-        toMove *= step;
-        rb.position += toMove;
-    }
-
-    void GetInput()
-    {
-        if (playerNum == 1)
-        {
-            h = Input.GetAxis("Horizontal");
-            v = Input.GetAxis("Vertical");
-            if (Input.GetKeyDown(KeyCode.J))
+            if (PlayerPrefs.HasKey("playerRotSmooth"))
             {
-                leftRotInput = true;
+                int interpolatedRotBool = PlayerPrefs.GetInt("playerRotSmooth");
+                if (interpolatedRotBool == 0)
+                {
+                    _hasInterpolatedRotation = false;
+                }
+                else if (interpolatedRotBool == 1)
+                {
+                    _hasInterpolatedRotation = true;
+                }
             }
-            else if (Input.GetKeyUp(KeyCode.J))
+            if (PlayerPrefs.HasKey("playerRotSpeed"))
             {
-                leftRotInput = false;
-            }
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                rightRotInput = true;
-            }
-            else if (Input.GetKeyUp(KeyCode.K))
-            {
-                rightRotInput = false;
+                _interpolatedRotationSpeed = PlayerPrefs.GetFloat("playerRotSpeed");
             }
         }
-        else if (playerNum == 2)
+
+        private void Update()
         {
-            h = Input.GetAxis("Horizontal2");
-            v = Input.GetAxis("Vertical2");
-            if (Input.GetKeyDown(KeyCode.Z))
+            CheckDistanceFromCenter();
+        }
+
+        ///<summary> Comprueba la distancia del jugador respecto al centro del mapa para considerar su posible reinicio de posicion </summary>
+        private void CheckDistanceFromCenter()
+        {
+            float distanceFromZero = Vector2.Distance(transform.position, Vector2.zero);
+
+            if (distanceFromZero < _distanceFromCenter)
             {
-                leftRotInput = true;
+                _timeOutside = 0;
+                return;
             }
-            else if (Input.GetKeyUp(KeyCode.Z))
+
+            _timeOutside += Time.deltaTime;
+            if (_timeOutside >= 1)
             {
-                leftRotInput = false;
+                transform.position = _startingPoint;
             }
-            if (Input.GetKeyDown(KeyCode.X))
+        }
+
+        private void FixedUpdate()
+        {
+            Movement();
+            Rotation();
+        }
+
+        private void Rotation()
+        {
+            float rotationInZ = transform.eulerAngles.z;
+
+            if (_leftRotationInput)
             {
-                rightRotInput = true;
+                rotationInZ -= _rotationAmmount;
             }
-            else if (Input.GetKeyUp(KeyCode.X))
+            else if (_rightRotationInput)
             {
-                rightRotInput = false;
+                rotationInZ += _rotationAmmount;
             }
+
+            if (!_hasInterpolatedRotation)
+            {
+                if (_leftRotationInput)
+                {
+                    _leftRotationInput = false;
+                }
+                if (_rightRotationInput)
+                {
+                    _rightRotationInput = false;
+                }
+
+                _rigidbody.rotation = Quaternion.Euler(0, 0, rotationInZ);
+            }
+            else
+            {
+                _rigidbody.rotation = Quaternion.Lerp(_rigidbody.rotation, Quaternion.Euler(0, 0, rotationInZ), Time.deltaTime * _interpolatedRotationSpeed);
+            }
+        }
+
+        private void Movement()
+        {
+            _rigidbody.velocity = Vector3.zero;
+            Vector3 toMove = _movementInput;
+            float step = Time.deltaTime * _playerSpeed;
+            toMove *= step;
+            _rigidbody.position += toMove;
         }
     }
-
 }

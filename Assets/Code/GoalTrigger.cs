@@ -2,28 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoalTrigger : MonoBehaviour
+namespace RotaryPong
 {
-    [SerializeField]
-    BallPaint paint;
-    [SerializeField]
-    GameManager gManager;
-
-    private void OnTriggerStay(Collider other)
+    public class GoalTrigger : MonoBehaviour
     {
-        CheckForGoal(other.gameObject);
-    }
+        [SerializeField]
+        BallPaint paint;
+        [SerializeField]
+        GameManager gManager;
 
-    void CheckForGoal(GameObject obj)
-    {
-        if (obj.tag == "Ball")
+        private void OnTriggerStay(Collider other)
         {
-            Ball ball = obj.GetComponent<Ball>();
-            if (ball.paint != paint && ball.paint != BallPaint.noPaint && ball.canScore)
+            CheckForGoal(other.gameObject);
+        }
+
+        void CheckForGoal(GameObject obj)
+        {
+            if (obj.tag == "Ball")
             {
-                gManager.PlayerScore(ball);
+                Ball ball = obj.GetComponent<Ball>();
+                if (ball.Paint != paint && ball.Paint != BallPaint.White && ball.CanScore)
+                {
+                    gManager.PlayerScore(ball);
+                }
             }
         }
+        
     }
-    
 }
