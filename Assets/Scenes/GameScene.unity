@@ -792,11 +792,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37755d70cb70f81468a094c363834ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerSpeed: 10
-  _rotationAmmount: 45
-  _distanceFromCenter: 12
-  _hasInterpolatedRotation: 0
-  _interpolatedRotationSpeed: 5
+  _playerSpeed:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 2f6d5bb0da8a05344b96ccb416eacc76, type: 2}
+  _rotationAmmount:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: a33b59f1418f62346990cb2d6a512c1c, type: 2}
+  _distanceFromCenter:
+    UseConstant: 1
+    ConstantValue: 12
+    Variable: {fileID: 0}
+  _hasInterpolatedRotation:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 3b0fb5f47807c964abc2d0f436bf7d4c, type: 2}
+  _interpolatedRotationSpeed:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: c97f484627a8b38468addb9a0038058e, type: 2}
 --- !u!54 &562490440
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -927,8 +942,8 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 827c8731-0070-4920-ba50-e773f1357af9
     m_ActionName: Player/Rotate Right[/XInputControllerWindows/leftTrigger,/Keyboard/e]
-  m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: Gamepad
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -966,11 +981,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37755d70cb70f81468a094c363834ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerSpeed: 10
-  _rotationAmmount: 45
-  _distanceFromCenter: 12
-  _hasInterpolatedRotation: 0
-  _interpolatedRotationSpeed: 5
+  _playerSpeed:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 2f6d5bb0da8a05344b96ccb416eacc76, type: 2}
+  _rotationAmmount:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: a33b59f1418f62346990cb2d6a512c1c, type: 2}
+  _distanceFromCenter:
+    UseConstant: 1
+    ConstantValue: 12
+    Variable: {fileID: 0}
+  _hasInterpolatedRotation:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 3b0fb5f47807c964abc2d0f436bf7d4c, type: 2}
+  _interpolatedRotationSpeed:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: c97f484627a8b38468addb9a0038058e, type: 2}
 --- !u!65 &569603137
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2052,15 +2082,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Paint: 0
+  CanScore: 0
+  _ballSpeed:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: e8c95925b9a6a5944baa406b38efef6b, type: 2}
+  _distanceFromCenter:
+    UseConstant: 1
+    ConstantValue: 12
+    Variable: {fileID: 0}
+  _minVelocity:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: b49b0f67607c0a843a952b2d942d20a3, type: 2}
+  _colorDuration:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 6532ea6a955b38f468a19a4963acb108, type: 2}
   PlayerMaterials:
   - {fileID: 2100000, guid: ff618dd31b1158447aa66125c7649f75, type: 2}
   - {fileID: 2100000, guid: 6927598351220e04fbe0aaff07e4c352, type: 2}
-  CanScore: 0
-  _ballSpeed: 0
-  _distanceFromCenter: 0
-  _minVelocity: 0
-  _colorDuration: 0
-  _playerAudioClips: []
+  _playerAudioClips:
+  - {fileID: 8300000, guid: c2cda0ada976ba64bbf57dd530d0a0e3, type: 3}
+  - {fileID: 8300000, guid: 88285c69db02a1947a140067b8630db3, type: 3}
 --- !u!96 &867143142
 TrailRenderer:
   serializedVersion: 2
@@ -5144,13 +5188,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97db78fa98f008340a28c84d7ab08c89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _matchDuration:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 48225e0b525f8c54e85f12182800e2f2, type: 2}
+  _mapSpinSpeed:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 5e97d6e49b6316a4dbae0051b9d9aad8, type: 2}
+  _celebrationFireworks:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: fbc654ee4b96e79428da5b7acf002132, type: 2}
+  _camShakeMagnitude:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 31373e8a68cafe248a8823c523d40f7a, type: 2}
+  _enableGodWalls:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 0e451f9cbbdcefe45bbb92573dc11350, type: 2}
   gameTimerText: {fileID: 865555996}
   player1ScoreText: {fileID: 1775884526}
   player2ScoreText: {fileID: 596256408}
   pauseScreen: {fileID: 772281342}
-  gameTimer: 90
   map: {fileID: 2109206755}
-  mapSpinSpeed: -95
   goalParticles: {fileID: 8934979891827432436, guid: 4f89feac73ab3804aa26392c72e9d2a7,
     type: 3}
   announcementScore: {fileID: 1196388437}
@@ -5169,12 +5231,10 @@ MonoBehaviour:
   - {fileID: 1291057334}
   UICanvasAnim: {fileID: 1551514365}
   ppVolume: {fileID: 336239459}
-  celebrationFireworks: 30
   celebrationFireworksColors:
   - {r: 0.854902, g: 0.95294124, b: 0.92549026, a: 1}
   - {r: 0, g: 0.7490196, b: 0.95294124, a: 1}
   - {r: 0.9294118, g: 0, b: 0.54901963, a: 1}
-  camShakeMagnitude: 0
 --- !u!1 &1976453004
 GameObject:
   m_ObjectHideFlags: 0

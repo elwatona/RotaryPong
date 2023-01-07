@@ -2,10 +2,10 @@
     "name": "com.RotaryPong.Runtime",
     "rootNamespace": "RotaryPong",
     "references": [
+        "GUID:7424dee0f141cad458b98a8b2eee83f9",
         "GUID:d60799ab2a985554ea1a39cd38695018",
         "GUID:2bafac87e7f4b9b418d9448d219b01ab",
         "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:7424dee0f141cad458b98a8b2eee83f9",
         "GUID:3ae5734e49d646442ad24f37762ebdd2",
         "GUID:dc04f38471c3a459fb4d31124ee9127d"
     ],

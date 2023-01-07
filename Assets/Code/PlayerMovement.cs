@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Watona.Utils.Variables;
 
 namespace RotaryPong
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] float _playerSpeed;
-        [SerializeField] float _rotationAmmount;
-        [SerializeField] float _distanceFromCenter;
-        [SerializeField] bool _hasInterpolatedRotation;
-        [SerializeField] float _interpolatedRotationSpeed;
+        [SerializeField] FloatReference _playerSpeed;
+        [SerializeField] FloatReference _rotationAmmount;
+        [SerializeField] FloatReference _distanceFromCenter;
+        [SerializeField] BooleanReference _hasInterpolatedRotation;
+        [SerializeField] FloatReference _interpolatedRotationSpeed;
 
         private Rigidbody _rigidbody;
         private Vector3 _startingPoint;
@@ -27,38 +29,8 @@ namespace RotaryPong
 
         private void Start()
         {
-            GetPlayerPrefs();
             _rigidbody = GetComponent<Rigidbody>();
             _startingPoint = transform.position;
-        }
-
-        ///<summary> Toma los valores almacenados en PlayerPrefs de cada variable </summary>
-        void GetPlayerPrefs()
-        {
-            if (PlayerPrefs.HasKey("playerSpeed"))
-            {
-                _playerSpeed = PlayerPrefs.GetFloat("playerSpeed");
-            }
-            if (PlayerPrefs.HasKey("playerSpeed"))
-            {
-                _rotationAmmount = PlayerPrefs.GetFloat("playerRotAmmount");
-            }
-            if (PlayerPrefs.HasKey("playerRotSmooth"))
-            {
-                int interpolatedRotBool = PlayerPrefs.GetInt("playerRotSmooth");
-                if (interpolatedRotBool == 0)
-                {
-                    _hasInterpolatedRotation = false;
-                }
-                else if (interpolatedRotBool == 1)
-                {
-                    _hasInterpolatedRotation = true;
-                }
-            }
-            if (PlayerPrefs.HasKey("playerRotSpeed"))
-            {
-                _interpolatedRotationSpeed = PlayerPrefs.GetFloat("playerRotSpeed");
-            }
         }
 
         private void Update()
@@ -70,8 +42,9 @@ namespace RotaryPong
         private void CheckDistanceFromCenter()
         {
             float distanceFromZero = Vector2.Distance(transform.position, Vector2.zero);
+            float distanceFromCenter = _distanceFromCenter.Value;
 
-            if (distanceFromZero < _distanceFromCenter)
+            if (distanceFromZero < distanceFromCenter)
             {
                 _timeOutside = 0;
                 return;
@@ -93,17 +66,20 @@ namespace RotaryPong
         private void Rotation()
         {
             float rotationInZ = transform.eulerAngles.z;
+            float rotationAmount = _rotationAmmount.Value;
+            float interpolatedRotationSpeed = _interpolatedRotationSpeed.Value;
+            bool hasInterpolatedRotation = _hasInterpolatedRotation.Value;
 
             if (_leftRotationInput)
             {
-                rotationInZ -= _rotationAmmount;
+                rotationInZ -= rotationAmount;
             }
             else if (_rightRotationInput)
             {
-                rotationInZ += _rotationAmmount;
+                rotationInZ += rotationAmount;
             }
 
-            if (!_hasInterpolatedRotation)
+            if (!hasInterpolatedRotation)
             {
                 if (_leftRotationInput)
                 {
@@ -118,15 +94,17 @@ namespace RotaryPong
             }
             else
             {
-                _rigidbody.rotation = Quaternion.Lerp(_rigidbody.rotation, Quaternion.Euler(0, 0, rotationInZ), Time.deltaTime * _interpolatedRotationSpeed);
+                _rigidbody.rotation = Quaternion.Lerp(_rigidbody.rotation, Quaternion.Euler(0, 0, rotationInZ), Time.deltaTime * interpolatedRotationSpeed);
             }
         }
 
         private void Movement()
         {
-            _rigidbody.velocity = Vector3.zero;
+            float playerSpeed = _playerSpeed.Value;
             Vector3 toMove = _movementInput;
-            float step = Time.deltaTime * _playerSpeed;
+            float step = Time.deltaTime * playerSpeed;
+
+            _rigidbody.velocity = Vector3.zero;
             toMove *= step;
             _rigidbody.position += toMove;
         }

@@ -4,18 +4,21 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
-
+using Watona.Utils.Variables;
 namespace RotaryPong
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] Text gameTimerText;
+        [SerializeField, Header("Parameters")] FloatReference _matchDuration;
+        [SerializeField] FloatReference _mapSpinSpeed;
+        [SerializeField] FloatReference _celebrationFireworks;
+        [SerializeField] FloatReference _camShakeMagnitude;
+        [SerializeField] BooleanReference _enableGodWalls;
+        [SerializeField, Space] Text gameTimerText;
         [SerializeField] Text player1ScoreText;
         [SerializeField] Text player2ScoreText;
         [SerializeField] GameObject pauseScreen;
-        [SerializeField] float gameTimer;
         [SerializeField] GameObject map;
-        [SerializeField] float mapSpinSpeed;
         [SerializeField] GameObject goalParticles;
         [SerializeField] GameObject announcementScore;
         [SerializeField] GameObject cam;
@@ -23,9 +26,7 @@ namespace RotaryPong
         [SerializeField] GameObject[] walls;
         [SerializeField] Animator UICanvasAnim;
         [SerializeField] PostProcessVolume ppVolume;
-        [SerializeField] float celebrationFireworks;
         [SerializeField] Color[] celebrationFireworksColors;
-        [SerializeField] float camShakeMagnitude;
 
         Ball savedBall;
         float mapRotDir;
@@ -42,36 +43,10 @@ namespace RotaryPong
 
         private void Start()
         {
-            if (PlayerPrefs.HasKey("matchDuration"))
-            {
-                gameTimer = PlayerPrefs.GetFloat("matchDuration");
-            }
-            if (PlayerPrefs.HasKey("mapSpinSpeed"))
-            {
-                mapSpinSpeed = PlayerPrefs.GetFloat("mapSpinSpeed");
-            }
-            if (PlayerPrefs.HasKey("celebrationFireworks"))
-            {
-                celebrationFireworks = PlayerPrefs.GetFloat("celebrationFireworks");
-            }
-            if (PlayerPrefs.HasKey("camShakeMagnitude"))
-            {
-                camShakeMagnitude = PlayerPrefs.GetFloat("camShakeMagnitude");
-            }
-            if (PlayerPrefs.HasKey("goalsBackWall"))
-            {
-                int goalBackWallBool = PlayerPrefs.GetInt("goalsBackWall");
-                if (goalBackWallBool == 0)
-                {
-                    TurnAllGoals(true);
-                    TurnBackWall(false);
-                }
-                else if (goalBackWallBool == 1)
-                {
-                    TurnAllGoals(false);
-                    TurnBackWall(true);
-                }
-            }
+            bool enableGodWalls = _enableGodWalls.Value;
+            TurnAllGoals(!enableGodWalls);
+            TurnBackWall(enableGodWalls);
+
             mapRotDir = -1;
             announcementText = announcementScore.GetComponent<Text>();
             player1ScoreText.text = "P1:     " + player1Score;
@@ -141,7 +116,7 @@ namespace RotaryPong
 
         void RotateMap()
         {
-            float speedRot = mapSpinSpeed * Time.deltaTime * mapRotDir;
+            float speedRot = _mapSpinSpeed.Value * Time.deltaTime * mapRotDir;
             map.transform.Rotate(0, 0, speedRot);
         }
 
@@ -223,7 +198,7 @@ namespace RotaryPong
                 player2ScoreText.text = "P2:     " + player2Score;
             }
             announcementScore.SetActive(true);
-            StartCoroutine(CamShake(1f, camShakeMagnitude));
+            StartCoroutine(CamShake(1f, _camShakeMagnitude.Value));
             ball.SetInvis();
             updatingPP = true;
             yield return new WaitForSeconds(0.5f);
@@ -242,15 +217,17 @@ namespace RotaryPong
 
         void UpdateTimer()
         {
-            gameTimer -= Time.deltaTime;
-            if (gameTimer <= 0 && !gameFinished)
+            float matchDuration = _matchDuration.Value;
+            
+            matchDuration -= Time.deltaTime;
+            if (matchDuration <= 0 && !gameFinished)
             {
                 gameFinished = true;
                 EndGameFunction();
                 return;
             }
-            float gameTimerWholeNums = Mathf.Floor(gameTimer);
-            float gTimer = gameTimer;
+            float gameTimerWholeNums = Mathf.Floor(matchDuration);
+            float gTimer = matchDuration;
             gTimer *= 100;
             gTimer = Mathf.Floor(gTimer);
             float gameTimerDecimals = gTimer - (gameTimerWholeNums * 100);
@@ -315,6 +292,7 @@ namespace RotaryPong
         IEnumerator EndGameRoutine()
         {
             int spawnedFireworks = 0;
+            float celebrationFireworks = _celebrationFireworks.Value;
             while (spawnedFireworks < celebrationFireworks)
             {
                 float randomDelay = Random.Range(0.05f, 0.7f);

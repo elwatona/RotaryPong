@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Watona.Utils.Variables;
 
 namespace RotaryPong
 {
@@ -13,16 +14,17 @@ namespace RotaryPong
     [RequireComponent(typeof(Rigidbody))]
     public class Ball : MonoBehaviour
     {
+        [Header("Parameters")]
         public BallPaint Paint;
-        public Material[] PlayerMaterials;
         public bool CanScore;
-        [SerializeField] float _ballSpeed;
-        [SerializeField] float _distanceFromCenter;
-        [SerializeField] float _minVelocity;
-        [SerializeField] float _colorDuration;
-        [SerializeField] AudioClip[] _playerAudioClips;
+        [SerializeField] FloatReference _ballSpeed;
+        [SerializeField] FloatReference _distanceFromCenter;
+        [SerializeField] FloatReference _minVelocity;
+        [SerializeField] FloatReference _colorDuration;
 
         [Header("Configurations")]
+        public Material[] PlayerMaterials;
+        [SerializeField] AudioClip[] _playerAudioClips;
         private Rigidbody _rigidbody;
         private AudioSource _audioSource;
         private Renderer _renderer;
@@ -38,7 +40,6 @@ namespace RotaryPong
         private void Start()
         {
             GetComponents();
-            GetPlayerPrefs();
 
             _startingMaterial = _renderer.material;
             _startingColor = _trailRenderer.startColor;
@@ -53,26 +54,6 @@ namespace RotaryPong
             _renderer = GetComponent<Renderer>();
             _collider = GetComponent<Collider>();
             _trailRenderer = GetComponent<TrailRenderer>();
-        }
-        ///<summary> Toma los valores almacenados en PlayerPrefs de cada variable </summary>
-        private void GetPlayerPrefs()
-        {
-            if (PlayerPrefs.HasKey("ballSpeed"))
-            {
-                _ballSpeed = PlayerPrefs.GetFloat("ballSpeed");
-            }
-            if (PlayerPrefs.HasKey("ballDrag"))
-            {
-                _rigidbody.drag = PlayerPrefs.GetFloat("ballDrag");
-            }
-            if (PlayerPrefs.HasKey("ballMinSpeed"))
-            {
-                _minVelocity = PlayerPrefs.GetFloat("ballMinSpeed");
-            }
-            if (PlayerPrefs.HasKey("ballColorDuration"))
-            {
-                _colorDuration = PlayerPrefs.GetFloat("ballColorDuration");
-            }
         }
         ///<summary> Reinicia las configuraciones del objeto, dejandole en el estado y posicion incial </summary>
         public void TurnBackOn()
@@ -97,48 +78,53 @@ namespace RotaryPong
         private void Bounce(Vector3 collisionNormal)
         {
             float speed = lastFrameVelocity.magnitude;
+            float ballSpeed = _ballSpeed.Value;
+            float minVelocity = _minVelocity.Value;
 
-            if (speed > _minVelocity)
+            if (speed > minVelocity)
             {
                 Vector3 ballVelocity = lastFrameVelocity.normalized;
                 Vector3 direction = Vector3.Reflect(ballVelocity, collisionNormal);
-                if (speed <= _ballSpeed)
+                if (speed <= ballSpeed)
                 {
-                    speed = _ballSpeed;
+                    speed = ballSpeed;
                 }
-                _rigidbody.velocity = direction * Mathf.Max(speed, _minVelocity);
+                _rigidbody.velocity = direction * Mathf.Max(speed, minVelocity);
                 Debug.DrawRay(transform.position, direction * 3, Color.red, 5);
                 return;
             }
-            _rigidbody.velocity = collisionNormal * _ballSpeed;
+            _rigidbody.velocity = collisionNormal * ballSpeed;
         }
-        ///<summary> Comprueba si el tag corresponde a player para luego comparar el nombre de <paramref name="collObject"/> y asi sonar audio a la vez que cambiar colores </summary>
-        private void CheckForPlayer(GameObject collObject)
+        ///<summary> Comprueba si el tag corresponde a player para luego comparar el nombre de <paramref name="collision"/> y asi sonar audio a la vez que cambiar colores </summary>
+        private void CheckForPlayer(GameObject gameObject)
         {
-            if (collObject.tag == "Player")
+            if (gameObject.tag == "Player")
             {
-                if (collObject.name == "p1")
+                switch(gameObject.name)
                 {
-                    PlayAudio(0);
-                    ColorChange(0);
-                }
-                else if (collObject.name == "p2")
-                {
-                    PlayAudio(1);
-                    ColorChange(1);
+                    case "p1":
+                        PlayAudio(0);
+                        ColorChange(0);
+                    break;
+                    case "p2":
+                        PlayAudio(1);
+                        ColorChange(1);
+                    break;
                 }
             }
         }
+
         ///<summary> Reproduce la pista de audio cuyo index es <paramref name="who"/></summary>
         private void PlayAudio(int who)
         {
             _audioSource.clip = _playerAudioClips[who];
             _audioSource.Play();
         }
+
         ///<summary> Cambia el color del objeto referenciando el index <paramref name="who"/> </summary>
         private void ColorChange(int who)
         {
-            _colorTimer = _colorDuration;
+            _colorTimer = _colorDuration.Value;
             if (who == 0)
             {
                 Paint = BallPaint.Pink;
@@ -157,11 +143,13 @@ namespace RotaryPong
             CheckPaint();
             CheckDistanceFromCenter();
         }
+
         ///<summary> Comprueba la distancia del objeto respecto al centro del mapa para considerar su posible reinicio de posicion </summary>
         private void CheckDistanceFromCenter()
         {
             float distanceFromZero = Vector2.Distance(transform.position, Vector2.zero);
-            if (distanceFromZero < _distanceFromCenter)
+            float distanceFromCenter = _distanceFromCenter.Value;
+            if (distanceFromZero < distanceFromCenter)
             {
                 _timeOutside = 0;
                 return;
