@@ -5,17 +5,13 @@ using Watona.Utils.Variables;
 
 namespace RotaryPong
 {
-    public enum BallPaint
-    {
-        White,
-        Pink,
-        Blue
-    }
-    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(AudioSource))]
+    [RequireComponent(typeof(Rigidbody), typeof(Collider))]
+    [RequireComponent(typeof(Renderer), typeof(TrailRenderer))]
     public class Ball : MonoBehaviour
     {
         [Header("Parameters")]
-        public BallPaint Paint;
+        public Paint Paint;
         public bool CanScore;
         [SerializeField] FloatReference _ballSpeed;
         [SerializeField] FloatReference _distanceFromCenter;
@@ -25,17 +21,19 @@ namespace RotaryPong
         [Header("Configurations")]
         public Material[] PlayerMaterials;
         [SerializeField] AudioClip[] _playerAudioClips;
-        private Rigidbody _rigidbody;
-        private AudioSource _audioSource;
-        private Renderer _renderer;
-        private Collider _collider;
-        private TrailRenderer _trailRenderer;
         private Material _startingMaterial;
         private Color _startingColor;
         private Vector3 lastFrameVelocity;
         private Vector3 _startingPoint;
         private float _colorTimer;
         private float _timeOutside;
+
+        [Header("Components")]
+        private AudioSource _audioSource;
+        private Rigidbody _rigidbody;
+        private Collider _collider;
+        private Renderer _renderer;
+        private TrailRenderer _trailRenderer;
 
         private void Start()
         {
@@ -46,7 +44,8 @@ namespace RotaryPong
             _startingPoint = transform.position;
             CanScore = true;
         }
-        ///<summary> Toma los componentes para cada variable </summary>
+
+        ///<summary> Toma los componentes para cada referencia </summary>
         private void GetComponents()
         {
             _rigidbody = GetComponent<Rigidbody>();
@@ -55,6 +54,7 @@ namespace RotaryPong
             _collider = GetComponent<Collider>();
             _trailRenderer = GetComponent<TrailRenderer>();
         }
+
         ///<summary> Reinicia las configuraciones del objeto, dejandole en el estado y posicion incial </summary>
         public void TurnBackOn()
         {
@@ -65,6 +65,7 @@ namespace RotaryPong
             _trailRenderer.enabled = true;
             CanScore = true;
         }
+
         ///<summary> Apaga el aspecto visual y desactiva CanScore </summary>
         public void SetInvis()
         {
@@ -74,6 +75,7 @@ namespace RotaryPong
             _trailRenderer.enabled = false;
             CanScore = false;
         }
+
         ///<summary> Permite el rebote del objeto calculando la velocidad y direccion del rigidbody en relacion a <paramref name="collisionNormal"/></summary>
         private void Bounce(Vector3 collisionNormal)
         {
@@ -95,6 +97,7 @@ namespace RotaryPong
             }
             _rigidbody.velocity = collisionNormal * ballSpeed;
         }
+
         ///<summary> Comprueba si el tag corresponde a player para luego comparar el nombre de <paramref name="collision"/> y asi sonar audio a la vez que cambiar colores </summary>
         private void CheckForPlayer(GameObject gameObject)
         {
@@ -127,11 +130,11 @@ namespace RotaryPong
             _colorTimer = _colorDuration.Value;
             if (who == 0)
             {
-                Paint = BallPaint.Pink;
+                Paint = Paint.Pink;
             }
             else if (who == 1)
             {
-                Paint = BallPaint.Blue;
+                Paint = Paint.Blue;
             }
             _renderer.material = PlayerMaterials[who];
             _trailRenderer.material = _renderer.material;
@@ -160,10 +163,11 @@ namespace RotaryPong
                 transform.position = _startingPoint;
             }
         }
+
         ///<summary> Comprueba la pintura actual, en caso que no sea blanca cambiara su color cuando <paramref name="_colorTimer"/> llegue a 0 </summary>
         private void CheckPaint()
         {
-            if (Paint != BallPaint.White)
+            if (Paint != Paint.White)
             {
                 _colorTimer -= Time.deltaTime;
                 if (_colorTimer <= 0)
@@ -172,11 +176,12 @@ namespace RotaryPong
                 }
             }
         }
+
         ///<summary> Configura <paramref name="Paint"/> a White, a la vez que vuelve las propiedades visuales del objeto a su estado inciail</summary>
         private void LosePaint()
         {
             Debug.Log("lose paint");
-            Paint = BallPaint.White;
+            Paint = Paint.White;
             _renderer.material = _startingMaterial;
             //trailRend.startColor = startingColor;
             //trailRend.endColor = startingColor;

@@ -9,27 +9,30 @@ namespace RotaryPong
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour
     {
+        [Header("Parameters")]
         [SerializeField] FloatReference _playerSpeed;
         [SerializeField] FloatReference _rotationAmmount;
         [SerializeField] FloatReference _distanceFromCenter;
         [SerializeField] BooleanReference _hasInterpolatedRotation;
         [SerializeField] FloatReference _interpolatedRotationSpeed;
-
-        private Rigidbody _rigidbody;
         private Vector3 _startingPoint;
-        private bool _leftRotationInput;
-        private bool _rightRotationInput;
         private float _timeOutside;
 
+        private Rigidbody _rigidbody;
         private Vector2 _movementInput;
+        private bool _leftRotationInput;
+        private bool _rightRotationInput;
 
         public void OnMove(InputAction.CallbackContext ctx) => _movementInput = ctx.ReadValue<Vector2>();
         public void OnRotateLeft(InputAction.CallbackContext ctx) => _leftRotationInput = ctx.ReadValueAsButton();
         public void OnRotateRight(InputAction.CallbackContext ctx) => _rightRotationInput = ctx.ReadValueAsButton();
 
-        private void Start()
+        private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
+        }
+        private void Start()
+        {
             _startingPoint = transform.position;
         }
 
@@ -62,51 +65,49 @@ namespace RotaryPong
             Movement();
             Rotation();
         }
+        private void Movement()
+        {
+            Vector3 direction = _movementInput;
+            float timeSpeed = Time.deltaTime * _playerSpeed.Value;
+
+            _rigidbody.velocity = Vector3.zero;
+            direction *= timeSpeed;
+            _rigidbody.position += direction;
+        }
 
         private void Rotation()
         {
-            float rotationInZ = transform.eulerAngles.z;
-            float rotationAmount = _rotationAmmount.Value;
-            float interpolatedRotationSpeed = _interpolatedRotationSpeed.Value;
             bool hasInterpolatedRotation = _hasInterpolatedRotation.Value;
 
-            if (_leftRotationInput)
-            {
-                rotationInZ -= rotationAmount;
-            }
-            else if (_rightRotationInput)
-            {
-                rotationInZ += rotationAmount;
-            }
+            float currentRotation = transform.eulerAngles.z;
+            float rotationAmount = _rotationAmmount.Value;
+            float rotationTimeSpeed = Time.deltaTime * _interpolatedRotationSpeed.Value;
+            float newRotation = ChangeRotationValue(currentRotation, rotationAmount);
 
-            if (!hasInterpolatedRotation)
-            {
-                if (_leftRotationInput)
-                {
-                    _leftRotationInput = false;
-                }
-                if (_rightRotationInput)
-                {
-                    _rightRotationInput = false;
-                }
+            Quaternion fixedRotation = Quaternion.Euler(0, 0, newRotation);
+            Quaternion lerpRotation = Quaternion.Lerp(_rigidbody.rotation, fixedRotation, rotationTimeSpeed);
 
-                _rigidbody.rotation = Quaternion.Euler(0, 0, rotationInZ);
-            }
-            else
-            {
-                _rigidbody.rotation = Quaternion.Lerp(_rigidbody.rotation, Quaternion.Euler(0, 0, rotationInZ), Time.deltaTime * interpolatedRotationSpeed);
-            }
+            if (!hasInterpolatedRotation) ResetRotationInput();
+
+            _rigidbody.rotation = hasInterpolatedRotation ? lerpRotation : fixedRotation;
         }
 
-        private void Movement()
+        ///<summary> Retorna la rotacion deseada dependiendo del input apretado </summary> 
+        private float ChangeRotationValue(float value, float amount)
         {
-            float playerSpeed = _playerSpeed.Value;
-            Vector3 toMove = _movementInput;
-            float step = Time.deltaTime * playerSpeed;
+            if (_leftRotationInput) return value -= amount;
+            else if (_rightRotationInput) return value += amount;
 
-            _rigidbody.velocity = Vector3.zero;
-            toMove *= step;
-            _rigidbody.position += toMove;
+            return value;
+        }
+
+        ///<summary> Reinicia el valor de los inputs que permiten la rotacion </summary>
+        private void ResetRotationInput()
+        {
+            if (_leftRotationInput)
+                _leftRotationInput = false;
+            if (_rightRotationInput)
+                _rightRotationInput = false;
         }
     }
 }

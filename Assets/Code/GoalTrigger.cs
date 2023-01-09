@@ -6,26 +6,17 @@ namespace RotaryPong
 {
     public class GoalTrigger : MonoBehaviour
     {
-        [SerializeField]
-        BallPaint paint;
-        [SerializeField]
-        GameManager gManager;
+        [SerializeField] Paint _paint;
 
         private void OnTriggerStay(Collider other)
         {
-            CheckForGoal(other.gameObject);
+            if(other.tag == "Ball") CheckForGoal(other.GetComponent<Ball>());
         }
 
-        void CheckForGoal(GameObject obj)
+        private void CheckForGoal(Ball ball)
         {
-            if (obj.tag == "Ball")
-            {
-                Ball ball = obj.GetComponent<Ball>();
-                if (ball.Paint != paint && ball.Paint != BallPaint.White && ball.CanScore)
-                {
-                    gManager.PlayerScore(ball);
-                }
-            }
+            if (ball.CanScore && ball.Paint != _paint && ball.Paint != Paint.White)
+                GameManager.Instance.PlayerScore(ball);
         }
         
     }

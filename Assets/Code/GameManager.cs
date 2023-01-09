@@ -1,18 +1,26 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.UI;
+using Watona.Utils;
 using Watona.Utils.Variables;
 namespace RotaryPong
 {
-    public class GameManager : MonoBehaviour
+    public enum Paint
+    {
+        White,
+        Pink,
+        Blue
+    }
+    public class GameManager : SingletonBehaviour<GameManager>
     {
         [SerializeField, Header("Parameters")] FloatReference _matchDuration;
         [SerializeField] FloatReference _mapSpinSpeed;
         [SerializeField] FloatReference _celebrationFireworks;
         [SerializeField] FloatReference _camShakeMagnitude;
+        [SerializeField] IntReference _pinkScore;
+        [SerializeField] IntReference _blueScore;
         [SerializeField] BooleanReference _enableGodWalls;
         [SerializeField, Space] Text gameTimerText;
         [SerializeField] Text player1ScoreText;
@@ -28,18 +36,16 @@ namespace RotaryPong
         [SerializeField] PostProcessVolume ppVolume;
         [SerializeField] Color[] celebrationFireworksColors;
 
-        Ball savedBall;
-        float mapRotDir;
-        Text announcementText;
-        int player1Score;
-        int player2Score;
-        bool updatingPP;
-        bool gameFinished;
-        bool gamePaused;
-        Coroutine goalRoutine;
-        Bloom ppBloom;
-        ChromaticAberration ppChromaticAberration;
-        LensDistortion ppLensDistort;
+        private Ball savedBall;
+        private float mapRotDir;
+        private Text announcementText;
+        private bool updatingPP;
+        private bool gameFinished;
+        private bool gamePaused;
+        private Coroutine goalRoutine;
+        private Bloom ppBloom;
+        private ChromaticAberration ppChromaticAberration;
+        private LensDistortion ppLensDistort;
 
         private void Start()
         {
@@ -49,26 +55,28 @@ namespace RotaryPong
 
             mapRotDir = -1;
             announcementText = announcementScore.GetComponent<Text>();
-            player1ScoreText.text = "P1:     " + player1Score;
-            player2ScoreText.text = "P2:     " + player2Score;
+
+            player1ScoreText.text = _pinkScore.Value.ToString();
+            player2ScoreText.text = _blueScore.Value.ToString();
+
             ppVolume.profile.TryGetSettings(out ppBloom);
             ppVolume.profile.TryGetSettings(out ppChromaticAberration);
             ppVolume.profile.TryGetSettings(out ppLensDistort);
         }
 
-        void TurnAllGoals(bool onOrOff)
+        private void TurnAllGoals(bool value)
         {
             foreach (GameObject goal in goalsToTurn)
             {
-                goal.SetActive(onOrOff);
+                goal.SetActive(value);
             }
         }
 
-        void TurnBackWall(bool onOrOff)
+        void TurnBackWall(bool value)
         {
             foreach (GameObject goal in walls)
             {
-                goal.SetActive(onOrOff);
+                goal.SetActive(value);
             }
         }
 
@@ -181,23 +189,9 @@ namespace RotaryPong
 
         IEnumerator GoalRoutine(Ball ball)
         {
-            if (ball.Paint == BallPaint.Pink)
-            {
-                announcementText.text = "Point for Player 1";
-                announcementText.color = ball.PlayerMaterials[0].color;
-                UICanvasAnim.SetTrigger("player1Score");
-                player1Score++;
-                player1ScoreText.text = "P1:     " + player1Score;
-            }
-            else if (ball.Paint == BallPaint.Blue)
-            {
-                announcementText.text = "Point for Player 2";
-                announcementText.color = ball.PlayerMaterials[1].color;
-                UICanvasAnim.SetTrigger("player2Score");
-                player2Score++;
-                player2ScoreText.text = "P2:     " + player2Score;
-            }
-            announcementScore.SetActive(true);
+            Goal(ball.Paint);
+            UIManager.Instance.Goal(ball.Paint);
+
             StartCoroutine(CamShake(1f, _camShakeMagnitude.Value));
             ball.SetInvis();
             updatingPP = true;
@@ -210,11 +204,20 @@ namespace RotaryPong
             mapRotDir *= -1;
             ball.TurnBackOn();
             announcementScore.SetActive(false);
-            UICanvasAnim.SetTrigger("Back");
             yield return null;
         }
-
-
+        private void Goal(Paint team)
+        {
+            switch((int)team)
+            {
+                case 1:
+                    _pinkScore.Variable.ApplyChange(1);
+                break;
+                case 2:
+                    _blueScore.Variable.ApplyChange(1);
+                break;
+            }
+        }
         void UpdateTimer()
         {
             float matchDuration = _matchDuration.Value;
@@ -240,11 +243,16 @@ namespace RotaryPong
             {
                 extraNum = "0";
             }
+            _matchDuration.Variable.SetValue(matchDuration);
             gameTimerText.text = "Time: " + "\n" + gameTimerWholeNums + "." + extraNum + gameTimerDecimals;
         }
 
         void EndGameFunction()
         {
+            int pinkScore = _pinkScore.Value;
+            int blueScore = _blueScore.Value;
+            Paint winner = pinkScore == blueScore ? Paint.White : pinkScore > blueScore ? Paint.Pink : Paint.Blue;
+
             if (goalRoutine != null)
             {
                 StopCoroutine(goalRoutine);
@@ -252,24 +260,9 @@ namespace RotaryPong
                 ppChromaticAberration.intensity.value = 0f;
                 ppLensDistort.intensity.value = 0f;
             }
-            if (player1Score > player2Score)
-            {
-                announcementText.text = "Player 1 wins the game";
-                announcementText.color = savedBall.PlayerMaterials[0].color;
-                UICanvasAnim.SetTrigger("player1Score");
-            }
-            else if (player1Score < player2Score)
-            {
-                announcementText.text = "Player 2 wins the game";
-                announcementText.color = savedBall.PlayerMaterials[1].color;
-                UICanvasAnim.SetTrigger("player2Score");
-            }
-            else if (player1Score == player2Score)
-            {
-                announcementText.text = "The game ends in a tie!";
-                announcementText.color = Color.white;
-            }
-            announcementScore.SetActive(true);
+
+            UIManager.Instance.EndGame(winner);
+
             StartCoroutine(EndGameRoutine());
         }
 
