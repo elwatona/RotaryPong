@@ -35,15 +35,6 @@ namespace RotaryPong
         private Renderer _renderer;
         private TrailRenderer _trailRenderer;
 
-        private void Start()
-        {
-            GetComponents();
-
-            _startingMaterial = _renderer.material;
-            _startingColor = _trailRenderer.startColor;
-            _startingPoint = transform.position;
-            CanScore = true;
-        }
 
         ///<summary> Toma los componentes para cada referencia </summary>
         private void GetComponents()
@@ -54,28 +45,6 @@ namespace RotaryPong
             _collider = GetComponent<Collider>();
             _trailRenderer = GetComponent<TrailRenderer>();
         }
-
-        ///<summary> Reinicia las configuraciones del objeto, dejandole en el estado y posicion incial </summary>
-        public void TurnBackOn()
-        {
-            transform.position = _startingPoint;
-            _rigidbody.velocity = Vector3.zero;
-            _renderer.enabled = true;
-            _collider.enabled = true;
-            _trailRenderer.enabled = true;
-            CanScore = true;
-        }
-
-        ///<summary> Apaga el aspecto visual y desactiva CanScore </summary>
-        public void SetInvis()
-        {
-            LosePaint();
-            _renderer.enabled = false;
-            _collider.enabled = false;
-            _trailRenderer.enabled = false;
-            CanScore = false;
-        }
-
         ///<summary> Permite el rebote del objeto calculando la velocidad y direccion del rigidbody en relacion a <paramref name="collisionNormal"/></summary>
         private void Bounce(Vector3 collisionNormal)
         {
@@ -97,7 +66,6 @@ namespace RotaryPong
             }
             _rigidbody.velocity = collisionNormal * ballSpeed;
         }
-
         ///<summary> Comprueba si el tag corresponde a player para luego comparar el nombre de <paramref name="collision"/> y asi sonar audio a la vez que cambiar colores </summary>
         private void CheckForPlayer(GameObject gameObject)
         {
@@ -116,14 +84,12 @@ namespace RotaryPong
                 }
             }
         }
-
         ///<summary> Reproduce la pista de audio cuyo index es <paramref name="who"/></summary>
         private void PlayAudio(int who)
         {
             _audioSource.clip = _playerAudioClips[who];
             _audioSource.Play();
         }
-
         ///<summary> Cambia el color del objeto referenciando el index <paramref name="who"/> </summary>
         private void ColorChange(int who)
         {
@@ -139,14 +105,6 @@ namespace RotaryPong
             _renderer.material = PlayerMaterials[who];
             _trailRenderer.material = _renderer.material;
         }
-
-        private void Update()
-        {
-            lastFrameVelocity = _rigidbody.velocity;
-            CheckPaint();
-            CheckDistanceFromCenter();
-        }
-
         ///<summary> Comprueba la distancia del objeto respecto al centro del mapa para considerar su posible reinicio de posicion </summary>
         private void CheckDistanceFromCenter()
         {
@@ -163,7 +121,6 @@ namespace RotaryPong
                 transform.position = _startingPoint;
             }
         }
-
         ///<summary> Comprueba la pintura actual, en caso que no sea blanca cambiara su color cuando <paramref name="_colorTimer"/> llegue a 0 </summary>
         private void CheckPaint()
         {
@@ -176,7 +133,6 @@ namespace RotaryPong
                 }
             }
         }
-
         ///<summary> Configura <paramref name="Paint"/> a White, a la vez que vuelve las propiedades visuales del objeto a su estado inciail</summary>
         private void LosePaint()
         {
@@ -188,7 +144,42 @@ namespace RotaryPong
             _renderer.material.SetColor("_EmissionColor", _renderer.material.color);
             _trailRenderer.material = _renderer.material;
         }
+        
+        ///<summary> Reinicia las configuraciones del objeto, dejandole en el estado y posicion incial </summary>
+        public void TurnBackOn()
+        {
+            transform.position = _startingPoint;
+            _rigidbody.velocity = Vector3.zero;
+            _renderer.enabled = true;
+            _collider.enabled = true;
+            _trailRenderer.enabled = true;
+            CanScore = true;
+        }
+        ///<summary> Desactiva el aspecto visual </summary>
+        public void SetInvis()
+        {
+            LosePaint();
+            _renderer.enabled = false;
+            _collider.enabled = false;
+            _trailRenderer.enabled = false;
+            CanScore = false;
+        }
 
+        private void Start()
+        {
+            GetComponents();
+
+            _startingMaterial = _renderer.material;
+            _startingColor = _trailRenderer.startColor;
+            _startingPoint = transform.position;
+            CanScore = true;
+        }
+        private void Update()
+        {
+            lastFrameVelocity = _rigidbody.velocity;
+            CheckPaint();
+            CheckDistanceFromCenter();
+        }
         private void OnCollisionEnter(Collision collision)
         {
             Bounce(collision.contacts[0].normal);

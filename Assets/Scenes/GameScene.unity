@@ -1101,8 +1101,24 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 827c8731-0070-4920-ba50-e773f1357af9
     m_ActionName: Player/Rotate Right[/XInputControllerWindows/leftTrigger,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1931898201}
+        m_TargetAssemblyTypeName: RotaryPong.GameManager, com.RotaryPong.Runtime
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f636720d-fb17-4665-b2f3-0257aaab1d38
+    m_ActionName: Player/Pause[/Keyboard/escape,/XInputControllerWindows/start]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -1368,8 +1384,24 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 827c8731-0070-4920-ba50-e773f1357af9
     m_ActionName: Player/Rotate Right[/XInputControllerWindows/rightTrigger,/Keyboard/e]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1931898201}
+        m_TargetAssemblyTypeName: RotaryPong.GameManager, com.RotaryPong.Runtime
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f636720d-fb17-4665-b2f3-0257aaab1d38
+    m_ActionName: Player/Pause[/Keyboard/escape,/XInputControllerWindows/start]
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -2020,9 +2052,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Time:
-
-    88.88'
+  m_Text: 88.88
 --- !u!222 &865555997
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4070,7 +4100,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: P1
+  m_Text: 'P1:'
 --- !u!222 &1322371080
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5517,29 +5547,29 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 0e451f9cbbdcefe45bbb92573dc11350, type: 2}
-  gameTimerText: {fileID: 865555996}
-  player1ScoreText: {fileID: 1761340568}
-  player2ScoreText: {fileID: 166063403}
-  pauseScreen: {fileID: 772281342}
-  map: {fileID: 2109206755}
-  goalParticles: {fileID: 8934979891827432436, guid: 4f89feac73ab3804aa26392c72e9d2a7,
-    type: 3}
-  announcementScore: {fileID: 1196388437}
-  cam: {fileID: 963194225}
-  goalsToTurn:
+  _announcement:
+    UseConstant: 0
+    ConstantValue: 
+    Variable: {fileID: 11400000, guid: 412919e63cce27c44942e93266a3af37, type: 2}
+  _timer:
+    UseConstant: 0
+    ConstantValue: 
+    Variable: {fileID: 11400000, guid: 02153f18896197f40982a8b90b5392db, type: 2}
+  _pauseScreen: {fileID: 772281342}
+  _map: {fileID: 2109206755}
+  _goals:
   - {fileID: 1180092615}
   - {fileID: 1649469368}
   - {fileID: 1976453004}
   - {fileID: 1068988033}
   - {fileID: 193074546}
   - {fileID: 1111099978}
-  walls:
+  _walls:
   - {fileID: 1048581333}
   - {fileID: 1488369300}
   - {fileID: 1510971251}
   - {fileID: 1291057334}
-  UICanvasAnim: {fileID: 1551514365}
-  ppVolume: {fileID: 336239459}
+  _postProcessVolume: {fileID: 336239459}
   celebrationFireworksColors:
   - {r: 0.854902, g: 0.95294124, b: 0.92549026, a: 1}
   - {r: 0, g: 0.7490196, b: 0.95294124, a: 1}
@@ -5588,6 +5618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4542058e0d8ac7b4eab9967f472bf7b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _uiCanvasAnimator: {fileID: 1551514365}
   _blueTeamPoints:
     UseConstant: 0
     ConstantValue: 0
@@ -5596,16 +5627,19 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: b256d8ab4db87ff4d82ce61fd1556e14, type: 2}
+  _announcement:
+    UseConstant: 0
+    ConstantValue: 
+    Variable: {fileID: 11400000, guid: 412919e63cce27c44942e93266a3af37, type: 2}
   _timer:
     UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 48225e0b525f8c54e85f12182800e2f2, type: 2}
-  _uiCanvasAnimator: {fileID: 1551514365}
+    ConstantValue: 
+    Variable: {fileID: 11400000, guid: 02153f18896197f40982a8b90b5392db, type: 2}
   _pinkTeamText: {fileID: 1322371079}
   _pinkTeamScoreText: {fileID: 1761340568}
   _blueTeamText: {fileID: 101113071}
   _blueTeamScoreText: {fileID: 166063403}
-  _announcementScoreText: {fileID: 1196388439}
+  _announcementText: {fileID: 1196388439}
   _timerText: {fileID: 865555996}
   _colors:
   - {r: 0.85490197, g: 0.9529412, b: 0.9254902, a: 1}

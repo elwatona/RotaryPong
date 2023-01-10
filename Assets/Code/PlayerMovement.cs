@@ -27,20 +27,6 @@ namespace RotaryPong
         public void OnRotateLeft(InputAction.CallbackContext ctx) => _leftRotationInput = ctx.ReadValueAsButton();
         public void OnRotateRight(InputAction.CallbackContext ctx) => _rightRotationInput = ctx.ReadValueAsButton();
 
-        private void Awake()
-        {
-            _rigidbody = GetComponent<Rigidbody>();
-        }
-        private void Start()
-        {
-            _startingPoint = transform.position;
-        }
-
-        private void Update()
-        {
-            CheckDistanceFromCenter();
-        }
-
         ///<summary> Comprueba la distancia del jugador respecto al centro del mapa para considerar su posible reinicio de posicion </summary>
         private void CheckDistanceFromCenter()
         {
@@ -59,12 +45,7 @@ namespace RotaryPong
                 transform.position = _startingPoint;
             }
         }
-
-        private void FixedUpdate()
-        {
-            Movement();
-            Rotation();
-        }
+        ///<summary> Contiene la logica que permite el movimiento </summary>
         private void Movement()
         {
             Vector3 direction = _movementInput;
@@ -74,7 +55,7 @@ namespace RotaryPong
             direction *= timeSpeed;
             _rigidbody.position += direction;
         }
-
+        ///<summary> Contiene la logica que permite la rotacion </summary>
         private void Rotation()
         {
             bool hasInterpolatedRotation = _hasInterpolatedRotation.Value;
@@ -91,7 +72,6 @@ namespace RotaryPong
 
             _rigidbody.rotation = hasInterpolatedRotation ? lerpRotation : fixedRotation;
         }
-
         ///<summary> Retorna la rotacion deseada dependiendo del input apretado </summary> 
         private float ChangeRotationValue(float value, float amount)
         {
@@ -100,7 +80,6 @@ namespace RotaryPong
 
             return value;
         }
-
         ///<summary> Reinicia el valor de los inputs que permiten la rotacion </summary>
         private void ResetRotationInput()
         {
@@ -108,6 +87,24 @@ namespace RotaryPong
                 _leftRotationInput = false;
             if (_rightRotationInput)
                 _rightRotationInput = false;
+        }
+
+        private void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody>();
+        }
+        private void Start()
+        {
+            _startingPoint = transform.position;
+        }
+        private void Update()
+        {
+            CheckDistanceFromCenter();
+        }
+        private void FixedUpdate()
+        {
+            Movement();
+            Rotation();
         }
     }
 }

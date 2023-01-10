@@ -1,6 +1,6 @@
 namespace RotaryPong
 {
-    ///<summary> Holds all the data for the game settings </summary>
+    ///<summary> Contiene toda las posibles configuraciones </summary>
     public class Configurations
     {
         public float playerSpeed;
