@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab94602edb7699b45821ddec58868be7, type: 3}
-  m_Name: Ball Speed
+  m_Name: VFX_Celebration Fireworks
   m_EditorClassIdentifier: 
-  Value: 18
-  DeveloperDescription: Velocidad deseada de la pelota
+  Value: 30
+  DeveloperDescription: 

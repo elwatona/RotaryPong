@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab94602edb7699b45821ddec58868be7, type: 3}
-  m_Name: Ball Speed
+  m_Script: {fileID: 11500000, guid: 6f9b5f6fc2f7d6346baa42a53bce61b5, type: 3}
+  m_Name: Ball Direction Control
   m_EditorClassIdentifier: 
-  Value: 18
-  DeveloperDescription: Velocidad deseada de la pelota
+  value: 0
+  DeveloperDescription: Permite al jugador tener control de la direccion de la pelota

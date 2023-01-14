@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Ball Min Speed
   m_EditorClassIdentifier: 
   Value: 5
-  DeveloperDescription: 
+  DeveloperDescription: Velocidad minima de la pelota

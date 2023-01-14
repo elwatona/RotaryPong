@@ -118,12 +118,12 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
-    "com.watona.utils": {
+    "com.watona.tools": {
       "version": "https://github.com/ElwaTona/WatonaUtils.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "8e503f22489444d81e15f0374eb69263c672f9e8"
+      "hash": "5578a7af44e40e8609fabf1335ecfae9d2c745f9"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
