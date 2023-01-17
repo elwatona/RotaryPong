@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f9b5f6fc2f7d6346baa42a53bce61b5, type: 3}
   m_Name: Match_God Walls
   m_EditorClassIdentifier: 
-  value: 0
+  value: 1
+  DeveloperDescription: 

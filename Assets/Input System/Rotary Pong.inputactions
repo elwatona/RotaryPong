@@ -271,7 +271,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
+                    "name": "positive",
                     "id": "932ad136-5e84-4704-8099-a4c34a19e52e",
                     "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
@@ -282,7 +282,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
+                    "name": "negative",
                     "id": "c4155021-d73e-4a2c-b602-f0a92d8a4691",
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",

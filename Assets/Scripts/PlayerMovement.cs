@@ -44,6 +44,7 @@ namespace RotaryPong
             SpinMapInputParameter parameters = new SpinMapInputParameter {SourceDirection = input, SourceTeam = _team};
 
             _spinMap.Raise(parameters);
+            print(input);
         }
         ///<summary> Comprueba la distancia del jugador respecto al centro del mapa para considerar su posible reinicio de posicion </summary>
         private void CheckDistanceFromCenter()

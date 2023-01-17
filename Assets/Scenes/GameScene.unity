@@ -413,6 +413,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _paint: 1
   _ballPaint: {fileID: 11400000, guid: 549d34b9f09b7c6458b613d222d2e283, type: 2}
+  _canScore: {fileID: 11400000, guid: 7c01289d841c3a74288eda68f9989e2c, type: 2}
+  _scoreEvent: {fileID: 11400000, guid: 6e2162db345ee824c9f3cff5799a6c80, type: 2}
 --- !u!65 &193074549
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -995,7 +997,7 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: c97f484627a8b38468addb9a0038058e, type: 2}
   _ballEffect: {fileID: 11400000, guid: f9a1d5b864c41a14fb0536c4d3eff684, type: 2}
-  _spinMap: {fileID: 0}
+  _spinMap: {fileID: 11400000, guid: 358aa74ddc597094399753c1894188c9, type: 2}
 --- !u!54 &562490440
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1151,7 +1153,19 @@ MonoBehaviour:
     m_ActionId: f8eecffb-d3a1-4a9d-9e1b-c6aeff2eb3b9
     m_ActionName: Player/Ball Effect[/SwitchProControllerHID/rightStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 562490439}
+        m_TargetAssemblyTypeName: RotaryPong.PlayerMovement, com.RotaryPong.Runtime
+        m_MethodName: OnRotateMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 93b65ede-2aa5-456e-a13d-7458bf9b795f
     m_ActionName: Player/Change Map Rotation[/SwitchProControllerHID/leftShoulder,/XInputControllerWindows/leftShoulder,/SwitchProControllerHID/rightShoulder,/XInputControllerWindows/rightShoulder]
   m_NeverAutoSwitchControlSchemes: 0
@@ -2254,8 +2268,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8083cf743c81c0e4093f670ad68791ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BallPaint: {fileID: 11400000, guid: 549d34b9f09b7c6458b613d222d2e283, type: 2}
-  CanScore: 0
+  _afterScoreListener:
+    event: {fileID: 11400000, guid: d9b68a90b6783b44b825f4f82664d0ab, type: 2}
+  _paint: {fileID: 11400000, guid: 549d34b9f09b7c6458b613d222d2e283, type: 2}
+  _canScore: {fileID: 11400000, guid: 7c01289d841c3a74288eda68f9989e2c, type: 2}
   _ballSpeed:
     UseConstant: 0
     ConstantValue: 0
@@ -3231,6 +3247,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _paint: 1
   _ballPaint: {fileID: 11400000, guid: 549d34b9f09b7c6458b613d222d2e283, type: 2}
+  _canScore: {fileID: 11400000, guid: 7c01289d841c3a74288eda68f9989e2c, type: 2}
+  _scoreEvent: {fileID: 11400000, guid: 6e2162db345ee824c9f3cff5799a6c80, type: 2}
 --- !u!65 &1048581336
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3343,6 +3361,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _paint: 2
   _ballPaint: {fileID: 11400000, guid: 549d34b9f09b7c6458b613d222d2e283, type: 2}
+  _canScore: {fileID: 11400000, guid: 7c01289d841c3a74288eda68f9989e2c, type: 2}
+  _scoreEvent: {fileID: 11400000, guid: 6e2162db345ee824c9f3cff5799a6c80, type: 2}
 --- !u!65 &1068988036
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3455,6 +3475,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _paint: 2
   _ballPaint: {fileID: 11400000, guid: 549d34b9f09b7c6458b613d222d2e283, type: 2}
+  _canScore: {fileID: 11400000, guid: 7c01289d841c3a74288eda68f9989e2c, type: 2}
+  _scoreEvent: {fileID: 11400000, guid: 6e2162db345ee824c9f3cff5799a6c80, type: 2}
 --- !u!65 &1111099981
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3674,6 +3696,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _paint: 1
   _ballPaint: {fileID: 11400000, guid: 549d34b9f09b7c6458b613d222d2e283, type: 2}
+  _canScore: {fileID: 11400000, guid: 7c01289d841c3a74288eda68f9989e2c, type: 2}
+  _scoreEvent: {fileID: 11400000, guid: 6e2162db345ee824c9f3cff5799a6c80, type: 2}
 --- !u!65 &1180092618
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4579,6 +4603,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _paint: 2
   _ballPaint: {fileID: 11400000, guid: 549d34b9f09b7c6458b613d222d2e283, type: 2}
+  _canScore: {fileID: 11400000, guid: 7c01289d841c3a74288eda68f9989e2c, type: 2}
+  _scoreEvent: {fileID: 11400000, guid: 6e2162db345ee824c9f3cff5799a6c80, type: 2}
 --- !u!65 &1488369303
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5013,6 +5039,186 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!1 &1589395666
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1589395667}
+  - component: {fileID: 1589395668}
+  m_Layer: 0
+  m_Name: EndGameListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1589395667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589395666}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -971.9625, y: -514.7279, z: 221.71179}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2026291723}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1589395668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589395666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d26ce5d624b70f43abc8f0b647d5ba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 9a0930c7e6f208540bfb25676e2c08b9, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1180092617}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1649469370}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1976453006}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1068988035}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 193074548}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1111099980}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1048581335}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1488369302}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 867143141}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2109206757}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1934875731}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1618296441
 GameObject:
   m_ObjectHideFlags: 0
@@ -5146,6 +5352,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _paint: 2
   _ballPaint: {fileID: 11400000, guid: 549d34b9f09b7c6458b613d222d2e283, type: 2}
+  _canScore: {fileID: 11400000, guid: 7c01289d841c3a74288eda68f9989e2c, type: 2}
+  _scoreEvent: {fileID: 11400000, guid: 6e2162db345ee824c9f3cff5799a6c80, type: 2}
 --- !u!65 &1649469371
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5601,7 +5809,9 @@ GameObject:
   - component: {fileID: 1931898200}
   - component: {fileID: 1931898201}
   - component: {fileID: 1931898202}
+  - component: {fileID: 1931898204}
   - component: {fileID: 1931898203}
+  - component: {fileID: 1931898205}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5636,63 +5846,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97db78fa98f008340a28c84d7ab08c89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _matchDuration:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 48225e0b525f8c54e85f12182800e2f2, type: 2}
-  _mapSpinSpeed:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 5e97d6e49b6316a4dbae0051b9d9aad8, type: 2}
-  _celebrationFireworks:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: fbc654ee4b96e79428da5b7acf002132, type: 2}
-  _camShakeMagnitude:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 31373e8a68cafe248a8823c523d40f7a, type: 2}
+  _afterScoreListener:
+    event: {fileID: 11400000, guid: d9b68a90b6783b44b825f4f82664d0ab, type: 2}
+  _camShakeMagnitude: {fileID: 0}
   _pinkScore: {fileID: 11400000, guid: b256d8ab4db87ff4d82ce61fd1556e14, type: 2}
   _blueScore: {fileID: 11400000, guid: 5938b4c4d14eede4a8ab434963cb5529, type: 2}
-  _enableGodWalls:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 0e451f9cbbdcefe45bbb92573dc11350, type: 2}
-  _canChangeSpinDirection:
-    UseConstant: 1
-    ConstantValue: 1
-    Variable: {fileID: 0}
-  _announcement:
-    UseConstant: 0
-    ConstantValue: 
-    Variable: {fileID: 11400000, guid: 412919e63cce27c44942e93266a3af37, type: 2}
-  _timer:
-    UseConstant: 0
-    ConstantValue: 
-    Variable: {fileID: 11400000, guid: 02153f18896197f40982a8b90b5392db, type: 2}
-  _ballPaint:
-    UseConstant: 1
-    ConstantValue: 0
-    Variable: {fileID: 0}
+  _announcement: {fileID: 0}
+  _didGameEnded: {fileID: 0}
   _pauseScreen: {fileID: 772281342}
-  _map: {fileID: 2109206755}
-  _goals:
-  - {fileID: 1180092615}
-  - {fileID: 1649469368}
-  - {fileID: 1976453004}
-  - {fileID: 1068988033}
-  - {fileID: 193074546}
-  - {fileID: 1111099978}
-  _walls:
-  - {fileID: 1048581333}
-  - {fileID: 1488369300}
-  - {fileID: 1510971251}
-  - {fileID: 1291057334}
   _postProcessVolume: {fileID: 336239459}
-  celebrationFireworksColors:
-  - {r: 0.854902, g: 0.95294124, b: 0.92549026, a: 1}
-  - {r: 0, g: 0.7490196, b: 0.95294124, a: 1}
-  - {r: 0.9294118, g: 0, b: 0.54901963, a: 1}
 --- !u!114 &1931898202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5730,25 +5892,53 @@ MonoBehaviour:
   m_GameObject: {fileID: 1931898199}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3aae9400363d1bf499981abc4a2ba5ba, type: 3}
+  m_Script: {fileID: 11500000, guid: fded31bd0308971499896ab4a260e238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameEvent: {fileID: 11400000, guid: 358aa74ddc597094399753c1894188c9, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1931898201}
-        m_TargetAssemblyTypeName: RotaryPong.GameManager, com.RotaryPong.Runtime
-        m_MethodName: SetMapRotation
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _scoreListener:
+    event: {fileID: 11400000, guid: 6e2162db345ee824c9f3cff5799a6c80, type: 2}
+  _updateScores: {fileID: 11400000, guid: 430d78a2ddef8fb43830b02545e274cc, type: 2}
+  _fireworks: {fileID: 11400000, guid: 913ffe57a466de1438d897893c84b136, type: 2}
+  _spinMap: {fileID: 11400000, guid: d9b68a90b6783b44b825f4f82664d0ab, type: 2}
+  _pinkScore: {fileID: 11400000, guid: b256d8ab4db87ff4d82ce61fd1556e14, type: 2}
+  _blueScore: {fileID: 11400000, guid: 5938b4c4d14eede4a8ab434963cb5529, type: 2}
+--- !u!114 &1931898204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931898199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cfd5c7d9b8a1c44e815897d9246f689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fireworkListener:
+    event: {fileID: 11400000, guid: 913ffe57a466de1438d897893c84b136, type: 2}
+  _endGameListener:
+    event: {fileID: 11400000, guid: 9a0930c7e6f208540bfb25676e2c08b9, type: 2}
+  _teamColors: {fileID: 11400000, guid: c465f0f7014f1374bae01fcac1c5915f, type: 2}
+  _celebrationFireworks: {fileID: 11400000, guid: fbc654ee4b96e79428da5b7acf002132,
+    type: 2}
+  _backToMenu: {fileID: 11400000, guid: ebc0916fb2fdf6540bddbc60ae126c6b, type: 2}
+--- !u!114 &1931898205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931898199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b231240c0a574e42896694b5f1c76e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeOutListener:
+    event: {fileID: 11400000, guid: e371bdab8e70c8b448f08eb6f25c41ff, type: 2}
+  _pinkScore: {fileID: 11400000, guid: b256d8ab4db87ff4d82ce61fd1556e14, type: 2}
+  _blueScore: {fileID: 11400000, guid: 5938b4c4d14eede4a8ab434963cb5529, type: 2}
+  _updateWinnerUI: {fileID: 11400000, guid: aa1f33fc7b020a2469faeba7705e62d0, type: 2}
 --- !u!1 &1934875727
 GameObject:
   m_ObjectHideFlags: 0
@@ -5759,6 +5949,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1934875728}
   - component: {fileID: 1934875729}
+  - component: {fileID: 1934875730}
+  - component: {fileID: 1934875731}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -5793,13 +5985,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4542058e0d8ac7b4eab9967f472bf7b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _updateScores:
+    event: {fileID: 11400000, guid: 430d78a2ddef8fb43830b02545e274cc, type: 2}
   _uiCanvasAnimator: {fileID: 1551514365}
   _blueTeamPoints: {fileID: 11400000, guid: 5938b4c4d14eede4a8ab434963cb5529, type: 2}
   _pinkTeamPoints: {fileID: 11400000, guid: b256d8ab4db87ff4d82ce61fd1556e14, type: 2}
-  _announcement:
-    UseConstant: 0
-    ConstantValue: 
-    Variable: {fileID: 11400000, guid: 412919e63cce27c44942e93266a3af37, type: 2}
+  _ballPaint: {fileID: 11400000, guid: 549d34b9f09b7c6458b613d222d2e283, type: 2}
   _timer:
     UseConstant: 0
     ConstantValue: 
@@ -5814,6 +6005,43 @@ MonoBehaviour:
   - {r: 0.85490197, g: 0.9529412, b: 0.9254902, a: 1}
   - {r: 0.92941177, g: 0, b: 0.54901963, a: 1}
   - {r: 0, g: 0.7490196, b: 0.9529412, a: 1}
+--- !u!114 &1934875730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934875727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cfd5c7d9b8a1c44e815897d9246f689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fireworkListener:
+    event: {fileID: 11400000, guid: 913ffe57a466de1438d897893c84b136, type: 2}
+  _endGameListener:
+    event: {fileID: 11400000, guid: 9a0930c7e6f208540bfb25676e2c08b9, type: 2}
+  _teamColors: {fileID: 11400000, guid: c465f0f7014f1374bae01fcac1c5915f, type: 2}
+  _celebrationFireworks: {fileID: 11400000, guid: fbc654ee4b96e79428da5b7acf002132,
+    type: 2}
+  _backToMenu: {fileID: 11400000, guid: ebc0916fb2fdf6540bddbc60ae126c6b, type: 2}
+--- !u!114 &1934875731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934875727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e08c2a639f3444c479e3a8b443f1ec1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EndGame: {fileID: 11400000, guid: e371bdab8e70c8b448f08eb6f25c41ff, type: 2}
+  _didGameEnded: {fileID: 11400000, guid: c51408df2dfb69d4fb60944f6deff9f9, type: 2}
+  _matchDuration: {fileID: 11400000, guid: 48225e0b525f8c54e85f12182800e2f2, type: 2}
+  _timer: {fileID: 11400000, guid: 02153f18896197f40982a8b90b5392db, type: 2}
+  _timerSeconds: {fileID: 11400000, guid: ece9167250bd0c345bde538813cac3db, type: 2}
 --- !u!1 &1976453004
 GameObject:
   m_ObjectHideFlags: 0
@@ -5863,6 +6091,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _paint: 1
   _ballPaint: {fileID: 11400000, guid: 549d34b9f09b7c6458b613d222d2e283, type: 2}
+  _canScore: {fileID: 11400000, guid: 7c01289d841c3a74288eda68f9989e2c, type: 2}
+  _scoreEvent: {fileID: 11400000, guid: 6e2162db345ee824c9f3cff5799a6c80, type: 2}
 --- !u!65 &1976453007
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5959,6 +6189,7 @@ Transform:
   - {fileID: 2105102943}
   - {fileID: 474228149}
   - {fileID: 336239460}
+  - {fileID: 1589395667}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6099,8 +6330,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2109206756}
+  - component: {fileID: 2109206757}
+  - component: {fileID: 2109206758}
   m_Layer: 0
-  m_Name: Octagono
+  m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6141,3 +6374,52 @@ Transform:
   m_Father: {fileID: 1543098377}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -25}
+--- !u!114 &2109206757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109206755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e3ae81887a628b4e985280231300d5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputListener:
+    event: {fileID: 11400000, guid: 358aa74ddc597094399753c1894188c9, type: 2}
+  _spinMapListener:
+    event: {fileID: 11400000, guid: d9b68a90b6783b44b825f4f82664d0ab, type: 2}
+  _ballPaint: {fileID: 11400000, guid: 549d34b9f09b7c6458b613d222d2e283, type: 2}
+  _canChangeSpinDirection: {fileID: 11400000, guid: 62655baf08ed19e4ab717c8dcb18dfa7,
+    type: 2}
+  _mapSpinSpeed: {fileID: 11400000, guid: 5e97d6e49b6316a4dbae0051b9d9aad8, type: 2}
+  _map: {fileID: 2109206755}
+--- !u!114 &2109206758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109206755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d625cbf82be40549b92735d16b5d069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enableGodWalls: {fileID: 11400000, guid: 0e451f9cbbdcefe45bbb92573dc11350, type: 2}
+  _isUpdatingPostProcess: {fileID: 11400000, guid: 2d352c87fa5d2234ab8d25ca547e4fe2,
+    type: 2}
+  _ballPaint: {fileID: 11400000, guid: 549d34b9f09b7c6458b613d222d2e283, type: 2}
+  _goals:
+  - {fileID: 1180092615}
+  - {fileID: 1649469368}
+  - {fileID: 1976453004}
+  - {fileID: 1068988033}
+  - {fileID: 193074546}
+  - {fileID: 1111099978}
+  _walls:
+  - {fileID: 1510971251}
+  - {fileID: 1291057334}
+  - {fileID: 1048581333}
+  - {fileID: 1488369300}

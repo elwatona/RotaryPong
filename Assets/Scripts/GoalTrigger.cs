@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Watona.Variables;
 using Watona.Events;
+using RotaryPong.Events;
 
 namespace RotaryPong
 {
@@ -9,16 +11,21 @@ namespace RotaryPong
     {
         [SerializeField] Paint _paint;
         [SerializeField] PaintVariable _ballPaint;
+        [SerializeField] BooleanVariable _canScore;
+        [SerializeField] ScoreEvent _scoreEvent;
 
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
-            if(other.tag == "Ball") CheckForGoal(other.GetComponent<Ball>());
+            if(other.tag == "Ball") CheckForGoal(other.transform.position);
         }
 
-        private void CheckForGoal(Ball ball)
+        private void CheckForGoal(Vector3 otherPosition)
         {
-            if (ball.CanScore && _ballPaint.Value != _paint && _ballPaint.Value != Paint.White)
-                GameManager.Instance.PlayerScore(ball);
+            ScoreParameter parameter = new ScoreParameter {SourcePosition = otherPosition, SourceTeam = _ballPaint.Value};
+            
+            if (_canScore.Value && _ballPaint.Value != _paint && _ballPaint.Value != Paint.White)
+                _scoreEvent.Raise(parameter);
+                // GameManager.Instance.PlayerScore(ball);
         }
         
     }

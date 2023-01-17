@@ -1,12 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using Watona.Utils;
+using Watona.Events;
 using Watona.Variables;
+using RotaryPong.Events;
 
 namespace RotaryPong
 {
-    public class UIManager : SingletonBehaviour<UIManager>
+    public class UIManager : MonoBehaviour
     {
         ///<summary> Define si el GameObject ingresado esta activo o no despues de <paramref name="seconds"/> </summary>
         IEnumerator SetActiveAfterSeconds(GameObject gameObject, float seconds, bool value)
@@ -15,11 +16,13 @@ namespace RotaryPong
             gameObject.SetActive(value);
         }
         
+        [SerializeField] CodedGameEventListener<Paint> _updateScores;
+
         [SerializeField] Animator _uiCanvasAnimator;
 
         [SerializeField, Header("Parameters")] IntVariable _blueTeamPoints;
         [SerializeField] IntVariable _pinkTeamPoints;
-        [SerializeField] VariableReference<string> _announcement;
+        [SerializeField] PaintVariable _ballPaint;
         [SerializeField] VariableReference<string> _timer;
 
         [SerializeField, Header("Text")] Text _pinkTeamText;
@@ -38,32 +41,32 @@ namespace RotaryPong
             score.text = value.ToString();
         }
         ///<summary> Actualiza el texto de <paramref name="_announcementText"/> segun el valor de <paramref name="_announcement"/> </summary>
-        private void UpdateAnnouncementText()
+        private void UpdateAnnouncementText(string value)
         {
-            _announcementText.text = _announcement.Value;
+            _announcementText.text = value;
         }
         ///<summary> Modifica valores de interfaz a la hora de anotar un gol </summary>
-        public void Goal(Paint team)
+        private void Goal(Paint team)
         {
             _announcementText.gameObject.SetActive(true);
             _uiCanvasAnimator.SetTrigger(string.Format("player{0}Score", (int)team));
             _announcementText.color = _colors[(int)team];
             
-            UpdateAnnouncementText();
+            UpdateAnnouncementText(string.Format("Score for {0}", team));
             UpdateScoreText(_pinkTeamScoreText, _pinkTeamPoints.Value);
             UpdateScoreText(_blueTeamScoreText, _blueTeamPoints.Value);
 
             StartCoroutine(SetActiveAfterSeconds(_announcementText.gameObject, 2, false));
         }
         ///<summary> Actualiza el texto de <paramref name="_timerText"/> segun el valor de <paramref name="_timer"/> </summary>
-        public void UpdateTimerText()
+        private void UpdateTimerText()
         {
             _timerText.text = _timer.Value;
         }
         ///<summary> Maneja la logica de interfaz a ocurrir cuando termina la partida </summary>
         public void EndGame(Paint team)
         {
-            UpdateAnnouncementText();
+            // UpdateAnnouncementText();
             _announcementText.gameObject.SetActive(true);
             
             if(team == Paint.White)
@@ -74,7 +77,15 @@ namespace RotaryPong
             _uiCanvasAnimator.SetTrigger(string.Format("player{0}Score", (int)team));
             _announcementText.color = _colors[(int)team];
         }
-        
+
+        private void OnEnable()
+        {
+            _updateScores?.OnEnable(Goal);
+        }
+        private void OnDisable()
+        {
+            _updateScores?.OnDisable();
+        }
         private void Start()
         {
             UpdateScoreText(_pinkTeamScoreText, _pinkTeamPoints.Value);

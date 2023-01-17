@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0aab283fbdca3549b8947e4f212becb, type: 3}
-  m_Name: SpinMap
+  m_Script: {fileID: 11500000, guid: 4088453daca7dcd4687ca593c33009af, type: 3}
+  m_Name: BackToMenu
   m_EditorClassIdentifier: 
-  _parameter:
-    SourceTeam: 0
-    SourceDirection: 0

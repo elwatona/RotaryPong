@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Watona.Variables;
+using Watona.Events;
 using RotaryPong.Events;
 
 namespace RotaryPong
@@ -11,9 +12,16 @@ namespace RotaryPong
     [RequireComponent(typeof(Renderer), typeof(TrailRenderer))]
     public class Ball : MonoBehaviour
     {
+        IEnumerator OnScoreMade()
+        {
+            SetInvis();
+            yield return new WaitForSeconds(2);
+            TurnBackOn();
+        }
+        [SerializeField] CodedEventListener _afterScoreListener;
         [Header("Parameters")]
-        public PaintVariable BallPaint;
-        public bool CanScore;
+        [SerializeField] private PaintVariable _paint;
+        [SerializeField] BooleanVariable _canScore;
         [SerializeField] VariableReference<float> _ballSpeed;
         [SerializeField] VariableReference<float> _distanceFromCenter;
         [SerializeField] VariableReference<float> _minVelocity;
@@ -109,11 +117,11 @@ namespace RotaryPong
             _colorBounces = _colorDurationBounces.Value;
             if (who == 0)
             {
-                BallPaint.SetValue(Paint.Pink);
+                _paint.SetValue(Paint.Pink);
             }
             else if (who == 1)
             {
-                BallPaint.SetValue(Paint.Blue);
+                _paint.SetValue(Paint.Blue);
             }
             _renderer.material = PlayerMaterials[who];
             _trailRenderer.material = _renderer.material;
@@ -157,7 +165,7 @@ namespace RotaryPong
         private void LosePaint()
         {
             Debug.Log("lose paint");
-            BallPaint.SetValue(Paint.White);
+            _paint.SetValue(Paint.White);
             _renderer.material = _startingMaterial;
             _renderer.material.SetColor("_EmissionColor", _renderer.material.color);
             _trailRenderer.material = _renderer.material;
@@ -166,7 +174,7 @@ namespace RotaryPong
 
         public void EffectMovement(BallEffectParameters parameter)
         {   
-            if(_canChangeDirection.Value && _effectTimer > 0 && parameter.SourceTeam == BallPaint.Value) _rigidbody.AddForce(parameter.SourceInput, ForceMode.Impulse);
+            if(_canChangeDirection.Value && _effectTimer > 0 && parameter.SourceTeam == _paint.Value) _rigidbody.AddForce(parameter.SourceInput, ForceMode.Impulse);
         }
         ///<summary> Reinicia las configuraciones del objeto, dejandole en el estado y posicion incial </summary>
         public void TurnBackOn()
@@ -176,7 +184,7 @@ namespace RotaryPong
             _renderer.enabled = true;
             _collider.enabled = true;
             _trailRenderer.enabled = true;
-            CanScore = true;
+            _canScore.SetValue(true);
         }
         ///<summary> Desactiva el aspecto visual </summary>
         public void SetInvis()
@@ -185,9 +193,17 @@ namespace RotaryPong
             _renderer.enabled = false;
             _collider.enabled = false;
             _trailRenderer.enabled = false;
-            CanScore = false;
+            _canScore.SetValue(false);
         }
 
+        private void OnEnable()
+        {
+            _afterScoreListener?.OnEnable(() => StartCoroutine(OnScoreMade()));
+        }
+        private void OnDisable()
+        {
+            _afterScoreListener?.OnDisable();
+        }
         private void Awake()
         {
             GetComponents();
@@ -197,13 +213,13 @@ namespace RotaryPong
             _startingMaterial = _renderer.material;
             _startingColor = _trailRenderer.startColor;
             _startingPoint = transform.position;
-            CanScore = true;
+            _canScore.SetValue(true);
         }
         private void Update()
         {
             lastFrameVelocity = _rigidbody.velocity;
             
-            if (BallPaint.Value != Paint.White) CheckPaint();
+            if (_paint.Value != Paint.White) CheckPaint();
             CheckDistanceFromCenter();
             _effectTimer -= Time.deltaTime;
         }
