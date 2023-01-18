@@ -9,7 +9,7 @@ namespace RotaryPong
 {
     public class Timer : MonoBehaviour
     {
-        [SerializeField] GameEvent EndGame;
+        [SerializeField] GameEvent _timeOutEvent;
 
         [SerializeField] BooleanVariable _didGameEnded;
         [SerializeField] FloatVariable _matchDuration;
@@ -21,6 +21,7 @@ namespace RotaryPong
         ///<summary> Define el valor de <paramref name="_maxMatchTimer"/> </summary>
         private void SetTimer()
         {
+            _didGameEnded.SetValue(false);
             _maxMatchTimer = _matchDuration.Value;
         }
         ///<summary> Actualiza la variable <paramref name="_timer"> al tiempo restante de partida </summary>
@@ -31,25 +32,26 @@ namespace RotaryPong
 
             if (timer <= 0 && !didGameEnded)
             {
-                didGameEnded = true;
-                EndGame.Raise();
+                print("termino");
+                _didGameEnded.SetValue(true);
+                _timeOutEvent.Raise();
                 return;
             }
 
-            float gameTimerWholeNums = Mathf.Floor(timer);
+            float timerWholeNumbers = Mathf.Floor(timer);
             float gameTimer = timer;
 
             gameTimer *= 100;
             gameTimer = Mathf.Floor(gameTimer);
 
-            float gameTimerDecimals = gameTimer - (gameTimerWholeNums * 100);
+            float timerDecimals = gameTimer - (timerWholeNumbers * 100);
             string extraNum = "";
 
-            CheckTimer(gameTimerDecimals, extraNum);
+            CheckTimer(timerDecimals, extraNum);
 
-            string textTimer = gameTimerWholeNums + "." + extraNum + gameTimerDecimals;
+            string textTimer = timerWholeNumbers + "." + extraNum + timerDecimals;
 
-            _timerSeconds.SetValue(gameTimerWholeNums);
+            _timerSeconds.SetValue(timerWholeNumbers);
             _timer.SetValue(textTimer);            
         }
         ///<summary> Define el valor de <paramref name="extra"/> dependiendo <paramref name="decimals"/> </summary>
@@ -69,7 +71,7 @@ namespace RotaryPong
         }
         private void Update()
         {
-            UpdateTimer();
+            if(!_didGameEnded.Value) UpdateTimer();
         }
     }
 }

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed70e6dc2601a24e840e1fceea5948f, type: 3}
   m_Name: Timer
   m_EditorClassIdentifier: 
-  value: 
-  DeveloperDescription: 
+  value: 84.23
+  DeveloperDescription: El tiempo restante de partida

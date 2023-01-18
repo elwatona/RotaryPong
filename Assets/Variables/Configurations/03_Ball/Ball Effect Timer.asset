@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed70e6dc2601a24e840e1fceea5948f, type: 3}
-  m_Name: Announcement
+  m_Script: {fileID: 11500000, guid: ab94602edb7699b45821ddec58868be7, type: 3}
+  m_Name: Ball Effect Timer
   m_EditorClassIdentifier: 
-  value: 
-  DeveloperDescription: Texto a mostrar en el anunciador
+  value: 0.5
+  DeveloperDescription: El tiempo en segudos donde se permite aplicar efecto a la
+    pelota
