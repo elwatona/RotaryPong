@@ -26,7 +26,7 @@ namespace RotaryPong
 
                 float randomX = Random.Range(-25f, 25f);
                 float randomY = Random.Range(-12f, 12f);
-                Vector3 spawnPos = new Vector3(randomX, randomY, 20);
+                Vector3 spawnPos = new Vector3(randomX, randomY, 0);
 
                 FireworksParameter endGameParameters = new FireworksParameter {SourcePosition = spawnPos, RandomColor = true};
 
@@ -40,7 +40,6 @@ namespace RotaryPong
             }
             yield return new WaitForSeconds(3);
 
-            // BackToMenu();
             _backToMenu?.Raise();
 
             yield return null;
