@@ -9,20 +9,19 @@ namespace RotaryPong
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField] Paint _team;
-        [Header("Parameters")]
-        [SerializeField] FloatVariable _playerSpeed;
-        [SerializeField] FloatVariable _rotationAmmount;
+        [SerializeField, Header("Parameters")] FloatVariable _playerSpeed;
         [SerializeField] VariableReference<float> _distanceFromCenter;
-        [SerializeField] BooleanVariable _hasInterpolatedRotation;
+        [SerializeField, Header("Rotation")] BooleanVariable _hasInterpolatedRotation;
         [SerializeField] FloatVariable _interpolatedRotationSpeed;
+        [SerializeField] FloatVariable _rotationAmmount;
+        [SerializeField, Header("Bounce")] BooleanVariable _canBounce;
         [SerializeField] FloatVariable _bounceAmount;
-        [SerializeField] BooleanVariable _canBounce;
         private Vector3 _startingPoint;
         private float _timeOutside;
 
-        [Header("Events")]
-        [SerializeField] BallEffectEvent _ballEffect;
+        [SerializeField, Header("Events")] BallEffectEvent _ballEffect;
         [SerializeField] SpinMapInputEvent _spinMap;
+        [SerializeField] PaintEvent _ballHit;
 
         private Rigidbody _rigidbody;
         private Vector2 _movementInput;
@@ -129,6 +128,7 @@ namespace RotaryPong
         }
         private void OnCollisionEnter(Collision other)
         {
+            if(other.gameObject.name == "ball") _ballHit?.Raise(_team);
             if(_canBounce.Value && other.gameObject.CompareTag("Player")) _rigidbody.AddForce(other.GetContact(0).normal * _bounceAmount.Value, ForceMode.Impulse);
         }
     }

@@ -18,22 +18,20 @@ namespace RotaryPong
             yield return new WaitForSeconds(2);
             TurnBackOn();
         }
+        [SerializeField] CodedGameEventListener<Paint> _playerHit;
         [SerializeField] CodedEventListener _afterScoreListener;
         [SerializeField] CodedGameEventListener<BallEffectParameters> _inputListener;
-        [Header("Parameters")]
-        [SerializeField] private PaintVariable _paint;
+        [SerializeField, Header("Parameters")] PaintVariable _paint;
         [SerializeField] BooleanVariable _canScore;
         [SerializeField] FloatVariable _ballSpeed;
-        [SerializeField] VariableReference<float> _distanceFromCenter;
         [SerializeField] FloatVariable _minVelocity;
-        [SerializeField, Space] BooleanVariable _canChangeWithBounces;
+        [SerializeField] VariableReference<float> _distanceFromCenter;
+        [SerializeField, Header("Color")] BooleanVariable _canChangeWithBounces;
         [SerializeField] FloatVariable _colorDurationSeconds;
         [SerializeField] IntVariable _colorDurationBounces;
-        [SerializeField, Space] BooleanVariable _canChangeDirection;
+        [SerializeField, Header("Input")] BooleanVariable _canChangeDirection;
         [SerializeField] FloatVariable _effectTimerInSeconds;
-
-        [Header("Configurations")]
-        [SerializeField] Material[] PlayerMaterials;
+        [SerializeField, Header("Configurations")] Material[] PlayerMaterials;
         [SerializeField] AudioClip[] _playerAudioClips;
         private Material _startingMaterial;
         private Color _startingColor;
@@ -51,6 +49,44 @@ namespace RotaryPong
         private Collider _collider;
         private Renderer _renderer;
         private TrailRenderer _trailRenderer;
+
+        private void OnEnable()
+        {
+            _afterScoreListener?.OnEnable(() => StartCoroutine(OnScoreMade()));
+            _inputListener?.OnEnable(EffectMovement);
+            _playerHit?.OnEnable(CheckForTeam);
+        }
+        private void OnDisable()
+        {
+            _afterScoreListener?.OnDisable();
+            _inputListener?.OnDisable();
+            _playerHit?.OnDisable();
+        }
+        private void Awake()
+        {
+            GetComponents();
+        }
+        private void Start()
+        {
+            _startingMaterial = _renderer.material;
+            _startingColor = _trailRenderer.startColor;
+            _startingPoint = transform.position;
+            _canScore.SetValue(true);
+        }
+        private void Update()
+        {
+            lastFrameVelocity = _rigidbody.velocity;
+            
+            if (_paint.Value != Paint.White) CheckPaint();
+            CheckDistanceFromCenter();
+            _effectTimer -= Time.deltaTime;
+        }
+        private void OnCollisionEnter(Collision collision)
+        {
+            print(collision.gameObject.name);
+            Bounce(collision.contacts[0].normal);
+            CheckForPlayer(collision.gameObject);
+        }
 
         ///<summary> Toma los componentes para cada referencia </summary>
         private void GetComponents()
@@ -91,39 +127,32 @@ namespace RotaryPong
                 _effectTimer = 0;
                 return;
             }
-
-            switch(gameObject.name)
-            {
-                case "p1":
-                    PlayAudio(0);
-                    ColorChange(0);
-                break;
-                case "p2":
-                    PlayAudio(1);
-                    ColorChange(1);
-                break;
-            }
             _effectTimer = _effectTimerInSeconds.Value;
         }
-        ///<summary> Reproduce la pista de audio cuyo index es <paramref name="who"/> </summary>
-        private void PlayAudio(int who)
+        private void CheckForTeam(Paint team)
         {
+            ColorChange(team);
+            PlayAudio(team);
+            print(team);
+        }
+        ///<summary> Reproduce la pista de audio cuyo index es <paramref name="who"/> </summary>
+        private void PlayAudio(Paint team)
+        {
+            int who = (int)team - 1;
+
             _audioSource.clip = _playerAudioClips[who];
             _audioSource.Play();
         }
         ///<summary> Cambia el color del objeto referenciando el index <paramref name="who"/> </summary>
-        private void ColorChange(int who)
+        private void ColorChange(Paint team)
         {
+            int who = (int)team - 1;
+
             _colorTimer = _colorDurationSeconds.Value;
             _colorBounces = _colorDurationBounces.Value;
-            if (who == 0)
-            {
-                _paint.SetValue(Paint.Pink);
-            }
-            else if (who == 1)
-            {
-                _paint.SetValue(Paint.Blue);
-            }
+
+            _paint.SetValue(team);
+
             _renderer.material = PlayerMaterials[who];
             _trailRenderer.material = _renderer.material;
         }
@@ -196,41 +225,5 @@ namespace RotaryPong
             _trailRenderer.enabled = false;
             _canScore.SetValue(false);
         }
-
-        private void OnEnable()
-        {
-            _afterScoreListener?.OnEnable(() => StartCoroutine(OnScoreMade()));
-            _inputListener?.OnEnable(EffectMovement);
-        }
-        private void OnDisable()
-        {
-            _afterScoreListener?.OnDisable();
-            _inputListener?.OnDisable();
-        }
-        private void Awake()
-        {
-            GetComponents();
-        }
-        private void Start()
-        {
-            _startingMaterial = _renderer.material;
-            _startingColor = _trailRenderer.startColor;
-            _startingPoint = transform.position;
-            _canScore.SetValue(true);
-        }
-        private void Update()
-        {
-            lastFrameVelocity = _rigidbody.velocity;
-            
-            if (_paint.Value != Paint.White) CheckPaint();
-            CheckDistanceFromCenter();
-            _effectTimer -= Time.deltaTime;
-        }
-        private void OnCollisionEnter(Collision collision)
-        {
-            Bounce(collision.contacts[0].normal);
-            CheckForPlayer(collision.gameObject);
-        }
-        
     }
 }

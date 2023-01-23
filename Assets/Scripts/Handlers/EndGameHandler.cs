@@ -15,7 +15,7 @@ namespace RotaryPong
         [SerializeField, Space] IntVariable _pinkScore;
         [SerializeField] IntVariable _blueScore;
         [SerializeField] BooleanVariable _didGameEnded;
-        [SerializeField, Space] WinnerUIEvent _updateWinnerUI;
+        [SerializeField, Space] PaintEvent _updateWinnerUI;
         [SerializeField] GameEvent _endGame;
         private void CheckWinner()
         {

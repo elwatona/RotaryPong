@@ -11,7 +11,7 @@ namespace RotaryPong
     public class ScoreHandler : MonoBehaviour
     {
         [SerializeField] CodedGameEventListener<ScoreParameter> _scoreListener;
-        [SerializeField, Header("Events")] ScoreUIEvent _updateScores;
+        [SerializeField, Header("Events")] PaintEvent _updateScores;
         [SerializeField] FireworksEvent _fireworks;
         [SerializeField] GameEvent _spinMap;
         [SerializeField, Header("Variables")] IntVariable _pinkScore;
