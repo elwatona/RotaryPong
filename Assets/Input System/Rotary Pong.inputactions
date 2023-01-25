@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Drop Ball",
+                    "type": "Button",
+                    "id": "e0bf54b6-1e78-4a98-9d70-a717b1a0a6a1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -291,6 +300,17 @@
                     "action": "Change Map Rotation",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "64bef09c-c092-469f-915b-cb4ed94edb24",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drop Ball",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

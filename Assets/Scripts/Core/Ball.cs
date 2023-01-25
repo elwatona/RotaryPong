@@ -21,6 +21,8 @@ namespace RotaryPong
         [SerializeField] CodedGameEventListener<Paint> _playerHit;
         [SerializeField] CodedEventListener _afterScoreListener;
         [SerializeField] CodedGameEventListener<BallEffectParameters> _inputListener;
+        [SerializeField] CodedGameEventListener<BallGrabbedParameters> _ballGrabbedListener;
+        [SerializeField] CodedGameEventListener<DropBallParameters> _dropBallListener;
         [SerializeField, Header("Parameters")] PaintVariable _paint;
         [SerializeField] BooleanVariable _canScore;
         [SerializeField] FloatVariable _ballSpeed;
@@ -42,6 +44,7 @@ namespace RotaryPong
         private float _colorTimer;
         private float _timeOutside;
         private float _effectTimer;
+        [SerializeField] GameObject _currentGrabber;
 
         [Header("Components")]
         private AudioSource _audioSource;
@@ -55,12 +58,16 @@ namespace RotaryPong
             _afterScoreListener?.OnEnable(() => StartCoroutine(OnScoreMade()));
             _inputListener?.OnEnable(EffectMovement);
             _playerHit?.OnEnable(CheckForTeam);
+            _ballGrabbedListener?.OnEnable(SetGrabber);
+            _dropBallListener?.OnEnable(Dropped);
         }
         private void OnDisable()
         {
             _afterScoreListener?.OnDisable();
             _inputListener?.OnDisable();
             _playerHit?.OnDisable();
+            _ballGrabbedListener?.OnDisable();
+            _dropBallListener?.OnDisable();
         }
         private void Awake()
         {
@@ -88,6 +95,11 @@ namespace RotaryPong
             CheckForPlayer(collision.gameObject);
         }
 
+        private void SetGrabber(BallGrabbedParameters parameters)
+        {
+            _currentGrabber = parameters.SourceGrabber;
+            
+        }
         ///<summary> Toma los componentes para cada referencia </summary>
         private void GetComponents()
         {
@@ -119,6 +131,22 @@ namespace RotaryPong
             }
             _rigidbody.velocity = collisionNormal * ballSpeed;
         }
+        private void Dropped(DropBallParameters parameters)
+        {
+            if(parameters.SourceGrabber != _currentGrabber)
+                return;
+
+            float speed = lastFrameVelocity.magnitude;
+            float ballSpeed = _ballSpeed.Value;
+            float minVelocity = _minVelocity.Value;
+            Vector3 direction = parameters.SourceDirection;
+            
+            _rigidbody.velocity = direction * Mathf.Max(ballSpeed, minVelocity);
+            // _rigidbody.AddForce(direction * 10, ForceMode.Impulse);
+            _currentGrabber = null;
+            _effectTimer = _effectTimerInSeconds.Value;
+            print("alo");
+        }
         ///<summary> Comprueba si el tag corresponde a player para luego comparar el nombre de <paramref name="collision"/> y asi sonar audio a la vez que cambiar colores </summary>
         private void CheckForPlayer(GameObject gameObject)
         {
@@ -133,7 +161,6 @@ namespace RotaryPong
         {
             ColorChange(team);
             PlayAudio(team);
-            print(team);
         }
         ///<summary> Reproduce la pista de audio cuyo index es <paramref name="who"/> </summary>
         private void PlayAudio(Paint team)

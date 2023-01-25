@@ -20,10 +20,10 @@ namespace RotaryPong
         public ShapeVariable DesiredShape;
 
         public BarShape BarShape = new BarShape();
-        public CShape CShape = new CShape();        
+        public CShape CShape = new CShape();
     #endregion
 
-        [SerializeField] CodedGameEventListener<GameObject> _ballGrabbedListener;
+        [SerializeField] CodedGameEventListener<BallGrabbedParameters> _ballGrabbedListener;
 
         [SerializeField] Paint _team;
         [SerializeField] GameObject[] _shapes;
@@ -44,6 +44,7 @@ namespace RotaryPong
         [SerializeField, Header("Events")] BallEffectEvent _ballEffect;
         [SerializeField] SpinMapInputEvent _spinMap;
         [SerializeField] PaintEvent _ballHit;
+        [SerializeField] DropBallEvent _dropBall;
 
         [HideInInspector] public Rigidbody Rigidbody;
         [HideInInspector] public Vector2 MovementInput;
@@ -56,6 +57,7 @@ namespace RotaryPong
         public void OnRotateRight(InputAction.CallbackContext ctx) => RightRotationInput = ctx.ReadValueAsButton();
         public void OnBallEfect(InputAction.CallbackContext ctx) => BallEffect(ctx.ReadValue<Vector2>());
         public void OnRotateMap(InputAction.CallbackContext ctx) => SpinMap(ctx.ReadValue<float>());
+        public void OnDropBal(InputAction.CallbackContext ctx) => DropBall();
     #endregion
 
         private void OnEnable()
@@ -90,16 +92,21 @@ namespace RotaryPong
             if(other.gameObject.name == "ball") _ballHit?.Raise(_team);
         }
         
-        private void OnBallGrabbed(GameObject grabber)
+        private void OnBallGrabbed(BallGrabbedParameters parameters)
         {
+            GameObject grabber = parameters.SourceGrabber;
+            
             if(grabber != _ballGrabber)
             return;
 
             CanMove = false;
+            _ballHit?.Raise(_team);
         }
-        private void OnBallRealeased()
+        private void DropBall()
         {
-            
+            DropBallParameters parameters = new DropBallParameters{SourceDirection = this.transform.right, SourceGrabber = _ballGrabber};
+            _dropBall?.Raise(parameters);
+            CanMove = true;
         }
         private void EnableBody()
         {
