@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/uss/booleanField.uss?fileID=7433441132597879392&amp;guid=972e953446df1d24cbd26984f8f91cde&amp;type=3#booleanField" />
+    <ui:Toggle label="Toggle" value="false" name="input" style="flex-direction: row-reverse; flex-shrink: 0; align-items: stretch; max-height: none; min-height: auto; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
+</ui:UXML>

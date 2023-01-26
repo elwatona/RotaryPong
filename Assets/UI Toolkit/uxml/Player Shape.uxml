@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/uss/style.uss?fileID=7433441132597879392&amp;guid=9f46565e3a7b5834b8f2269cecfb32bf&amp;type=3#style" />
+    <ui:VisualElement name="Background" style="flex-grow: 1; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2.5px; border-right-width: 2.5px; border-top-width: 2.5px; border-bottom-width: 2.5px; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; -unity-background-scale-mode: scale-and-crop; justify-content: flex-end; max-width: none; max-height: none; background-image: resource(&apos;01_Materials/PlayerShape&apos;); margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+        <ui:VisualElement name="Shapes" style="flex-direction: row; justify-content: space-around; max-height: 75px; margin-bottom: 5px;">
+            <ui:Button text="&lt;" display-tooltip-when-elided="true" name="prev" enable-rich-text="true" class="square-button" />
+            <ui:Label text="Player Shape" display-tooltip-when-elided="true" name="current-shape" enable-rich-text="false" class="medium-label" />
+            <ui:Button text="&gt;" display-tooltip-when-elided="true" name="next" class="square-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

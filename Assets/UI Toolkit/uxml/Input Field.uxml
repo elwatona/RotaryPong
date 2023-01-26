@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/uss/inputField.uss?fileID=7433441132597879392&amp;guid=de92fd8fd777256428b8abe029f4264b&amp;type=3#inputField" />
+    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" text="888" name="input" style="justify-content: space-between; flex-grow: 1; max-width: none; max-height: none; align-items: center; width: auto; height: auto; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
+</ui:UXML>

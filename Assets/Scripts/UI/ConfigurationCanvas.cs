@@ -17,6 +17,7 @@ namespace RotaryPong
         [SerializeField] FloatVariable _smoothRotationSpeed;
         [SerializeField] BooleanVariable _enablePlayerBounce;
         [SerializeField] FloatVariable _bouncePower;
+        [SerializeField] ShapeVariable _playerShape;
         [SerializeField, Header("Match")] FloatVariable _matchDuration;
         [SerializeField] BooleanVariable _enableGodWalls;
         [SerializeField] FloatVariable _mapSpinSpeed;
@@ -42,6 +43,7 @@ namespace RotaryPong
         [SerializeField, Space] Toggle _enablePlayerBounceToggle;
         [SerializeField] InputField _bouncePowerInputField;
         [SerializeField] Text _bouncePowerText;
+        [SerializeField] Toggle _playerShapeToggle;
         [SerializeField, Header("Match")] InputField _matchDurationInputField;
         [SerializeField] Text _matchDurationText;
         [SerializeField, Space] Toggle _enableGodWallsToggle;
@@ -98,6 +100,7 @@ namespace RotaryPong
             _ballEffectTimerText.text = _ballEffectTimer.Value.ToString();
             _enablePlayerBounceToggle.isOn = _enablePlayerBounce.Value;
             _bouncePowerText.text = _bouncePower.Value.ToString();
+            _playerShapeToggle.isOn = _playerShape.Value != Shape.Bar ? true : false;
         }
         private void LoadValues(Configurations configuration)
         {
@@ -120,6 +123,7 @@ namespace RotaryPong
             _ballColorBounces.SetValue(configuration.ballColorBounces);
             _canBallEffect.SetValue(configuration.ballEffect);
             _ballEffectTimer.SetValue(configuration.ballEffectTimer);
+            _playerShape.SetValue(configuration.playerShape);
 
             Debug.Log("Configurations loaded");
         }
@@ -145,7 +149,8 @@ namespace RotaryPong
                 ballColorDuration = _ballColorDuration.Value,
                 ballColorBounces = _ballColorBounces.Value,
                 ballEffect = _canBallEffect.Value,
-                ballEffectTimer = _ballEffectTimer.Value
+                ballEffectTimer = _ballEffectTimer.Value,
+                playerShape = _playerShape.Value
             };
             FileHandler.SaveToJSON<Configurations>(newConfigurations, fileName);
             Debug.Log("Configurations saved");
@@ -159,6 +164,7 @@ namespace RotaryPong
             CheckInputField(_smoothRotationSpeedInputField, _smoothRotationSpeed);
             CheckToggle(_enablePlayerBounceToggle, _enablePlayerBounce);
             CheckInputField(_bouncePowerInputField, _bouncePower);
+            _playerShape.SetValue(_playerShapeToggle.isOn ? Shape.C : Shape.Bar);
 
             //Match Panel
             CheckInputField(_matchDurationInputField, _matchDuration);

@@ -8,7 +8,7 @@ namespace RotaryPong
     [System.Serializable]
     public enum Shape
     {
-        Bar,
-        C
+        Bar = 0,
+        C = 1
     }
 }

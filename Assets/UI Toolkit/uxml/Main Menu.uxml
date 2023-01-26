@@ -1,0 +1,94 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Button" src="project://database/Assets/UI%20Toolkit/uxml/Button.uxml?fileID=9197481963319205126&amp;guid=11bd5dc43b01ec54db854f3f0f85507b&amp;type=3#Button" />
+    <ui:Template name="Input Field" src="project://database/Assets/UI%20Toolkit/uxml/Input%20Field.uxml?fileID=9197481963319205126&amp;guid=441f135e9292a6240bdb2e1d7f780f07&amp;type=3#Input Field" />
+    <ui:Template name="Boolean Field" src="project://database/Assets/UI%20Toolkit/uxml/Boolean%20Field.uxml?fileID=9197481963319205126&amp;guid=ad29ec9bdaaf675439914f4989c0a9ed&amp;type=3#Boolean Field" />
+    <ui:Template name="Player Shape" src="project://database/Assets/UI%20Toolkit/uxml/Player%20Shape.uxml?fileID=9197481963319205126&amp;guid=cb4e648ebbbd88945b4149813598135b&amp;type=3#Player Shape" />
+    <Style src="project://database/Assets/UI%20Toolkit/uss/style.uss?fileID=7433441132597879392&amp;guid=9f46565e3a7b5834b8f2269cecfb32bf&amp;type=3#style" />
+    <ui:VisualElement name="Title" style="flex-direction: row; -unity-text-align: middle-center; justify-content: center; align-items: center; flex-grow: 2; background-color: rgb(38, 0, 22);">
+        <ui:Label text="ROTARY" display-tooltip-when-elided="true" style="font-size: 168px; -unity-font-definition: resource(&apos;06_Fonts/NeutronsDemoRegular SDF&apos;); -unity-font: resource(&apos;06_Fonts/NeutronsDemoRegular&apos;); width: 715px; -unity-text-align: lower-center; height: 280px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; color: rgb(0, 191, 243);" />
+        <ui:Label text="PONG" display-tooltip-when-elided="true" style="font-size: 168px; -unity-font-definition: resource(&apos;06_Fonts/NeutronsDemoRegular SDF&apos;); -unity-font: resource(&apos;06_Fonts/NeutronsDemoRegular&apos;); width: 550px; height: 280px; -unity-text-align: lower-center; color: rgb(237, 0, 140);" />
+    </ui:VisualElement>
+    <ui:VisualElement name="Elements" style="flex-grow: 2; flex-direction: row; background-color: rgb(38, 0, 22);">
+        <ui:VisualElement name="Buttons" style="flex-grow: 2; justify-content: space-around; align-items: center;">
+            <ui:Instance template="Button" name="Play">
+                <AttributeOverrides element-name="btn" text="PLAY" />
+            </ui:Instance>
+            <ui:Instance template="Button" name="Exit">
+                <AttributeOverrides element-name="btn" text="EXIT" />
+            </ui:Instance>
+        </ui:VisualElement>
+        <ui:VisualElement name="Options" style="flex-direction: row; flex-grow: 2;">
+            <ui:VisualElement name="Column_1" style="flex-grow: 3; align-items: stretch; margin-right: 0; padding-right: 5px; padding-left: 5px; padding-top: 0; padding-bottom: 10px;">
+                <ui:Label text="Preset Name" display-tooltip-when-elided="true" name="Preset_Name" enable-rich-text="true" style="font-size: 63px; -unity-font: resource(&apos;06_Fonts/Fastron&apos;); -unity-font-definition: resource(&apos;06_Fonts/Fastron SDF&apos;); -unity-text-align: middle-center; background-color: rgb(26, 26, 26); color: rgb(237, 0, 140); flex-grow: 8; align-items: center; justify-content: center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 5px;" />
+                <ui:VisualElement name="Presets" style="flex-direction: row; justify-content: space-around; max-height: 72px; min-height: 72px; flex-grow: 8; margin-top: 5px; margin-bottom: 0; align-items: center;">
+                    <ui:Button text="1" display-tooltip-when-elided="true" name="Preset-1" class="preset-button square-button" />
+                    <ui:Button text="2" display-tooltip-when-elided="true" name="Preset-2" class="preset-button square-button" />
+                    <ui:Button text="3" display-tooltip-when-elided="true" name="Preset-3" class="preset-button square-button" />
+                    <ui:Button text="C" display-tooltip-when-elided="true" name="Preset-4" class="preset-button square-button" />
+                </ui:VisualElement>
+                <ui:Instance template="Input Field" name="Match-Duration" style="flex-grow: 8; justify-content: center; align-items: stretch; -unity-text-align: middle-left;">
+                    <AttributeOverrides element-name="input" label="Match Duration" />
+                </ui:Instance>
+                <ui:Instance template="Boolean Field" name="Enable-God-Walls" style="flex-grow: 8; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="Enable God Walls" />
+                </ui:Instance>
+                <ui:Instance template="Boolean Field" name="Control-Map-Spin" style="flex-grow: 8; justify-content: center; align-items: stretch;">
+                    <AttributeOverrides element-name="input" label="Control Map Spin" />
+                </ui:Instance>
+                <ui:Instance template="Input Field" name="Map-Spin-Speed" style="flex-grow: 8; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="Map Spin Speed" text="88" />
+                </ui:Instance>
+                <ui:Instance template="Boolean Field" name="Player-Bounce" style="flex-grow: 8; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="Player Bounce" />
+                </ui:Instance>
+                <ui:Instance template="Input Field" name="Bounce-Power" style="flex-grow: 8; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="Bounce Power" text="88" />
+                </ui:Instance>
+            </ui:VisualElement>
+            <ui:VisualElement name="Column_2" style="flex-grow: 3; justify-content: center; align-items: stretch; margin-right: 0; margin-left: 0; margin-top: 0; margin-bottom: 0; padding-right: 5px; padding-left: 5px; padding-bottom: 10px;">
+                <ui:Instance template="Player Shape" name="Player-Shape" style="height: auto; max-height: none; align-items: stretch; justify-content: center; flex-grow: 5; flex-basis: 50%; margin-bottom: 10px;" />
+                <ui:Instance template="Input Field" name="Player-Speed" style="flex-grow: 5; max-height: none; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="Player Speed" text="88" />
+                </ui:Instance>
+                <ui:Instance template="Input Field" name="Rotation-Amount" style="flex-grow: 5; max-height: none; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="Rotation Amount" text="88" />
+                </ui:Instance>
+                <ui:Instance template="Boolean Field" name="Smooth-Rotation" style="flex-grow: 5; max-height: none; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="Smooth Rotation" />
+                </ui:Instance>
+                <ui:Instance template="Input Field" name="Rotation-Speed" style="flex-grow: 5; max-height: none; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="Rotation Speed" text="88" />
+                </ui:Instance>
+            </ui:VisualElement>
+            <ui:VisualElement name="Column_3" style="flex-grow: 3; justify-content: center; align-items: stretch; margin-right: 0; margin-left: 0; margin-top: 0; margin-bottom: 0; padding-left: 5px; padding-right: 10px; padding-bottom: 10px;">
+                <ui:Instance template="Boolean Field" name="Ball-Effect" style="flex-grow: 8; max-height: none; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="Ball Effect" />
+                </ui:Instance>
+                <ui:Instance template="Input Field" name="Effect-Timer" style="flex-grow: 8; max-height: none; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="Effect Timer" text="8.8" />
+                </ui:Instance>
+                <ui:Instance template="Input Field" name="Ball-Speed" style="flex-grow: 8; max-height: none; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="Ball Speed" text="88" />
+                </ui:Instance>
+                <ui:Instance template="Input Field" name="Ball-Min-Speed" style="flex-grow: 8; max-height: none; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="Ball Min Speed" text="88" />
+                </ui:Instance>
+                <ui:Instance template="Boolean Field" name="Color-By-Bounce" style="flex-grow: 8; max-height: none; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="Color By Bounce" />
+                </ui:Instance>
+                <ui:Instance template="Input Field" name="Duration-Seconds" style="flex-grow: 8; max-height: none; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="Duration Seconds" text="88" />
+                </ui:Instance>
+                <ui:Instance template="Input Field" name="Duration-Bounces" style="flex-grow: 8; max-height: none; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="Duration Bounces" text="88" />
+                </ui:Instance>
+                <ui:Instance template="Input Field" name="Cam-Shake-Mag" style="flex-grow: 8; max-height: none; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="Cam Shake Mag." text="8.8" />
+                </ui:Instance>
+                <ui:Instance template="Input Field" name="End-Fireworks" style="flex-grow: 8; max-height: none; align-items: stretch; justify-content: center;">
+                    <AttributeOverrides element-name="input" label="End Fireworks" text="88" />
+                </ui:Instance>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

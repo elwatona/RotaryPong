@@ -1,0 +1,110 @@
+.square-button {
+    background-color: rgba(88, 88, 88, 0);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    font-size: 42px;
+    color: rgba(0, 255, 255, 255);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    -unity-text-align: upper-center;
+    max-width: 52px;
+    max-height: 52px;
+    min-height: auto;
+    min-width: auto;
+    flex-grow: 3;
+}
+
+.medium-label {
+    font-size: 42px;
+    color: rgba(237, 0, 140, 255);
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    background-color: rgba(26, 26, 26, 255);
+    -unity-text-align: middle-center;
+}
+
+.square-button:hover {
+    background-color: rgba(88, 88, 88, 0);
+    border-left-color: rgb(237, 0, 140);
+    border-right-color: rgb(237, 0, 140);
+    border-top-color: rgb(237, 0, 140);
+    border-bottom-color: rgb(237, 0, 140);
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    font-size: 42px;
+    color: rgb(0, 255, 255);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    -unity-text-align: upper-center;
+    max-width: 48px;
+    max-height: 48px;
+    min-height: auto;
+    min-width: auto;
+    flex-grow: 3;
+}
+
+.square-button:active {
+    background-color: rgba(88, 88, 88, 0);
+    border-left-color: rgb(0, 255, 255);
+    border-right-color: rgb(0, 255, 255);
+    border-top-color: rgb(0, 255, 255);
+    border-bottom-color: rgb(0, 255, 255);
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    font-size: 42px;
+    color: rgb(237, 0, 140);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    -unity-text-align: upper-center;
+    max-width: 48px;
+    max-height: 48px;
+    min-height: auto;
+    min-width: auto;
+    flex-grow: 3;
+}

@@ -22,5 +22,6 @@ namespace RotaryPong
         public int ballColorBounces;
         public bool ballEffect;
         public float ballEffectTimer;
+        public Shape playerShape;
     }
 }

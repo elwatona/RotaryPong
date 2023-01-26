@@ -1,0 +1,160 @@
+.unity-base-text-field__label:enabled {
+    flex-grow: 2;
+    max-width: 75%;
+    min-width: auto;
+    max-height: none;
+    min-height: auto;
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    font-size: 42px;
+    -unity-text-align: middle-left;
+    background-color: rgb(26, 26, 26);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: rgb(237, 0, 140);
+    justify-content: center;
+    height: 100%;
+}
+
+.unity-base-text-field__input {
+    flex-grow: 2;
+    max-width: 80px;
+    min-width: 40px;
+    max-height: none;
+    min-height: auto;
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    font-size: 40px;
+    -unity-text-align: middle-center;
+    color: rgb(102, 102, 102);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-left-width: 2.5px;
+    border-right-width: 2.5px;
+    border-top-width: 2.5px;
+    border-bottom-width: 2.5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    justify-content: center;
+    height: 100%;
+}
+
+.unity-base-text-field__input:focus {
+    flex-grow: 2;
+    max-width: 80px;
+    min-width: 40px;
+    max-height: 57px;
+    min-height: 28px;
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    font-size: 40px;
+    -unity-text-align: middle-center;
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgb(237, 0, 140);
+    border-right-color: rgb(237, 0, 140);
+    border-top-color: rgb(237, 0, 140);
+    border-bottom-color: rgb(237, 0, 140);
+    border-left-width: 2.5px;
+    border-right-width: 2.5px;
+    border-top-width: 2.5px;
+    border-bottom-width: 2.5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    justify-content: center;
+}
+
+.unity-base-text-field:enabled {
+    flex-grow: 2;
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    font-size: 42px;
+    -unity-text-align: middle-left;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: rgb(237, 0, 140);
+    max-width: none;
+    max-height: none;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.unity-base-text-field:disabled {
+    flex-grow: 2;
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    font-size: 42px;
+    -unity-text-align: middle-left;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: rgb(102, 102, 102);
+    max-width: 360px;
+    max-height: 58px;
+    justify-content: center;
+}
+
+.unity-base-text-field__label:disabled {
+    flex-grow: 2;
+    max-width: 75%;
+    min-width: auto;
+    max-height: none;
+    min-height: auto;
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    font-size: 42px;
+    -unity-text-align: middle-left;
+    background-color: rgb(26, 26, 26);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: rgb(102, 102, 102);
+    justify-content: center;
+    height: 100%;
+}
