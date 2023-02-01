@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <RotaryPong.UI.AspectRatioPanel name="container" aspect-ratio-x="1" aspect-ratio-y="1">
+        <ui:Button display-tooltip-when-elided="true" enable-rich-text="true" name="subtract" class="btn" style="flex-grow: 1;" />
+    </RotaryPong.UI.AspectRatioPanel>
+</ui:UXML>

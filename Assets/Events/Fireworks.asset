@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Fireworks
   m_EditorClassIdentifier: 
   _parameter:
-    SourcePosition: {x: -0.014831543, y: 9.814728, z: 20}
+    SourcePosition: {x: 4.226399, y: 7.7696934, z: 4}
     RandomColor: 0

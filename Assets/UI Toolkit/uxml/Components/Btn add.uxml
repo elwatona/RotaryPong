@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <RotaryPong.UI.AspectRatioPanel aspect-ratio-x="1" aspect-ratio-y="1" name="AspectRatioPanel">
+        <ui:Button display-tooltip-when-elided="true" name="add" class="btn square" style="flex-grow: 1;" />
+    </RotaryPong.UI.AspectRatioPanel>
+</ui:UXML>

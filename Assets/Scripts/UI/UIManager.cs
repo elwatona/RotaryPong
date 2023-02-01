@@ -46,6 +46,11 @@ namespace RotaryPong
             _isPaused = value;
             _pauseScreen.SetActive(value);
             Time.timeScale = value ? 0 : 1;
+            Cursor.visible = _isPaused ? true : false;
+        }
+        public void Resume()
+        {
+            HandlePause(false);
         }
 
         ///<summary> Actualiza el texto de <paramref name="score"/> </summary>

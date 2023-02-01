@@ -1,131 +1,107 @@
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
-
 namespace RotaryPong.UI
 {
-	public class AspectRatioPadding : VisualElement
+	using System.Collections.Generic;
+	using UnityEngine;
+	using UnityEngine.UIElements;
+
+
+	[UnityEngine.Scripting.Preserve]
+	public class AspectRatioPanel : VisualElement
 	{
 		[UnityEngine.Scripting.Preserve]
-		public new class UxmlFactory : UxmlFactory<AspectRatioPadding, UxmlTraits> { }
+		public new class UxmlFactory : UxmlFactory<AspectRatioPanel, UxmlTraits> { }
 
 		[UnityEngine.Scripting.Preserve]
 		public new class UxmlTraits : VisualElement.UxmlTraits
 		{
-			UxmlIntAttributeDescription width = new UxmlIntAttributeDescription { name = "width", defaultValue = 16 };
-			UxmlIntAttributeDescription height = new UxmlIntAttributeDescription { name = "height", defaultValue = 9 };
+			readonly UxmlIntAttributeDescription aspectRatioX = new() { name = "aspect-ratio-x", defaultValue = 16, restriction = new UxmlValueBounds { min = "1" } };
+			readonly UxmlIntAttributeDescription aspectRatioY = new() { name = "aspect-ratio-y", defaultValue = 9, restriction = new UxmlValueBounds { min = "1" } };
+			readonly UxmlIntAttributeDescription balanceX = new() { name = "balance-x", defaultValue = 50, restriction = new UxmlValueBounds { min = "0", max = "100" } };
+			readonly UxmlIntAttributeDescription balanceY = new() { name = "balance-y", defaultValue = 50, restriction = new UxmlValueBounds { min = "0", max = "100" } };
+
 
 			public override IEnumerable<UxmlChildElementDescription> uxmlChildElementsDescription
 			{
 				get { yield break; }
 			}
 
-			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
+
+			public override void Init(VisualElement visualElement, IUxmlAttributes attributes, CreationContext creationContext)
 			{
-				base.Init(ve, bag, cc);
-				AspectRatioPadding ele = ve as AspectRatioPadding;
-				ele.RatioWidth = width.GetValueFromBag(bag, cc);
-				ele.RatioHeight = height.GetValueFromBag(bag, cc);
+				base.Init(visualElement, attributes, creationContext);
+				var element = visualElement as AspectRatioPanel;
+				if (element != null)
+				{
+					element.AspectRatioX = Mathf.Max(1, aspectRatioX.GetValueFromBag(attributes, creationContext));
+					element.AspectRatioY = Mathf.Max(1, aspectRatioY.GetValueFromBag(attributes, creationContext));
+					element.BalanceX = Mathf.Clamp(balanceX.GetValueFromBag(attributes, creationContext), 0, 100);
+					element.BalanceY = Mathf.Clamp(balanceY.GetValueFromBag(attributes, creationContext), 0, 100);
+					element.FitToParent();
+				}
 			}
 		}
 
-		public int RatioWidth { get; private set; } = 16;
-		public int RatioHeight { get; private set; } = 9;
 
-		// changed to modifying margin rather than adding new UI elements.
-		//private VisualElement leftPadding;
-		//private VisualElement rightPadding;
+		public int AspectRatioX { get; private set; } = 16;
+		public int AspectRatioY { get; private set; } = 9;
+		public int BalanceX { get; private set; } = 50;
+		public int BalanceY { get; private set; } = 50;
 
-		// ------------------------------------------------------------------------------------------------------------
 
-		public AspectRatioPadding()
+		public AspectRatioPanel()
 		{
-			style.flexDirection = FlexDirection.Row;
-			style.flexShrink = 0;
-			style.width = Length.Percent(100);
-			style.height = Length.Percent(100);
-
-			//leftPadding = new VisualElement() { name = "AspectRatioPadding-Left" };
-			//rightPadding = new VisualElement() { name = "AspectRatioPadding-Right" };
-
-			//Add(leftPadding);
-			//Add(rightPadding);
-
-			RegisterCallback<GeometryChangedEvent>(OnGeometryChangedEvent);
+			style.position = Position.Absolute;
+			style.left = 0;
+			style.top = 0;
+			style.right = StyleKeyword.Undefined;
+			style.bottom = StyleKeyword.Undefined;
 			RegisterCallback<AttachToPanelEvent>(OnAttachToPanelEvent);
 		}
 
-		private void OnGeometryChangedEvent(GeometryChangedEvent e)
+
+		void OnAttachToPanelEvent(AttachToPanelEvent e)
 		{
-			UpdateElements();
+			parent?.RegisterCallback<GeometryChangedEvent>(OnGeometryChangedEvent);
+			FitToParent();
 		}
 
-		private void OnAttachToPanelEvent(AttachToPanelEvent e)
+
+		void OnGeometryChangedEvent(GeometryChangedEvent e)
 		{
-			UpdateElements();
+			FitToParent();
 		}
 
-		public void UpdateElements()
+
+		void FitToParent()
 		{
-			if (RatioWidth <= 0.0f || RatioHeight <= 0.0f)
+			if (parent == null) return;
+			var parentW = parent.resolvedStyle.width;
+			var parentH = parent.resolvedStyle.height;
+			if (float.IsNaN(parentW) || float.IsNaN(parentH)) return;
+
+			style.position = Position.Absolute;
+			style.left = 0;
+			style.top = 0;
+			style.right = StyleKeyword.Undefined;
+			style.bottom = StyleKeyword.Undefined;
+
+			if (AspectRatioX <= 0.0f || AspectRatioY <= 0.0f)
 			{
-				style.marginLeft = 0f;
-				style.marginRight = 0f; 
-				Debug.LogError($"[AspectRatioPadding] Invalid width:{RatioWidth} or height:{RatioHeight}");
+				style.width = parentW;
+				style.height = parentH;
 				return;
 			}
 
-			if (float.IsNaN(resolvedStyle.width) || float.IsNaN(resolvedStyle.height))
-			{
-				return;
-			}
+			var ratio = Mathf.Min(parentW / AspectRatioX, parentH / AspectRatioY);
+			var targetW = Mathf.Floor(AspectRatioX * ratio);
+			var targetH = Mathf.Floor(AspectRatioY * ratio);
+			style.width = targetW;
+			style.height = targetH;
 
-			var designRatio = (float)RatioWidth / RatioHeight;
-			var currRatio = resolvedStyle.width / resolvedStyle.height;
-			var diff = currRatio - designRatio;
-
-			if (diff > 0.01f)
-			{
-				var w = (resolvedStyle.width - (resolvedStyle.height * designRatio)) * 0.5f;
-				style.marginLeft = w;
-				style.marginRight = w;
-			}
-			else
-			{
-				style.marginLeft = 0f;
-				style.marginRight = 0f;
-			}
-
-			//if (RatioWidth <= 0.0f || RatioHeight <= 0.0f)
-			//{
-			//	leftPadding.style.width = 0;
-			//	rightPadding.style.width = 0;
-			//	Debug.LogError($"[AspectRatioPadding] Invalid width:{RatioWidth} or height:{RatioHeight}");
-			//	return;
-			//}
-
-			//if (float.IsNaN(resolvedStyle.width) || float.IsNaN(resolvedStyle.height))
-			//{
-			//	return;
-			//}
-
-			//if (diff > 0.01f)
-			//{
-			//	var w = (resolvedStyle.width - (resolvedStyle.height * designRatio)) * 0.5f;
-			//	leftPadding.style.width = w;
-			//	rightPadding.style.width = w;
-			//}
-			//else
-			//{
-			//	leftPadding.style.width = 0;
-			//	rightPadding.style.width = 0;
-			//}
-
-			//// make sure the padding elements are at correct positions in hierarchy
-			//leftPadding.SendToBack();
-			//rightPadding.BringToFront();
+			var marginX = parentW - targetW;
+			var marginY = parentH - targetH;
+			style.left = Mathf.Floor(marginX * BalanceX / 100.0f);
+			style.top = Mathf.Floor(marginY * BalanceY / 100.0f);
 		}
-
-		// ============================================================================================================
 	}
 }

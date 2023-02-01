@@ -964,7 +964,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-14704
+  m_Name: pb_Mesh-92800
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2388,9 +2388,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1931898201}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: ResumeGame
+      - m_Target: {fileID: 1934875729}
+        m_TargetAssemblyTypeName: RotaryPong.UIManager, com.RotaryPong.Runtime
+        m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -136,10 +136,22 @@ namespace RotaryPong
             if(parameters.SourceGrabber != _currentGrabber)
                 return;
 
-            float speed = lastFrameVelocity.magnitude;
+            float ballVelocity = lastFrameVelocity.magnitude;
             float ballSpeed = _ballSpeed.Value;
             float minVelocity = _minVelocity.Value;
             Vector3 direction = parameters.SourceDirection;
+
+            if (ballVelocity > minVelocity)
+            {
+                //Vector3 ballVelocity = lastFrameVelocity.normalized;
+                //Vector3 direction = Vector3.Reflect(ballVelocity, collisionNormal);
+                if (ballVelocity <= ballSpeed) ballVelocity = ballSpeed;
+
+                _rigidbody.velocity = direction * Mathf.Max(ballVelocity, minVelocity);
+                Debug.DrawRay(transform.position, direction * 3, Color.red, 5);
+                return;
+            }
+            _rigidbody.velocity = direction * ballSpeed;
             
             _rigidbody.velocity = direction * Mathf.Max(ballSpeed, minVelocity);
             // _rigidbody.AddForce(direction * 10, ForceMode.Impulse);
