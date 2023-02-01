@@ -24,6 +24,7 @@ namespace RotaryPong
     #endregion
 
         [SerializeField] CodedGameEventListener<BallGrabbedParameters> _ballGrabbedListener;
+        [SerializeField] CodedEventListener _afterScoreListener;
 
         [SerializeField] Paint _team;
         [SerializeField] GameObject[] _shapes;
@@ -64,10 +65,12 @@ namespace RotaryPong
         {
             _currentShape = GetDesiredShape();
             _ballGrabbedListener?.OnEnable(OnBallGrabbed);
+            _afterScoreListener?.OnEnable(DropBall);
         }
         private void OnDisable()
         {
             _ballGrabbedListener?.OnDisable();
+            _afterScoreListener?.OnDisable();
         }
         private void Awake()
         {
@@ -100,12 +103,14 @@ namespace RotaryPong
             return;
 
             CanMove = false;
+            Rigidbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
             _ballHit?.Raise(_team);
         }
         private void DropBall()
         {
             DropBallParameters parameters = new DropBallParameters{SourceDirection = this.transform.right, SourceGrabber = _ballGrabber};
             _dropBall?.Raise(parameters);
+            Rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
             CanMove = true;
         }
         private void EnableBody()

@@ -242,6 +242,8 @@ MonoBehaviour:
   DesiredShape: {fileID: 11400000, guid: 73f3c461cb538e84eb62ee91c9e709df, type: 2}
   _ballGrabbedListener:
     event: {fileID: 11400000, guid: 0cda64f6126e5954eb124355ec761376, type: 2}
+  _afterScoreListener:
+    event: {fileID: 11400000, guid: d9b68a90b6783b44b825f4f82664d0ab, type: 2}
   _team: 1
   _shapes:
   - {fileID: 300907448638547915}
