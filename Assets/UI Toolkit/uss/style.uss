@@ -15,7 +15,7 @@
     -unity-font: resource('06_Fonts/Fastron');
     -unity-font-definition: resource('06_Fonts/Fastron SDF');
     font-size: 42px;
-    color: rgba(0, 255, 255, 255);
+    color: rgb(0, 255, 255);
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
@@ -34,14 +34,86 @@
 
 .medium-label {
     font-size: 42px;
-    color: rgba(237, 0, 140, 255);
+    color: rgb(237, 0, 140);
     -unity-font: resource('06_Fonts/Fastron');
     -unity-font-definition: resource('06_Fonts/Fastron SDF');
-    background-color: rgba(26, 26, 26, 255);
+    background-color: rgb(26, 26, 26);
     -unity-text-align: middle-center;
 }
 
-.square-button:hover {
+#prev:hover {
+    transition-duration: 0.1s;
+    border-left-color: rgb(0, 191, 243);
+    border-right-color: rgb(0, 191, 243);
+    border-top-color: rgb(0, 191, 243);
+    border-bottom-color: rgb(0, 191, 243);
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+}
+
+#next:hover {
+    border-left-color: rgb(237, 0, 140);
+    border-right-color: rgb(237, 0, 140);
+    border-top-color: rgb(237, 0, 140);
+    border-bottom-color: rgb(237, 0, 140);
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    transition-duration: 0.1s;
+}
+
+.titles {
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    font-size: 42px;
+    -unity-text-align: middle-center;
+    color: rgb(237, 0, 140);
+    background-color: rgb(26, 26, 26);
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.preset-button {
+    background-color: rgba(88, 88, 88, 0);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    font-size: 44px;
+    color: rgb(0, 255, 255);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    -unity-text-align: middle-center;
+    max-width: 81px;
+    max-height: 81px;
+    min-height: auto;
+    min-width: auto;
+    flex-grow: 3;
+    height: 100%;
+}
+
+.preset-button:hover {
     background-color: rgba(88, 88, 88, 0);
     border-left-color: rgb(237, 0, 140);
     border-right-color: rgb(237, 0, 140);
@@ -57,7 +129,7 @@
     border-bottom-right-radius: 0;
     -unity-font: resource('06_Fonts/Fastron');
     -unity-font-definition: resource('06_Fonts/Fastron SDF');
-    font-size: 42px;
+    font-size: 44px;
     color: rgb(0, 255, 255);
     margin-left: 0;
     margin-right: 0;
@@ -67,32 +139,34 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-    -unity-text-align: upper-center;
-    max-width: 48px;
-    max-height: 48px;
+    -unity-text-align: middle-center;
+    max-width: 81px;
+    max-height: 81px;
     min-height: auto;
     min-width: auto;
     flex-grow: 3;
+    height: 100%;
+    transition-duration: 0.1s;
 }
 
-.square-button:active {
+.preset-button:active {
     background-color: rgba(88, 88, 88, 0);
-    border-left-color: rgb(0, 255, 255);
-    border-right-color: rgb(0, 255, 255);
-    border-top-color: rgb(0, 255, 255);
-    border-bottom-color: rgb(0, 255, 255);
-    border-left-width: 5px;
-    border-right-width: 5px;
-    border-top-width: 5px;
-    border-bottom-width: 5px;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     -unity-font: resource('06_Fonts/Fastron');
     -unity-font-definition: resource('06_Fonts/Fastron SDF');
-    font-size: 42px;
-    color: rgb(237, 0, 140);
+    font-size: 44px;
+    color: rgb(0, 255, 255);
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
@@ -101,10 +175,12 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-    -unity-text-align: upper-center;
-    max-width: 48px;
-    max-height: 48px;
+    -unity-text-align: middle-center;
+    max-width: 81px;
+    max-height: 81px;
     min-height: auto;
     min-width: auto;
     flex-grow: 3;
+    height: 100%;
+    transition-duration: 0.1s;
 }

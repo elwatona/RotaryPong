@@ -1,8 +1,17 @@
+using Watona.Utils;
 namespace RotaryPong
 {
+    public enum Preset
+    {
+        Rotary,
+        Classic,
+        CShape,
+        Custom
+    }
     ///<summary> Contiene toda las posibles configuraciones </summary>
     public class Configurations
     {
+        public Preset configuration;
         public float playerSpeed;
         public float rotationAmount;
         public bool enableSmoothRotation;
@@ -19,7 +28,7 @@ namespace RotaryPong
         public float ballMinSpeed;
         public bool ballCanChangeWithBounces;
         public float ballColorDuration;
-        public int ballColorBounces;
+        public float ballColorBounces;
         public bool ballEffect;
         public float ballEffectTimer;
         public Shape playerShape;

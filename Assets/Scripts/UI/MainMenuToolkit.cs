@@ -28,167 +28,179 @@ namespace RotaryPong
         [SerializeField] FloatVariable _ballMinSpeedVariable;
         [SerializeField] BooleanVariable _colorByBounceVariable;
         [SerializeField] FloatVariable _durationSecondsVariable;
-        [SerializeField] IntVariable _durationBouncesVariable;
+        [SerializeField] FloatVariable _durationBouncesVariable;
         [SerializeField] FloatVariable _camShakeMagVariable;
         [SerializeField] FloatVariable _endFireworksVariable;
+
+        private int _currentPreset;
     #endregion
-        [SerializeField] GameEvent _startGame;
-        [SerializeField] GameEvent _exitGame;
+        [SerializeField] GameEvent _done;
         private VisualElement _root;
+        private FloatVariable ColorDuration() => _colorByBounceVariable.Value ? _durationBouncesVariable : _durationSecondsVariable;
         private void Awake()
         {
             _root = GetComponent<UIDocument>().rootVisualElement;
         }
         private void OnEnable()
         {
-            SubUI();
+            SubscribeShapeButtons();
+
+            SubscribeValueChanger("Color-Duration", 1, 2, 8);
+            SubscribeValueChanger("Player-Speed", 5, 5, 20, _playerSpeedVariable);
+            SubscribeValueChanger("Effect-Timer", 0.05f, 0.25f, 0.75f, _effectTimerVariable);
+            SubscribeValueChanger("Map-Speed", 5, 80, 110, _mapSpinSpeedVariable);
+            SubscribeValueChanger("Match-Timer", 5, 90, 180, _matchDurationVariable);
+
+            SubscribeToggle("Smooth-Rotation", _smoothRotationVariable);
+            SubscribeToggle("Color-By-Bounce", _colorByBounceVariable);
+            SubscribeToggle("Ball-Effect", _ballEffectVariable);
+            SubscribeToggle("Control-Map-Spin", _controlMapSpinVariable);
+            SubscribeToggle("Front-Only-Goals", _godWallsVariable);
+            SubscribeToggle("Player-Bounce", _playerBounceVariable);
         }
         private void OnDisable()
         {
-            UnsubUI();
+            UnsubscribeShapeButtons();
+
+            UnsubscribeValueChanger("Color-Duration", 1, 2, 8);
+            UnsubscribeValueChanger("Player-Speed", 5, 5, 20, _playerSpeedVariable);
+            UnsubscribeValueChanger("Effect-Timer", 0.05f, 0.25f, 0.75f, _effectTimerVariable);
+            UnsubscribeValueChanger("Map-Speed", 5, 80, 110, _mapSpinSpeedVariable);
+            UnsubscribeValueChanger("Match-Timer", 5, 90, 180, _matchDurationVariable);
+
+            UnsubscribeToggle("Smooth-Rotation", _smoothRotationVariable);
+            UnsubscribeToggle("Color-By-Bounce", _colorByBounceVariable);
+            UnsubscribeToggle("Ball-Effect", _ballEffectVariable);
+            UnsubscribeToggle("Control-Map-Spin", _controlMapSpinVariable);
+            UnsubscribeToggle("Front-Only-Goals", _godWallsVariable);
+            UnsubscribeToggle("Player-Bounce", _playerBounceVariable);
+        }
+        private void SubscribeShapeButtons()
+        {
+            GetButton("Player-Shape", "prev").clickable.clicked += () => ChangeShape(-1);
+            GetButton("Player-Shape", "next").clickable.clicked += () => ChangeShape(1);
+        }
+        private void UnsubscribeShapeButtons()
+        {
+            GetButton("Player-Shape", "prev").clickable.clicked -= () => ChangeShape(-1);
+            GetButton("Player-Shape", "next").clickable.clicked -= () => ChangeShape(1);
+        }
+        private void SubscribeValueChanger(string fatherName, float input, float minValue, float maxValue, FloatVariable variable = null)
+        {
+            if(variable != null)
+            {
+                GetButton(fatherName, "subtract").clickable.clicked += () => { ChangeValue(-input, minValue, maxValue, variable); };
+                GetButton(fatherName, "add").clickable.clicked += () => { ChangeValue(input, minValue, maxValue, variable); };
+                return;
+            }
+            GetButton(fatherName, "subtract").clickable.clicked += () => { ChangeValue(-input, minValue, maxValue); };
+            GetButton(fatherName, "add").clickable.clicked += () => { ChangeValue(input, minValue, maxValue); };
+        }
+        private void UnsubscribeValueChanger(string fatherName, float input, float minValue, float maxValue, FloatVariable variable = null)
+        {
+            if(variable != null)
+            {
+                GetButton(fatherName, "subtract").clickable.clicked -= () => { ChangeValue(-input, minValue, maxValue, variable); };
+                GetButton(fatherName, "add").clickable.clicked -= () => { ChangeValue(input, minValue, maxValue, variable); };
+                return;
+            }
+            GetButton(fatherName, "subtract").clickable.clicked -= () => { ChangeValue(-input, minValue, maxValue); };
+            GetButton(fatherName, "add").clickable.clicked -= () => { ChangeValue(input, minValue, maxValue); };
+        }
+        private void SubscribeToggle(string fatherName, BooleanVariable variable)
+        {
+            GetToggle(fatherName).RegisterValueChangedCallback((evt) => {variable.SetValue(evt.newValue); UpdateValues();});
+        }
+        private void UnsubscribeToggle(string fatherName, BooleanVariable variable)
+        {
+            GetToggle(fatherName).UnregisterValueChangedCallback((evt) => {variable.SetValue(evt.newValue); UpdateValues();});
         }
         // Start is called before the first frame update
         void Start()
         {
-            SetUIs();
+            UpdateValues();
         }
-        private void SubUI()
+        private void UpdateValues()
         {
-            GetButton("Play", "btn").clicked += () => _startGame?.Raise();
-            GetButton("Exit", "btn").clicked += () => _exitGame?.Raise();
+            string colorByBounce = _colorByBounceVariable.Value ? "Bounces" : "Seconds";
+            //Column 1
+            SetLabelText("Player-Shape", _playerShapeVariable);
+            SetLabelText("Player-Speed", _playerSpeedVariable);
+            SetToggleValue("Smooth-Rotation", _smoothRotationVariable);
 
-            GetButton("Player-Shape", "next").clickable.clicked += () => 
-            {
-                SetCurrentShape(1); 
-                SetLabelValue("Player-Shape", "current-shape", _playerShapeVariable);
-            };
-            GetButton("Player-Shape", "prev").clickable.clicked += () => 
-            {
-                SetCurrentShape(-1);
-                SetLabelValue("Player-Shape", "current-shape", _playerShapeVariable);
-            };
+            //Column 2
+            SetToggleValue("Color-By-Bounce", _colorByBounceVariable);
+            SetLabelText("Color-Duration", ColorDuration());
+            SetLabelText("Color-Duration", "definition", colorByBounce);
+            SetToggleValue("Ball-Effect", _ballEffectVariable);
+            SetLabelText("Effect-Timer", _effectTimerVariable);
 
-            GetToggle("Enable-God-Walls").RegisterValueChangedCallback((x) => _godWallsVariable.SetValue(x.newValue));
-            GetToggle("Control-Map-Spin").RegisterValueChangedCallback((x) => _controlMapSpinVariable.SetValue(x.newValue));
-            GetToggle("Player-Bounce").RegisterValueChangedCallback((x) => 
-            {
-                _playerBounceVariable.SetValue(x.newValue);
-                GetTextField("Bounce-Power").SetEnabled(_playerBounceVariable.Value);
-            });
-            GetToggle("Smooth-Rotation").RegisterValueChangedCallback((x) =>
-            {
-                _smoothRotationVariable.SetValue(x.newValue);
-                GetTextField("Rotation-Speed").SetEnabled(_smoothRotationVariable.Value);
-            });
-            GetToggle("Ball-Effect").RegisterValueChangedCallback((x) =>
-            {
-                _ballEffectVariable.SetValue(x.newValue);
-                GetTextField("Rotation-Speed").SetEnabled(_ballEffectVariable.Value);
-            });
+            //Column 3
+            SetLabelText("Map-Speed", _mapSpinSpeedVariable);
+            SetToggleValue("Control-Map-Spin", _controlMapSpinVariable);
+            SetLabelText("Match-Timer", _matchDurationVariable);
+            SetToggleValue("Front-Only-Goals", _godWallsVariable);
+            SetToggleValue("Player-Bounce", _playerBounceVariable);
         }
-        private void UnsubUI()
-        {
-            GetButton("Play", "btn").clicked -= () => _startGame?.Raise();
-            GetButton("Exit", "btn").clicked -= () => _exitGame?.Raise();
 
-            GetButton("Player-Shape", "next").clickable.clicked -= () => 
-            {
-                SetCurrentShape(1); 
-                SetLabelValue("Player-Shape", "current-shape", _playerShapeVariable);
-            };
-            GetButton("Player-Shape", "prev").clickable.clicked -= () => 
-            {
-                SetCurrentShape(-1);
-                SetLabelValue("Player-Shape", "current-shape", _playerShapeVariable);
-            };
-            
-            GetToggle("Enable-God-Walls").UnregisterValueChangedCallback((x) => _godWallsVariable.SetValue(x.newValue));
-            
-        }
-        private void SetCurrentShape(int value)
+        private void ChangeShape(int value)
         {
             var shapes = Enum.GetValues(typeof(Shape));
             int currentShape = (int)_playerShapeVariable.Value;
-
+            int newShape = currentShape + value;
             int desiredShape = currentShape + value > shapes.Length-1 ? 0 : currentShape + value < 0 ? shapes.Length-1 : currentShape + value;
 
             _playerShapeVariable.Value = (Shape)desiredShape;
+
+            UpdateValues();
         }
-        private void SetUIs()
+        private void ChangeValue(float input, float minValue, float maxValue, FloatVariable variable = null)
         {
-            //Column 1
-            SetTextFieldValue("Match-Duration", _matchDurationVariable);
-            SetToggleValue("Enable-God-Walls", _godWallsVariable);
-            SetToggleValue("Control-Map-Spin", _controlMapSpinVariable);
-            SetTextFieldValue("Map-Spin-Speed", _mapSpinSpeedVariable);
-            SetToggleValue("Player-Bounce", _playerBounceVariable);
-            SetTextFieldValue("Bounce-Power", _bouncePowerVariable);
+            FloatVariable current = ColorDuration();
 
-            //Column 2
-            SetLabelValue("Player-Shape", "current-shape", _playerShapeVariable);
-            SetTextFieldValue("Player-Speed", _playerSpeedVariable);
-            SetTextFieldValue("Rotation-Amount", _rotationAmountVariable);
-            SetToggleValue("Smooth-Rotation", _smoothRotationVariable);
-            SetTextFieldValue("Rotation-Speed", _rotationSpeedVariable);
+            float currentValue = variable != null ? variable.Value : current.Value;
+            float newValue = currentValue + input;
+            float desiredValue = newValue > maxValue ? maxValue : newValue < minValue ? minValue : newValue;
 
-            //Column 3
-            SetToggleValue("Ball-Effect", _ballEffectVariable);
-            SetTextFieldValue("Effect-Timer", _effectTimerVariable);
-            SetTextFieldValue("Ball-Speed", _ballSpeedVariable);
-            SetTextFieldValue("Ball-Min-Speed", _ballMinSpeedVariable);
-            SetToggleValue("Color-By-Bounce", _colorByBounceVariable);
-            SetTextFieldValue("Duration-Seconds", _durationSecondsVariable);
-            SetTextFieldValue("Duration-Bounces", _durationBouncesVariable);
-            SetTextFieldValue("Cam-Shake-Mag", _camShakeMagVariable);
-            SetTextFieldValue("End-Fireworks", _endFireworksVariable);
+            // print(string.Format("Current Value = {0}", currentValue));
+            // print(string.Format("New Value = {0}", newValue));
+            // print(string.Format("Desired Value = {0}", desiredValue));
 
-            CheckToggles();
-        }
-        private void CheckToggles()
-        {
-            GetTextField("Bounce-Power").SetEnabled(_playerBounceVariable.Value);
-            GetTextField("Effect-Timer").SetEnabled(_ballEffectVariable.Value);
-            GetTextField("Rotation-Amount").SetEnabled(!_smoothRotationVariable.Value);
-            GetTextField("Rotation-Speed").SetEnabled(_smoothRotationVariable.Value);
-            GetTextField("Duration-Seconds").SetEnabled(!_colorByBounceVariable.Value);
-            GetTextField("Duration-Bounces").SetEnabled(_colorByBounceVariable.Value);
+            if(variable != null)
+                variable.SetValue(desiredValue);
+            else
+                current.SetValue(desiredValue);
+
+            UpdateValues();
         }
 
-        private Button GetButton(string fatherName, string buttonName)
-        {
-            return _root.Q<VisualElement>(fatherName).Q<Button>(buttonName);
-        }
-        private Button GetButton(string buttonName)
-        {
-            return _root.Q<Button>(buttonName);
-        }
-        private TextField GetTextField(string fatherName)
-        {
-            return _root.Q<VisualElement>(fatherName).Q<TextField>("input");
-        }
-        private Toggle GetToggle(string fatherName)
-        {
-            return _root.Q<VisualElement>(fatherName).Q<Toggle>("input");
-        }
-        private Label GetLabel(string fatherName, string labelName)
-        {
-            return _root.Q<VisualElement>(fatherName).Q<Label>(labelName);
-        }
-        private void SetTextFieldValue(string fatherName, FloatVariable variable)
-        {
-            GetTextField(fatherName).value = variable.Value.ToString();
-        }
-        private void SetTextFieldValue(string fatherName, IntVariable variable)
-        {
-            GetTextField(fatherName).value = variable.Value.ToString();
-        }
         private void SetToggleValue(string fatherName, BooleanVariable variable)
         {
             GetToggle(fatherName).value = variable.Value;
         }
-        private void SetLabelValue(string fatherName, string labelName, ShapeVariable variable)
+        private void SetLabelText(string fatherName, FloatVariable variable, string labelName = null)
         {
-            GetLabel(fatherName, labelName).text = variable.Value.ToString();
+            string value = variable.Value.ToString("0.##");
+            if(labelName != null)
+            {
+                GetChildLabel(fatherName, labelName).text = value;
+                return;
+            }
+            GetChildLabel(fatherName).text = value;
         }
+        private void SetLabelText(string fatherName, string labelName, string value)
+        {
+            GetChildLabel(fatherName, labelName).text = value;
+        }
+        private void SetLabelText(string fatherName, ShapeVariable variable, string labelName = "current-shape")
+        {
+            GetChildLabel(fatherName, labelName).text = variable.Value.ToString();
+        }
+
+        private Button GetButton(string fatherName, string buttonName) => _root.Q<VisualElement>(fatherName).Q<Button>(buttonName);
+        private Button GetButton(string buttonName) => _root.Q<Button>(buttonName);
+        private Toggle GetToggle(string fatherName) => _root.Q<VisualElement>(fatherName).Q<Toggle>("input");
+        private Label GetChildLabel(string fatherName, string labelName = "value") => _root.Q<VisualElement>(fatherName).Q<Label>(labelName);
+        private Label GetLabel(string labelName) => _root.Q<Label>(labelName);
     }
 }

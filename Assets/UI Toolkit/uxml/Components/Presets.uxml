@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="Presets" style="flex-direction: row; justify-content: space-around; flex-grow: 7; align-items: center;">
+        <ui:Button text="1" display-tooltip-when-elided="true" name="Preset-1" class="preset-button" />
+        <ui:Button text="2" display-tooltip-when-elided="true" name="Preset-2" class="preset-button" />
+        <ui:Button text="3" display-tooltip-when-elided="true" name="Preset-3" class="preset-button" />
+        <ui:Button text="C" display-tooltip-when-elided="true" name="Preset-4" class="preset-button" />
+    </ui:VisualElement>
+</ui:UXML>

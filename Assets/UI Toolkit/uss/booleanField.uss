@@ -16,12 +16,11 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .unity-toggle__input {
-    align-items: center;
-    justify-content: center;
     flex-grow: 2;
     max-width: 80px;
     margin-left: 0;
@@ -36,14 +35,16 @@
     border-right-color: rgb(255, 255, 255);
     border-top-color: rgb(255, 255, 255);
     border-bottom-color: rgb(255, 255, 255);
-    border-left-width: 7.5px;
-    border-right-width: 7.5px;
-    border-top-width: 7.5px;
-    border-bottom-width: 7.5px;
-    max-height: none;
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    max-height: 80px;
     width: auto;
     height: 100%;
     min-width: 40px;
+    min-height: 40px;
+    justify-content: center;
 }
 
 .unity-toggle__input:checked {
@@ -63,14 +64,15 @@
     border-right-color: rgb(255, 255, 255);
     border-top-color: rgb(255, 255, 255);
     border-bottom-color: rgb(255, 255, 255);
-    border-left-width: 7.5px;
-    border-right-width: 7.5px;
-    border-top-width: 7.5px;
-    border-bottom-width: 7.5px;
-    max-height: none;
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    max-height: 80px;
     background-color: rgb(0, 191, 243);
     height: 100%;
     min-width: 40px;
+    min-height: 40px;
 }
 
 .unity-toggle__checkmark {
@@ -80,16 +82,18 @@
     flex-shrink: 0;
     color: rgba(210, 210, 210, 0);
     opacity: 0;
+    align-items: center;
+    justify-content: center;
 }
 
 .unity-toggle__label {
     background-color: rgb(26, 26, 26);
     -unity-background-image-tint-color: rgb(26, 26, 26);
     color: rgb(237, 0, 140);
-    max-width: 75%;
-    max-height: none;
-    min-width: auto;
-    min-height: auto;
+    max-width: 80%;
+    max-height: 80px;
+    min-width: initial;
+    min-height: 40px;
     flex-grow: 2;
     margin-left: 0;
     margin-right: 0;
@@ -100,4 +104,6 @@
     padding-top: 0;
     padding-bottom: 0;
     height: 100%;
+    -unity-text-align: middle-center;
+    justify-content: center;
 }

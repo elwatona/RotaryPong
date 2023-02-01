@@ -30,7 +30,7 @@ namespace RotaryPong
         [SerializeField] VariableReference<float> _distanceFromCenter;
         [SerializeField, Header("Color")] BooleanVariable _canChangeWithBounces;
         [SerializeField] FloatVariable _colorDurationSeconds;
-        [SerializeField] IntVariable _colorDurationBounces;
+        [SerializeField] FloatVariable _colorDurationBounces;
         [SerializeField, Header("Input")] BooleanVariable _canChangeDirection;
         [SerializeField] FloatVariable _effectTimerInSeconds;
         [SerializeField, Header("Configurations")] Material[] PlayerMaterials;
@@ -40,7 +40,7 @@ namespace RotaryPong
         private Vector3 lastFrameVelocity;
         private Vector3 _startingPoint;
         private Vector2 _effectInput;
-        private int _colorBounces;
+        private float _colorBounces;
         private float _colorTimer;
         private float _timeOutside;
         private float _effectTimer;

@@ -1,0 +1,18 @@
+.stretch-to-parent-size {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+ 
+.center-content {
+    align-items: center;
+    justify-content: center;
+}
+ 
+.aspect-ratio-element {
+    width: 50%;
+    height: 0;
+    padding-top: 28.125%;   /* We want a 16:9 box, so padding needs to be: 9/16 * width in percentage */
+}

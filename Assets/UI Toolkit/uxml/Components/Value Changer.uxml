@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/uss/valueChanger.uss?fileID=7433441132597879392&amp;guid=7a3bcca7551402f43b8131e8a1cc9c86&amp;type=3#valueChanger" />
+    <ui:VisualElement name="container" style="flex-direction: row; justify-content: space-between; height: auto; align-items: center; width: auto; flex-grow: 1; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="definition" class="definition" />
+        <ui:Button display-tooltip-when-elided="true" enable-rich-text="true" name="subtract" class="btn" />
+        <ui:Label text="000" display-tooltip-when-elided="true" enable-rich-text="true" name="value" class="value-label" style="width: 30%;" />
+        <ui:Button display-tooltip-when-elided="true" name="add" class="btn" />
+    </ui:VisualElement>
+</ui:UXML>

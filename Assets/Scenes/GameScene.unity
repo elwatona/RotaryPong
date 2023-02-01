@@ -2016,7 +2016,7 @@ MonoBehaviour:
     type: 2}
   _colorDurationSeconds: {fileID: 11400000, guid: 6532ea6a955b38f468a19a4963acb108,
     type: 2}
-  _colorDurationBounces: {fileID: 11400000, guid: b614235b3c225e44fa7a569834309aa4,
+  _colorDurationBounces: {fileID: 11400000, guid: 5db069170ab71d44a87c122f99804cf9,
     type: 2}
   _canChangeDirection: {fileID: 11400000, guid: d82e62469907bf547a7603fb7a2f29af,
     type: 2}

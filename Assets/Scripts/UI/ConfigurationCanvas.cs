@@ -28,7 +28,7 @@ namespace RotaryPong
         [SerializeField] FloatVariable _ballMinSpeed;
         [SerializeField] BooleanVariable _canChangeColorWithBounces;
         [SerializeField] FloatVariable _ballColorDuration;
-        [SerializeField] IntVariable _ballColorBounces;
+        [SerializeField] FloatVariable _ballColorBounces;
         [SerializeField] BooleanVariable _canBallEffect;
         [SerializeField] FloatVariable _ballEffectTimer;
     #endregion
