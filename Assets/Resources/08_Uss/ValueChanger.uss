@@ -1,0 +1,100 @@
+.value-changer {
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.value-changer__definition {
+    flex-basis: 50%;
+    flex-grow: initial;
+}
+
+.unity-button {
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    transition-duration: 0.1s;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    flex-grow: 1;
+}
+
+.value-changer__value {
+    flex-grow: initial;
+    flex-basis: 40%;
+}
+
+.unity-label {
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    -unity-text-align: middle-center;
+    font-size: 42px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(26, 26, 26);
+}
+
+.value-changer__add:hover {
+    border-left-color: rgb(255, 0, 0);
+    border-right-color: rgb(255, 0, 0);
+    border-top-color: rgb(255, 0, 0);
+    border-bottom-color: rgb(255, 0, 0);
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    transition-duration: 0.1s;
+}
+
+.value-changer__subtract:hover {
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    transition-duration: 0.1s;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.value-changer__container {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-basis: 45%;
+}
+
+.square-container {
+    align-items: center;
+    flex-grow: 1;
+    justify-content: space-around;
+    flex-direction: column;
+    flex-basis: 10%;
+}
+
+.square {
+    padding-top: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}

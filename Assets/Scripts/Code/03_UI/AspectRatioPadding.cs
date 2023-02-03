@@ -42,10 +42,10 @@ namespace RotaryPong.UI
 		}
 
 
-		public int AspectRatioX { get; private set; } = 16;
-		public int AspectRatioY { get; private set; } = 9;
-		public int BalanceX { get; private set; } = 50;
-		public int BalanceY { get; private set; } = 50;
+		public int AspectRatioX = 16;
+		public int AspectRatioY = 9;
+		public int BalanceX = 50;
+		public int BalanceY = 50;
 
 
 		public AspectRatioPanel()
