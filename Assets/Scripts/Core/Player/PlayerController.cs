@@ -111,6 +111,7 @@ namespace RotaryPong
             DropBallParameters parameters = new DropBallParameters{SourceDirection = this.transform.right, SourceGrabber = _ballGrabber};
             _dropBall?.Raise(parameters);
             Rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+            _ballHit?.Raise(_team);
             CanMove = true;
         }
         private void EnableBody()

@@ -17,8 +17,7 @@ namespace RotaryPong.UI
         private const string ussAdd = "value-changer__add";
         private const string ussValue = "value-changer__value";
         private const string ussValueContainer = "value-changer__container";
-        private const string ussSquareContainer = "square-container";
-        private const string ussSquare = "square";
+        private const string ussBtnContainer = "value-changer__btn-container";
     #endregion
 
         private Label definitionLabel;
@@ -75,8 +74,12 @@ namespace RotaryPong.UI
         public float MaxValue {get; private set;}
         public float ChangeValue {get; private set;}
 
-        public ValueChanger()
+        public ValueChanger() {}
+
+        public ValueChanger(FloatVariable variable)
         {
+            floatVariable = variable;
+
             styleSheets.Add(Resources.Load<StyleSheet>(string.Format("08_Uss/{0}", styleSheet)));
             AddToClassList(ussRootContainer);
 
@@ -89,7 +92,7 @@ namespace RotaryPong.UI
             hierarchy.Add(container);
 
             VisualElement subtractContainer = new VisualElement() { name = "btn-container" };
-            subtractContainer.AddToClassList(ussSquareContainer);
+            subtractContainer.AddToClassList(ussBtnContainer);
             container.Add(subtractContainer);
 
             AspectRatioPanel subAR = new AspectRatioPanel() { name = "sub-aspect-ratio", AspectRatioX = 1, AspectRatioY = 1 };
@@ -97,7 +100,6 @@ namespace RotaryPong.UI
 
             Button subtract = new Button() { name = "subtract" };
             subtract.AddToClassList(ussSubtract);
-            // subtract.AddToClassList(ussSquare);
             subtract.clicked += () => OnButtonClicked(false);
             subAR.Add(subtract);
 
@@ -106,7 +108,7 @@ namespace RotaryPong.UI
             container.Add(valueLabel);
 
             VisualElement addContainer = new VisualElement() { name = "btn-container" };
-            addContainer.AddToClassList(ussSquareContainer);
+            addContainer.AddToClassList(ussBtnContainer);
             container.Add(addContainer);
 
             AspectRatioPanel addAR = new AspectRatioPanel() { name = "add-aspect-ratio", AspectRatioX = 1, AspectRatioY = 1 };
@@ -114,7 +116,6 @@ namespace RotaryPong.UI
 
             Button add = new Button() { name = "add" };
             add.AddToClassList(ussAdd);
-            // add.AddToClassList(ussSquare);
             add.clicked += () => OnButtonClicked(true);
             addAR.Add(add);
 

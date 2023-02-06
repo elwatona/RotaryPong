@@ -366,6 +366,17 @@
                     "action": "Drop Ball",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6f01387a-7ca1-4b0b-bc4b-373b2bfa2dc3",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Drop Ball",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

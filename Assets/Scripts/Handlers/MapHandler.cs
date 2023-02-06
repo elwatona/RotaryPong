@@ -16,6 +16,7 @@ namespace RotaryPong
         [SerializeField] PaintVariable _ballPaint;
         [SerializeField] BooleanVariable _canChangeSpinDirection;
         [SerializeField] FloatVariable _mapSpinSpeed;
+        [SerializeField] GameStateVariable _currentGameState;
         [SerializeField] private GameObject _map;
         private float _mapRotationDirection;
 
@@ -35,7 +36,12 @@ namespace RotaryPong
         private void RotateMap()
         {
             float speedRot = _mapSpinSpeed.Value * Time.deltaTime * _mapRotationDirection;
-            _map.transform.Rotate(0, 0, speedRot);
+            if(_currentGameState.Value != GameState.SuddenDeath)
+            {
+                _map.transform.Rotate(0, 0, speedRot);
+                return;
+            }
+            _map.transform.Rotate(0,0,speedRot * 2);
         }
 
         private void OnEnable()

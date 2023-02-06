@@ -15,6 +15,7 @@ namespace RotaryPong
         [SerializeField] FloatVariable _matchDuration;
         [SerializeField] StringVariable _timer;
         [SerializeField] FloatVariable _timerSeconds;
+        [SerializeField] GameStateVariable _currentGameState;
 
         private float _maxMatchTimer;
 
@@ -32,7 +33,6 @@ namespace RotaryPong
 
             if (timer <= 0 && !didGameEnded)
             {
-                print("termino");
                 _didGameEnded.SetValue(true);
                 _timeOutEvent.Raise();
                 return;
@@ -49,7 +49,8 @@ namespace RotaryPong
 
             CheckTimer(timerDecimals, extraNum);
 
-            string textTimer = timerWholeNumbers + "." + extraNum + timerDecimals;
+            string textTimer = timer.ToString("0.00");
+            // timerWholeNumbers + "." + extraNum + timerDecimals;
 
             _timerSeconds.SetValue(timerWholeNumbers);
             _timer.SetValue(textTimer);            
@@ -71,7 +72,12 @@ namespace RotaryPong
         }
         private void Update()
         {
-            if(!_didGameEnded.Value) UpdateTimer();
+            if(!_didGameEnded.Value && _currentGameState.Value != GameState.SuddenDeath) 
+            {
+                UpdateTimer();
+                return;
+            }
+            _timer.SetValue("SUDDEN DEATH!");
         }
     }
 }
