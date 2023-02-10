@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab94602edb7699b45821ddec58868be7, type: 3}
-  m_Name: Rotation Smooth Speed
+  m_Name: SFX Volumen
   m_EditorClassIdentifier: 
-  value: 5
-  DeveloperDescription: Valor a sumar a la rotacion gradual
+  value: 0
+  DeveloperDescription: 

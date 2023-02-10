@@ -1,0 +1,125 @@
+.volumen-changer {
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.volumen-changer__image-container {
+    flex-grow: 3;
+    flex-basis: 20%;
+    width: 100%;
+}
+
+.volumen-changer__image-aspect-ratio {
+    flex-grow: 1;
+}
+
+.volumen-changer__image {
+    flex-grow: 1;
+}
+
+.volumen-changer__slider-container {
+    flex-grow: 3;
+    flex-basis: 70%;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.volumen-changer__slider-aspect-ratio {
+    align-items: center;
+    flex-direction: column;
+}
+
+.volumen-changer__slider-filler {
+    width: 100%;
+    background-color: rgb(26, 26, 26);
+    height: 10%;
+    justify-content: flex-start;
+    flex-grow: 0;
+}
+
+.volumen-changer__value-container {
+    flex-grow: 3;
+    flex-basis: 10%;
+    width: 100%;
+}
+
+.unity-base-slider--vertical {
+    height: 100%;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.unity-base-slider__tracker {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(255, 255, 255);
+}
+
+.unity-base-slider__drag-container {
+    width: 100%;
+    flex-grow: 1;
+    align-items: center;
+    flex-direction: column;
+}
+
+.unity-base-slider__input {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    flex-direction: column;
+}
+
+.unity-base-slider__dragger {
+    display: none;
+}
+
+.unity-base-slider__dragger-border {
+    display: none;
+}
+
+.unity-label {
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    -unity-text-align: middle-center;
+    font-size: 63px;
+    color: rgb(255, 255, 255);
+    flex-basis: 5%;
+    flex-grow: 1;
+}

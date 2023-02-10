@@ -1,72 +1,53 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="Music Volume" src="project://database/Assets/UI%20Toolkit/uxml/Components/Music%20Volume.uxml?fileID=9197481963319205126&amp;guid=9b3b128978b4d73428405e6c62165578&amp;type=3#Music Volume" />
     <ui:Template name="Player Shape" src="project://database/Assets/UI%20Toolkit/uxml/Components/Player%20Shape.uxml?fileID=9197481963319205126&amp;guid=cb4e648ebbbd88945b4149813598135b&amp;type=3#Player Shape" />
-    <ui:Template name="Value Changer" src="project://database/Assets/UI%20Toolkit/uxml/Components/Value%20Changer.uxml?fileID=9197481963319205126&amp;guid=a580d11aa6e598c4caea2cca165dc934&amp;type=3#Value Changer" />
-    <ui:Template name="Boolean Field" src="project://database/Assets/UI%20Toolkit/uxml/Components/Boolean%20Field.uxml?fileID=9197481963319205126&amp;guid=ad29ec9bdaaf675439914f4989c0a9ed&amp;type=3#Boolean Field" />
-    <ui:Template name="SFX Volume" src="project://database/Assets/UI%20Toolkit/uxml/Components/SFX%20Volume.uxml?fileID=9197481963319205126&amp;guid=5b87505a1ef99684599741c9d9de1860&amp;type=3#SFX Volume" />
-    <ui:Template name="Button" src="project://database/Assets/UI%20Toolkit/uxml/Components/Button.uxml?fileID=9197481963319205126&amp;guid=11bd5dc43b01ec54db854f3f0f85507b&amp;type=3#Button" />
     <ui:Template name="Presets" src="project://database/Assets/UI%20Toolkit/uxml/Components/Presets.uxml?fileID=9197481963319205126&amp;guid=b223e5a292e12e140b8a16a14a9f586f&amp;type=3#Presets" />
+    <ui:Template name="Button" src="project://database/Assets/UI%20Toolkit/uxml/Components/Button.uxml?fileID=9197481963319205126&amp;guid=11bd5dc43b01ec54db854f3f0f85507b&amp;type=3#Button" />
     <Style src="project://database/Assets/UI%20Toolkit/uss/style.uss?fileID=7433441132597879392&amp;guid=9f46565e3a7b5834b8f2269cecfb32bf&amp;type=3#style" />
-    <ui:VisualElement name="Title" style="flex-direction: row; -unity-text-align: middle-center; justify-content: center; align-items: center; flex-grow: 3; background-color: rgb(0, 0, 17); height: auto; max-height: 40%;">
+    <ui:VisualElement name="Title" style="flex-direction: row; -unity-text-align: middle-center; justify-content: center; align-items: center; flex-grow: 3; background-color: rgb(0, 0, 17); height: auto; max-height: 40%; flex-basis: 30%;">
         <ui:Label text="SETT" display-tooltip-when-elided="true" style="font-size: 168px; -unity-font-definition: resource(&apos;06_Fonts/NeutronsDemoRegular SDF&apos;); -unity-font: resource(&apos;06_Fonts/NeutronsDemoRegular&apos;); width: 715px; -unity-text-align: lower-right; height: 280px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; color: rgb(0, 191, 243);" />
         <ui:Label text="INGS" display-tooltip-when-elided="true" style="font-size: 168px; -unity-font-definition: resource(&apos;06_Fonts/NeutronsDemoRegular SDF&apos;); -unity-font: resource(&apos;06_Fonts/NeutronsDemoRegular&apos;); width: 550px; height: 280px; -unity-text-align: lower-left; color: rgb(237, 0, 140);" />
     </ui:VisualElement>
-    <ui:VisualElement name="Elements" style="flex-grow: 3; flex-direction: row; background-color: rgb(0, 0, 17);">
-        <ui:Instance template="Music Volume" name="Music Volume" style="flex-grow: 3; width: 1.25%;" />
-        <ui:VisualElement name="Options" style="flex-direction: row; flex-grow: 3;">
-            <ui:VisualElement name="Player-Column" style="flex-grow: 3; align-items: stretch; margin-right: 0; padding-right: 5px; padding-left: 5px; padding-top: 0; padding-bottom: 10px;">
-                <ui:Label text="Player" display-tooltip-when-elided="true" name="Player" class="titles" style="flex-grow: 4; flex-shrink: 1;" />
+    <ui:VisualElement name="Elements" style="flex-grow: 3; flex-direction: row; background-color: rgb(0, 0, 17); flex-basis: 60%;">
+        <RotaryPong.UI.VolumenChanger name="Music" style="flex-grow: 3;" />
+        <ui:VisualElement name="Options" style="flex-direction: row; flex-grow: 3; flex-basis: 60%;">
+            <ui:VisualElement name="Player-Column" style="flex-grow: 3; align-items: stretch; margin-right: 7.5px; padding-right: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; flex-basis: 20%; margin-left: 7.5px; justify-content: flex-start;">
+                <ui:Label text="Player" display-tooltip-when-elided="true" name="Player" class="titles" style="flex-grow: 4; flex-shrink: 1; max-height: 75px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 7.5px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
                 <ui:Instance template="Player Shape" name="Player-Shape" style="height: auto; max-height: none; align-items: stretch; justify-content: center; flex-grow: 4; flex-basis: 50%;" />
-                <ui:Instance template="Value Changer" name="Player-Speed" style="flex-grow: 4;">
-                    <AttributeOverrides element-name="definition" text="Speed" />
-                </ui:Instance>
-                <ui:Instance template="Boolean Field" name="Smooth-Rotation" style="flex-grow: 4; align-items: stretch; justify-content: center;">
-                    <AttributeOverrides element-name="input" label="Smooth Rotation" />
-                </ui:Instance>
+                <RotaryPong.UI.ValueChanger name="Player-Speed" max-value="12" min-value="8" style="flex-grow: 4; margin-left: 0; margin-right: 0; margin-top: 2.5px; margin-bottom: 0;" />
+                <RotaryPong.UI.BooleanValue name="Smooth-Rotation" style="flex-grow: 4; margin-left: 0; margin-right: 0; margin-top: 2.5px; margin-bottom: 0;" />
             </ui:VisualElement>
-            <ui:VisualElement name="Ball-Column" style="flex-grow: 3; justify-content: center; align-items: stretch; margin-right: 0; margin-left: 0; margin-top: 0; margin-bottom: 0; padding-right: 5px; padding-left: 5px; padding-bottom: 10px;">
-                <ui:Label text="Preset Name" display-tooltip-when-elided="true" name="Preset" enable-rich-text="true" class="titles" style="font-size: 63px;" />
-                <ui:Instance template="Presets" name="Presets" style="flex-grow: 7;" />
-                <ui:Label text="Ball" display-tooltip-when-elided="true" name="Ball" class="titles" style="flex-shrink: 1; flex-grow: 7;" />
-                <ui:Instance template="Boolean Field" name="Color-By-Bounce" style="flex-grow: 7;">
-                    <AttributeOverrides element-name="input" label="Color By Bounce" />
-                </ui:Instance>
-                <ui:Instance template="Value Changer" name="Color-Duration" style="flex-grow: 7;">
-                    <AttributeOverrides element-name="definition" text="Duration" />
-                    <AttributeOverrides element-name="value" text="0" />
-                </ui:Instance>
-                <ui:Instance template="Boolean Field" name="Ball-Effect" style="flex-grow: 7;">
-                    <AttributeOverrides element-name="input" label="Ball Effect" />
-                </ui:Instance>
-                <ui:Instance template="Value Changer" name="Effect-Timer" style="flex-grow: 7;">
-                    <AttributeOverrides element-name="definition" text="Timer" />
-                    <AttributeOverrides element-name="value" text="0.5" />
-                </ui:Instance>
+            <ui:VisualElement name="Ball-Column" style="flex-grow: 3; justify-content: flex-start; align-items: stretch; margin-right: 7.5px; margin-left: 7.5px; margin-top: 0; margin-bottom: 0; padding-right: 0; padding-left: 0; padding-bottom: 0; flex-basis: 20%; padding-top: 0;">
+                <ui:VisualElement style="flex-grow: 2;">
+                    <ui:Label text="Preset Name" display-tooltip-when-elided="true" name="Preset" enable-rich-text="true" class="titles" style="font-size: 63px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 7.5px; min-height: 75px;" />
+                    <ui:Instance template="Presets" name="Presets" style="flex-grow: 7; max-height: none;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-grow: 2; justify-content: flex-end;">
+                    <ui:Label text="Ball" display-tooltip-when-elided="true" name="Ball" class="titles" style="flex-shrink: 1; flex-grow: 7; max-height: 75px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 2.5px; margin-bottom: 7.5px;" />
+                    <RotaryPong.UI.BooleanValue name="Ball-Effect" style="flex-grow: 7; margin-top: 2.5px; margin-bottom: 0;" />
+                    <RotaryPong.UI.ValueChanger name="Effect-Timer" min-value="0.25" max-value="0.75" change-value="0.05" style="flex-grow: 7; margin-top: 2.5px; margin-bottom: 0;" />
+                    <RotaryPong.UI.BooleanValue name="Color-By-Bounce" style="flex-grow: 7; margin-top: 2.5px; margin-bottom: 0;" />
+                    <RotaryPong.UI.ValueChanger name="Color-Duration" min-value="1" max-value="4" style="flex-grow: 7; margin-bottom: 0; margin-top: 2.5px;" />
+                </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="Map-Match-Column" style="flex-grow: 3; justify-content: center; align-items: stretch; margin-right: 0; margin-left: 0; margin-top: 0; margin-bottom: 0; padding-left: 5px; padding-right: 10px; padding-bottom: 10px;">
-                <ui:Label text="Map" display-tooltip-when-elided="true" name="Map" class="titles" style="flex-grow: 7; flex-shrink: 1;" />
-                <ui:Instance template="Value Changer" name="Map-Speed" style="flex-grow: 7;">
-                    <AttributeOverrides element-name="definition" text="Speed" />
-                    <AttributeOverrides element-name="value" text="00" />
-                </ui:Instance>
-                <ui:Instance template="Boolean Field" name="Control-Map-Spin" style="flex-grow: 7;">
-                    <AttributeOverrides element-name="input" label="Control Map Spin" />
-                </ui:Instance>
-                <ui:Label text="Match" display-tooltip-when-elided="true" name="Match" class="titles" style="flex-grow: 7; flex-shrink: 1;" />
-                <ui:Instance template="Value Changer" name="Match-Timer" style="flex-grow: 7;">
-                    <AttributeOverrides element-name="definition" text="Timer" />
-                </ui:Instance>
-                <ui:Instance template="Boolean Field" name="Front-Only-Goals" style="flex-grow: 7;">
-                    <AttributeOverrides element-name="input" label="Front Only Goals" />
-                </ui:Instance>
-                <ui:Instance template="Boolean Field" name="Player-Bounce" style="flex-grow: 7;">
-                    <AttributeOverrides element-name="input" label="Player Bounce" />
-                </ui:Instance>
+            <ui:VisualElement name="Map-Match-Column" style="flex-grow: 3; justify-content: flex-start; align-items: stretch; margin-right: 7.5px; margin-left: 7.5px; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-bottom: 0; flex-basis: 20%; padding-top: 0;">
+                <ui:VisualElement style="flex-grow: 2;">
+                    <ui:Label text="Map" display-tooltip-when-elided="true" name="Map" class="titles" style="flex-grow: 7; flex-shrink: 1; max-height: 75px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 7.5px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                    <RotaryPong.UI.BooleanValue name="Control-Map-Spin" style="flex-grow: 7; margin-top: 2.5px;" />
+                    <RotaryPong.UI.ValueChanger name="Map-Speed" min-value="90" max-value="115" change-value="5" style="flex-grow: 7; margin-top: 2.5px;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-grow: 2; justify-content: flex-end;">
+                    <ui:Label text="Match" display-tooltip-when-elided="true" name="Match" class="titles" style="flex-grow: 7; flex-shrink: 1; max-height: 75px; margin-left: 0; margin-right: 0; margin-top: 2.5px; margin-bottom: 7.5px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                    <RotaryPong.UI.ValueChanger name="Match-Timer" max-value="180" min-value="90" change-value="30" style="flex-grow: 7; margin-top: 2.5px;" />
+                    <RotaryPong.UI.BooleanValue name="Player-Bounce" style="flex-grow: 7; margin-top: 2.5px;" />
+                    <RotaryPong.UI.BooleanValue name="Front-Only-Goals" style="flex-grow: 7; margin-top: 2.5px;" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Instance template="SFX Volume" name="SFX-Volume" style="flex-grow: 3; width: 1.25%;" />
+        <RotaryPong.UI.VolumenChanger volumen-controller="SFX" name="SFX" style="flex-grow: 3;" />
     </ui:VisualElement>
-    <ui:Instance template="Button" name="Done" style="align-items: center; flex-grow: 3; justify-content: center; height: 2%; background-color: rgb(0, 0, 17);">
-        <AttributeOverrides element-name="btn" text="Done" />
-    </ui:Instance>
+    <ui:VisualElement style="align-items: center; flex-basis: 15%; justify-content: center; background-color: rgb(0, 0, 17);">
+        <ui:Instance template="Button" name="Done">
+            <AttributeOverrides element-name="btn" text="done" />
+        </ui:Instance>
+    </ui:VisualElement>
 </ui:UXML>

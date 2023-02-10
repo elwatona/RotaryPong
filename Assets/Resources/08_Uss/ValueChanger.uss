@@ -8,7 +8,7 @@
 
 .value-changer__definition {
     flex-basis: 50%;
-    flex-grow: initial;
+    flex-grow: 1;
 }
 
 .unity-button {
@@ -37,9 +37,12 @@
     flex-grow: 1;
 }
 
+.value-changer__value-container{
+    flex-grow: 1;
+}
+
 .value-changer__value {
-    flex-grow: initial;
-    flex-basis: 40%;
+    flex-grow: 1;
 }
 
 .unity-label {
@@ -47,15 +50,15 @@
     -unity-font-definition: resource('06_Fonts/Fastron SDF');
     -unity-text-align: middle-center;
     font-size: 42px;
-    color: rgb(255, 255, 255);
+    color: rgb(237, 0, 140);
     background-color: rgb(26, 26, 26);
 }
 
 .value-changer__add:hover {
-    border-left-color: rgb(255, 0, 0);
-    border-right-color: rgb(255, 0, 0);
-    border-top-color: rgb(255, 0, 0);
-    border-bottom-color: rgb(255, 0, 0);
+    border-left-color: rgb(237, 0, 140);
+    border-right-color: rgb(237, 0, 140);
+    border-top-color: rgb(237, 0, 140);
+    border-bottom-color: rgb(237, 0, 140);
     border-left-width: 10px;
     border-right-width: 10px;
     border-top-width: 10px;
@@ -73,10 +76,10 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     transition-duration: 0.1s;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
+    border-left-color: rgb(0, 191, 243);
+    border-right-color: rgb(0, 191, 243);
+    border-top-color: rgb(0, 191, 243);
+    border-bottom-color: rgb(0, 191, 243);
 }
 
 .value-changer__container {
@@ -88,4 +91,8 @@
 .value-changer__btn-container {
     flex-grow: 1;
     justify-content: space-between;
+}
+
+.value-changer__definition-container{
+    flex-grow: 1;
 }

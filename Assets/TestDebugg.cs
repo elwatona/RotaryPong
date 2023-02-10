@@ -9,16 +9,16 @@ using RotaryPong.UI;
 public class TestDebugg : MonoBehaviour
 {
     private VisualElement _root;
-    private ValueChanger _valueChanger;
-    [SerializeField] FloatVariable _variable;
+    private BooleanValue _valueChanger;
+    [SerializeField] BooleanVariable _variable;
     private void Awake()
     {
         _root = GetComponent<UIDocument>().rootVisualElement;
-        _valueChanger = _root.Q<ValueChanger>("Debug");
+        _valueChanger = _root.Q<BooleanValue>("Debug");
     }
     private void Start()
     {
-        _valueChanger.FloatVariable = _variable;
+        // _valueChanger.BooleanVariable = _variable;
     }
     private void Update()
     {

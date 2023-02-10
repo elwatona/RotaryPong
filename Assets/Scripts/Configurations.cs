@@ -32,5 +32,7 @@ namespace RotaryPong
         public bool ballEffect;
         public float ballEffectTimer;
         public Shape playerShape;
+        public float musicVolumen;
+        public float sfxVolumen;
     }
 }

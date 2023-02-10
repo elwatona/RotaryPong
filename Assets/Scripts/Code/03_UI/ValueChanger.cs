@@ -20,9 +20,6 @@ namespace RotaryPong.UI
         private const string ussBtnContainer = "value-changer__btn-container";
     #endregion
 
-        private Label definitionLabel;
-        private Label valueLabel;
-
         public new class UxmlFactory : UxmlFactory<ValueChanger, UxmlTraits> { }
 
         public new class UxmlTraits : VisualElement.UxmlTraits
@@ -50,42 +47,39 @@ namespace RotaryPong.UI
                 ate.MinValue = m_MinValue.GetValueFromBag(bag, cc);
                 ate.MaxValue = m_MaxValue.GetValueFromBag(bag, cc);
                 ate.ChangeValue = m_ChangeValue.GetValueFromBag(bag, cc);
-
-                ate.UpdateValues();
             }
         }
 
+
+        private Label _definitionLabel;
+        private Label _valueLabel;
+        private FloatVariable _floatVariable;
+
         public FloatVariable FloatVariable 
         {
-            get { return floatVariable; } 
-            set { floatVariable = value; UpdateValues(); }
+            get { return _floatVariable; } 
+            set { _floatVariable = value; UpdateValues(); }
         }
-        private FloatVariable floatVariable;
-
         public string Definition 
         { 
-            get { return definitionLabel.text; }
+            get { return _definitionLabel.text; }
         }
         public float Value 
         { 
-            get {return FloatVariable != null ? FloatVariable.Value : float.Parse(valueLabel.text);}
+            get {return _floatVariable != null ? _floatVariable.Value : float.Parse(_valueLabel.text);}
         }
         public float MinValue {get; private set;}
         public float MaxValue {get; private set;}
         public float ChangeValue {get; private set;}
 
-        public ValueChanger() {}
-
-        public ValueChanger(FloatVariable variable)
+        public ValueChanger()
         {
-            floatVariable = variable;
-
-            styleSheets.Add(Resources.Load<StyleSheet>(string.Format("08_Uss/{0}", styleSheet)));
+            styleSheets.Add(Resources.Load<StyleSheet>(string.Format("08_USS/{0}", styleSheet)));
             AddToClassList(ussRootContainer);
 
-            definitionLabel = new Label() { name = "definition" };
-            definitionLabel.AddToClassList(ussDefinition);
-            hierarchy.Add(definitionLabel);
+            _definitionLabel = new Label() { name = "definition" };
+            _definitionLabel.AddToClassList(ussDefinition);
+            hierarchy.Add(_definitionLabel);
 
             VisualElement container = new VisualElement() { name = "value-container" };
             container.AddToClassList(ussValueContainer);
@@ -95,7 +89,7 @@ namespace RotaryPong.UI
             subtractContainer.AddToClassList(ussBtnContainer);
             container.Add(subtractContainer);
 
-            AspectRatioPanel subAR = new AspectRatioPanel() { name = "sub-aspect-ratio", AspectRatioX = 1, AspectRatioY = 1 };
+            AspectRatioPanel subAR = new AspectRatioPanel() { name = "sub-aspect-ratio", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 100, BalanceY = 50 };
             subtractContainer.Add(subAR);
 
             Button subtract = new Button() { name = "subtract" };
@@ -103,15 +97,15 @@ namespace RotaryPong.UI
             subtract.clicked += () => OnButtonClicked(false);
             subAR.Add(subtract);
 
-            valueLabel = new Label() { name = "value" };
-            valueLabel.AddToClassList(ussValue);
-            container.Add(valueLabel);
+            _valueLabel = new Label() { name = "value" };
+            _valueLabel.AddToClassList(ussValue);
+            container.Add(_valueLabel);
 
             VisualElement addContainer = new VisualElement() { name = "btn-container" };
             addContainer.AddToClassList(ussBtnContainer);
             container.Add(addContainer);
 
-            AspectRatioPanel addAR = new AspectRatioPanel() { name = "add-aspect-ratio", AspectRatioX = 1, AspectRatioY = 1 };
+            AspectRatioPanel addAR = new AspectRatioPanel() { name = "add-aspect-ratio", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 0, BalanceY = 50 };
             addContainer.Add(addAR);
 
             Button add = new Button() { name = "add" };
@@ -124,25 +118,24 @@ namespace RotaryPong.UI
 
         private void OnButtonClicked(bool positive)
         {
-            if(FloatVariable != null)
-            {
-                float changeValue = positive ? ChangeValue : -ChangeValue;
-                float newValue = FloatVariable.Value + changeValue;
-                float desiredValue = newValue > MaxValue ? MaxValue : newValue < MinValue ? MinValue : newValue;
-
-                FloatVariable.SetValue(desiredValue);
-                UpdateValues();
-            }
-            else
+            if(_floatVariable == null)
             {
                 Debug.LogWarning(string.Format("{0} necesita un FloatReference", this.name));
+                return;
             }
+
+            float changeValue = positive ? ChangeValue : -ChangeValue;
+            float newValue = _floatVariable.Value + changeValue;
+            float desiredValue = newValue > MaxValue ? MaxValue : newValue < MinValue ? MinValue : newValue;
+
+            _floatVariable.SetValue(desiredValue);
+            UpdateValues();
         }
 
         private void UpdateValues()
         {
-            definitionLabel.text = FloatVariable != null ? FloatVariable.name : "default-text";
-            valueLabel.text = FloatVariable != null ? FloatVariable.Value.ToString("0.##") : "000";
+            _definitionLabel.text = _floatVariable != null ? _floatVariable.name : "default-text";
+            _valueLabel.text = _floatVariable != null ? _floatVariable.Value.ToString("0.##") : "000";
         }
     }
 }

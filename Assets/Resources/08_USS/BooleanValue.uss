@@ -1,0 +1,150 @@
+.boolean-value {
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: space-between;
+    max-height: 60px;
+    min-width: 460px;
+}
+
+.boolean-value__toggle-container {
+    flex-grow: 1;
+    justify-content: space-between;
+    flex-basis: 20%;
+    align-items: stretch;
+}
+
+.unity-toggle {
+    flex-direction: row;
+    flex-grow: 1;
+    max-width: none;
+    -unity-text-align: middle-left;
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    font-size: 42px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.unity-toggle__input {
+    flex-grow: 1;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    height: 100%;
+    justify-content: center;
+    background-color: rgb(26, 26, 26);
+    transition-duration: 0.1s;
+}
+
+.unity-toggle__input:checked {
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    background-color: rgb(0, 191, 243);
+    height: 100%;
+    transition-duration: 0.1s;
+}
+
+.unity-toggle__input:hover {
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-left-color: rgb(237, 0, 140);
+    border-right-color: rgb(237, 0, 140);
+    border-top-color: rgb(237, 0, 140);
+    border-bottom-color: rgb(237, 0, 140);
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    height: 100%;
+    transition-duration: 0.25s;
+}
+
+.unity-toggle__checkmark {
+    background-color: rgb(255, 0, 0);
+    flex-grow: 0;
+    flex-shrink: 0;
+    color: rgba(210, 210, 210, 0);
+    opacity: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.unity-toggle__label {
+    background-color: rgb(26, 26, 26);
+    -unity-background-image-tint-color: rgb(26, 26, 26);
+    color: rgb(237, 0, 140);
+    max-width: 80%;
+    max-height: 80px;
+    min-width: initial;
+    min-height: 40px;
+    flex-grow: 2;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 100%;
+    -unity-text-align: middle-center;
+    justify-content: center;
+}
+
+.unity-label {
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    -unity-text-align: middle-center;
+    font-size: 42px;
+    color: rgb(237, 0, 140);
+    background-color: rgb(26, 26, 26);
+    flex-basis: 80%;
+    flex-grow: 1;
+}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab94602edb7699b45821ddec58868be7, type: 3}
-  m_Name: Match Duration Seconds
+  m_Name: Spin Speed
   m_EditorClassIdentifier: 
   value: 90
-  DeveloperDescription: Tiempo maximo de duracion de la partida (en segundos)
+  DeveloperDescription: Velocidad con la que rota el mapa

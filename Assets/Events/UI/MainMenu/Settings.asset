@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab94602edb7699b45821ddec58868be7, type: 3}
-  m_Name: Ball Color Bounces Duration
+  m_Script: {fileID: 11500000, guid: 4088453daca7dcd4687ca593c33009af, type: 3}
+  m_Name: Settings
   m_EditorClassIdentifier: 
-  value: 3
-  DeveloperDescription: La cantidad de rebotes que tiene la pelota para volver al
-    color neutro

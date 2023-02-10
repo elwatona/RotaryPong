@@ -1,0 +1,6 @@
+.unity-label {
+    font-size: 168px;
+    -unity-font: resource('06_Fonts/NeutronsDemoRegular');
+    -unity-font-definition: resource('06_Fonts/NeutronsDemoRegular SDF');
+    -unity-text-align: middle-center;
+}

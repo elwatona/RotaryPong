@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9b5f6fc2f7d6346baa42a53bce61b5, type: 3}
-  m_Name: Control Map Spin Direction
+  m_Script: {fileID: 11500000, guid: ab94602edb7699b45821ddec58868be7, type: 3}
+  m_Name: Music Volumen
   m_EditorClassIdentifier: 
-  value: 1
-  DeveloperDescription: Define si el jugador puede cambiar la direccion de movimiento
+  value: 0
+  DeveloperDescription: 

@@ -72,10 +72,6 @@
     -unity-text-align: middle-center;
     color: rgb(237, 0, 140);
     background-color: rgb(26, 26, 26);
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 5px;
-    margin-bottom: 5px;
 }
 
 .preset-button {
