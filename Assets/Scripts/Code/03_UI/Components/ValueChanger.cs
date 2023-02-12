@@ -85,33 +85,17 @@ namespace RotaryPong.UI
             container.AddToClassList(ussValueContainer);
             hierarchy.Add(container);
 
-            VisualElement subtractContainer = new VisualElement() { name = "btn-container" };
-            subtractContainer.AddToClassList(ussBtnContainer);
+            SquareButton subtractContainer = new SquareButton(ButtonType.Back) { name = "btn-container", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 0, BalanceY = 50};
+            subtractContainer.clicked += () => OnButtonClicked(false);
             container.Add(subtractContainer);
-
-            AspectRatioPanel subAR = new AspectRatioPanel() { name = "sub-aspect-ratio", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 100, BalanceY = 50 };
-            subtractContainer.Add(subAR);
-
-            Button subtract = new Button() { name = "subtract" };
-            subtract.AddToClassList(ussSubtract);
-            subtract.clicked += () => OnButtonClicked(false);
-            subAR.Add(subtract);
 
             _valueLabel = new Label() { name = "value" };
             _valueLabel.AddToClassList(ussValue);
             container.Add(_valueLabel);
 
-            VisualElement addContainer = new VisualElement() { name = "btn-container" };
-            addContainer.AddToClassList(ussBtnContainer);
+            SquareButton addContainer = new SquareButton(ButtonType.Next) { name = "btn-container", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 100, BalanceY = 50};
+            addContainer.clicked += () => OnButtonClicked(true);
             container.Add(addContainer);
-
-            AspectRatioPanel addAR = new AspectRatioPanel() { name = "add-aspect-ratio", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 0, BalanceY = 50 };
-            addContainer.Add(addAR);
-
-            Button add = new Button() { name = "add" };
-            add.AddToClassList(ussAdd);
-            add.clicked += () => OnButtonClicked(true);
-            addAR.Add(add);
 
             UpdateValues();
         }

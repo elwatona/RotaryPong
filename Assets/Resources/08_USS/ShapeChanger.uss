@@ -1,0 +1,31 @@
+.shape-changer {
+    flex-grow: 1;
+}
+
+.shape-changer__root-aspect-ratio {
+    flex-grow: 1;
+    flex-direction: column-reverse;
+    border-width: 2.5px;
+    border-color: white;
+    background-image: resource('01_Materials/PlayerShape');
+}
+
+.shape-changer__footer {
+    height: 10%;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.unity-label {
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    -unity-text-align: middle-center;
+    font-size: 42px;
+    color: rgb(237, 0, 140);
+    background-color: rgb(26, 26, 26);
+    height: 100%;
+    flex-basis: 50%;
+}
