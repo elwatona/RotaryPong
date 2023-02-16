@@ -85,7 +85,7 @@ namespace RotaryPong.UI
             container.AddToClassList(ussValueContainer);
             hierarchy.Add(container);
 
-            SquareButton subtractContainer = new SquareButton(ButtonType.Back) { name = "btn-container", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 0, BalanceY = 50};
+            AspectRatioButton subtractContainer = new AspectRatioButton(ButtonType.Back) { name = "btn-container", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 0, BalanceY = 50};
             subtractContainer.clicked += () => OnButtonClicked(false);
             container.Add(subtractContainer);
 
@@ -93,7 +93,7 @@ namespace RotaryPong.UI
             _valueLabel.AddToClassList(ussValue);
             container.Add(_valueLabel);
 
-            SquareButton addContainer = new SquareButton(ButtonType.Next) { name = "btn-container", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 100, BalanceY = 50};
+            AspectRatioButton addContainer = new AspectRatioButton(ButtonType.Next) { name = "btn-container", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 100, BalanceY = 50};
             addContainer.clicked += () => OnButtonClicked(true);
             container.Add(addContainer);
 

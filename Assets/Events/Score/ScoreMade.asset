@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ScoreMade
   m_EditorClassIdentifier: 
   _parameter:
-    SourceTeam: 2
-    SourcePosition: {x: 4.226399, y: 7.7696934, z: 4}
+    SourceTeam: 1
+    SourcePosition: {x: 0.25170252, y: 8.763971, z: 4}

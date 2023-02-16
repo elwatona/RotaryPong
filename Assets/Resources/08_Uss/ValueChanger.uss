@@ -1,51 +1,3 @@
-.value-changer {
-    flex-direction: row;
-    flex-grow: 1;
-    justify-content: space-between;
-    max-height: 60px;
-}
-
-.value-changer__definition {
-    flex-basis: 50%;
-    flex-grow: 1;
-}
-
-.unity-button {
-    background-color: rgba(0, 0, 0, 0);
-    border-left-color: rgb(255, 255, 255);
-    border-right-color: rgb(255, 255, 255);
-    border-top-color: rgb(255, 255, 255);
-    border-bottom-color: rgb(255, 255, 255);
-    border-left-width: 5px;
-    border-right-width: 5px;
-    border-top-width: 5px;
-    border-bottom-width: 5px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    transition-duration: 0.1s;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    flex-grow: 1;
-}
-
-.value-changer__value-container {
-    flex-grow: 1;
-    align-items: center;
-    justify-content: center;
-}
-
-.value-changer__value {
-    flex-basis: 30%;
-}
-
 .unity-label {
     -unity-font: resource('06_Fonts/Fastron');
     -unity-font-definition: resource('06_Fonts/Fastron SDF');
@@ -58,38 +10,30 @@
     padding: 0px;
 }
 
-.value-changer__add:hover {
-    border-left-color: rgb(237, 0, 140);
-    border-right-color: rgb(237, 0, 140);
-    border-top-color: rgb(237, 0, 140);
-    border-bottom-color: rgb(237, 0, 140);
-    border-left-width: 10px;
-    border-right-width: 10px;
-    border-top-width: 10px;
-    border-bottom-width: 10px;
-    transition-duration: 0.1s;
+.value-changer {
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: space-between;
+    max-height: 60px;
 }
 
-.value-changer__subtract:hover {
-    border-left-width: 10px;
-    border-right-width: 10px;
-    border-top-width: 10px;
-    border-bottom-width: 10px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    transition-duration: 0.1s;
-    border-left-color: rgb(0, 191, 243);
-    border-right-color: rgb(0, 191, 243);
-    border-top-color: rgb(0, 191, 243);
-    border-bottom-color: rgb(0, 191, 243);
+.value-changer__definition {
+    flex-basis: 50%;
+}
+.value-changer__value {
+    flex-basis: 30%;
+}
+
+.value-changer__value-container {
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .value-changer__container {
     flex-direction: row;
     justify-content: center;
-    flex-basis: 45%;
+    flex-basis: 40%;
     align-items: stretch;
 }
 

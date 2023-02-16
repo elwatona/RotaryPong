@@ -1,4 +1,4 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Resources/08_USS/ValueChanger.uss?fileID=7433441132597879392&amp;guid=3234b811a50470d45a621c3d6ca7008f&amp;type=3#ValueChanger" />
-    <RotaryPong.UI.ValueChanger />
+    <Style src="project://database/Assets/Resources/08_USS/VolumenChanger.uss?fileID=7433441132597879392&amp;guid=86b0a83050cd52b4db71f8a7339b219a&amp;type=3#VolumenChanger" />
+    <RotaryPong.UI.VolumenChanger />
 </ui:UXML>

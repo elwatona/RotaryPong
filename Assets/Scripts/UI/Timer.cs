@@ -9,6 +9,7 @@ namespace RotaryPong
 {
     public class Timer : MonoBehaviour
     {
+        [SerializeField] CodedGameEventListener<Paint> _scoreListener;
         [SerializeField] GameEvent _timeOutEvent;
 
         [SerializeField] BooleanVariable _didGameEnded;
@@ -16,9 +17,54 @@ namespace RotaryPong
         [SerializeField] StringVariable _timer;
         [SerializeField] FloatVariable _timerSeconds;
         [SerializeField] GameStateVariable _currentGameState;
+        [SerializeField] bool _canCount;
 
         private float _maxMatchTimer;
 
+        private void Awake()
+        {
+            SetTimer();
+            _canCount = true;
+        }
+        private void OnEnable()
+        {
+            _scoreListener?.OnEnable(ScoreAnnounce);
+        }
+        private void OnDisable()
+        {
+            _scoreListener?.OnDisable();
+        }
+        private void Update()
+        {
+            switch(_currentGameState.Value)
+            {
+                case GameState.Versus:
+                    if(!_didGameEnded.Value && _canCount) 
+                    {
+                        UpdateTimer();
+                        return;
+                    }
+
+                break;
+                case GameState.SuddenDeath:
+                    _timer.SetValue("SUDDEN DEATH!");
+                break;
+                case GameState.Pause:
+                    _timer.SetValue("Pause");
+                break;
+            }
+        }
+
+        private void ScoreAnnounce(Paint team)
+        {
+            _timer.SetValue("Point");
+            _canCount = false;
+            Invoke("EnableCount", 2f);
+        }
+        private void EnableCount()
+        {
+            _canCount = true;
+        }
         ///<summary> Define el valor de <paramref name="_maxMatchTimer"/> </summary>
         private void SetTimer()
         {
@@ -28,7 +74,9 @@ namespace RotaryPong
         ///<summary> Actualiza la variable <paramref name="_timer"> al tiempo restante de partida </summary>
         private void UpdateTimer()
         {
-            float timer = _maxMatchTimer -= Time.deltaTime;
+            float timer =  _maxMatchTimer -= Time.deltaTime;
+            float timerWholeNumbers = Mathf.Floor(timer);
+            string textTimer = timer.ToString("0.00");
             bool didGameEnded = _didGameEnded.Value;
 
             if (timer <= 0 && !didGameEnded)
@@ -38,46 +86,8 @@ namespace RotaryPong
                 return;
             }
 
-            float timerWholeNumbers = Mathf.Floor(timer);
-            float gameTimer = timer;
-
-            gameTimer *= 100;
-            gameTimer = Mathf.Floor(gameTimer);
-
-            float timerDecimals = gameTimer - (timerWholeNumbers * 100);
-            string extraNum = "";
-
-            CheckTimer(timerDecimals, extraNum);
-
-            string textTimer = timer.ToString("0.00");
-            // timerWholeNumbers + "." + extraNum + timerDecimals;
-
             _timerSeconds.SetValue(timerWholeNumbers);
             _timer.SetValue(textTimer);            
-        }
-        ///<summary> Define el valor de <paramref name="extra"/> dependiendo <paramref name="decimals"/> </summary>
-        private void CheckTimer(float decimals, string extra)
-        {
-            if (decimals < 10)
-            {
-                extra = "0";
-                return;
-            }
-            extra = "";
-        }
-
-        private void Awake()
-        {
-            SetTimer();
-        }
-        private void Update()
-        {
-            if(!_didGameEnded.Value && _currentGameState.Value != GameState.SuddenDeath) 
-            {
-                UpdateTimer();
-                return;
-            }
-            _timer.SetValue("SUDDEN DEATH!");
         }
     }
 }

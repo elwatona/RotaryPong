@@ -40,14 +40,14 @@ namespace RotaryPong.UI
             footer.AddToClassList(ussFooter);
             rootAR.Add(footer);
 
-            SquareButton back = new SquareButton(ButtonType.Back) { name = "back-btn", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 5, BalanceY = 50 };
+            AspectRatioButton back = new AspectRatioButton(ButtonType.Back) { name = "back-btn", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 5, BalanceY = 50 };
             back.clickable.clicked += () => ChangeShape(-1);
             footer.Add(back);
 
             _definition = new Label("default-text") { name = "definition" };
             footer.Add(_definition);
 
-            SquareButton next = new SquareButton(ButtonType.Next) { name = "next-btn", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 95, BalanceY = 50 };
+            AspectRatioButton next = new AspectRatioButton(ButtonType.Next) { name = "next-btn", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 95, BalanceY = 50 };
             next.clickable.clicked += () => ChangeShape(1);
             footer.Add(next);
         }

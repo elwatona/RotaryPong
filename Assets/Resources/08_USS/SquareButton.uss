@@ -2,50 +2,75 @@
     flex-grow: 1;
 }
 
-.square-button__root-aspect-ratio {
+.button__root-aspect-ratio {
     flex-grow: 1;
-    /* min-height: 100%; */
 }
 
-.square-button__back {
+.button__back {
     flex-grow: 1;
     border-width: 10px;
     border-color: white;
     transition-duration: 0.1s;
 }
 
-.square-button__back:hover {
+.button__back:hover {
     flex-grow: 1;
     border-width: 15px;
     border-color: rgb(0, 191, 243);
     transition-duration: 0.1s;
 }
 
-.square-button__back:active {
+.button__back:active {
     flex-grow: 1;
     border-width: 20px;
     border-color: rgb(0, 191, 243);
     transition-duration: 0.1s;
 }
 
-.square-button__next {
+.button__next {
     flex-grow: 1;
     border-width: 10px;
     border-color: white;
     transition-duration: 0.1s;
 }
-.square-button__next:hover {
+.button__next:hover {
     flex-grow: 1;
     border-width: 15px;
     border-color: rgb(237, 0, 140);
     transition-duration: 0.1s;
 }
 
-.square-button__next:active {
+.button__next:active {
     flex-grow: 1;
     border-width: 20px;
     border-color: rgb(237, 0, 140);
     transition-duration: 0.1s;
+}
+
+.button__menu{
+    flex-grow: 1;
+    border-width: 5px;
+    border-color: rgb(242, 242, 242);
+    transition-duration: 0.1s;
+    color: rgb(0, 191, 243);
+    -unity-font-definition: resource('06_Fonts/NeutronsDemoRegular ASCII');
+    -unity-text-align: middle-center;
+    font-size: 63px;
+    justify-content: center;
+}
+.button__menu:hover{
+    flex-grow: 1;
+    border-width: 10px;
+    border-color: rgb(237, 0, 140);
+    transition-duration: 0.1s;
+    color: rgb(0, 191, 243);
+}
+.button__menu:active{
+    flex-grow: 1;
+    border-width: 5px;
+    border-color: rgb(0, 191, 243);
+    transition-duration: 0.1s;
+    color: rgb(237, 0, 140);
 }
 
 .unity-button {

@@ -32,8 +32,6 @@ namespace RotaryPong
 
                 DoFireworks(endGameParameters);
 
-                Debug.Log("spawning firework at: " + spawnPos);
-
                 spawnedFireworks++;
 
                 yield return null;
@@ -49,25 +47,24 @@ namespace RotaryPong
         [SerializeField] TeamColorVariable _teamColors;
         [SerializeField] FloatVariable _celebrationFireworks;
         [SerializeField] GameEvent _backToMenu;
+        // [SerializeField] GameEvent _fireworkSFX;
+        private GameObject GoalParticles => Resources.Load<GameObject>("02_Prefabs/ParticleExplosion");
         
         ///<summary> Instancia fuegos artificiales </summary>
         ///<param name="position"> Posicion deseada para la instancia </param>
         ///<param name="multiColor"> Define si se modificara el color de las particulas </param>
         private void DoFireworks(FireworksParameter parameters)
         {
-            GameObject particles = Instantiate(GetGoalParticles(), parameters.SourcePosition, Quaternion.identity);
+            GameObject particles = Instantiate(GoalParticles, parameters.SourcePosition, Quaternion.identity);
             if (parameters.RandomColor && particles.TryGetComponent(out ParticleSystem particleSystem))
             {
                 ParticleSystem.MainModule main = particleSystem.main;
                 main.startColor = _teamColors.Value.colors[Random.Range(0, _teamColors.Value.colors.Length)];
             }
+            // _fireworkSFX?.Raise();
             Destroy(particles, 3);
         }
         ///<summary> Retorna las particulas a instanciar en caso de gol </summary>
-        private GameObject GetGoalParticles()
-        {
-            return Resources.Load<GameObject>("02_Prefabs/ParticleExplosion");
-        }
         private void EndGame(FireworksParameter parameter)
         {
             StartCoroutine(Celebration());

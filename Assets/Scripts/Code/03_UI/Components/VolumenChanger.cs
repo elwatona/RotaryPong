@@ -55,8 +55,13 @@ namespace RotaryPong.UI
         private VisualElement _filler;
         private FloatVariable _floatVariable;
         private Slider _slider;
+        private Volumen _volumenController;
 
-        public Volumen VolumenController {get; private set;}
+        public Volumen VolumenController
+        {
+            get { return _volumenController; }
+            set { _volumenController = value; UpdateValues(); }
+        }
         public FloatVariable FloatVariable
         {
             get { return _floatVariable; }
@@ -94,12 +99,10 @@ namespace RotaryPong.UI
 
             _slider = new Slider(100f, 0f, SliderDirection.Vertical) { name = "slider" };
             sliderAR.Add(_slider);
-            _slider.RegisterValueChangedCallback<float>((x) => ChangeValue(x.newValue));
+            _slider.RegisterValueChangedCallback<float>((x) => ChangeFillerHeight(x.newValue));
 
-            _filler = new VisualElement() { name = "filler" };
-            _filler.AddToClassList(ussSliderFiller);
-            _slider.Q<VisualElement>("unity-drag-container")?.Add(_filler);
-            
+            _filler = _slider.Q<VisualElement>("unity-tracker");
+
             VisualElement valueContainer = new VisualElement() { name = "value-container" };
             valueContainer.AddToClassList(ussValueContainer);
             hierarchy.Add(valueContainer);
@@ -115,7 +118,7 @@ namespace RotaryPong.UI
             Color musicColor = new Color(0, 191, 243);
             Color sfxColor = new Color(237, 0, 140);
 
-            _slider.value = _floatVariable != null ? _floatVariable.Value : 100;
+            _slider.value = _floatVariable != null ? _floatVariable.Value : 50;
             _value.text = _slider.value.ToString("0.##") + "%";
 
             if(VolumenController == Volumen.Music)
@@ -136,12 +139,11 @@ namespace RotaryPong.UI
             _icon.image = Resources.Load<Texture>("07_Images/SFX-Icon");
 
         }
-        private void ChangeValue(float value)
+        private void ChangeFillerHeight(float value)
         {
-            float currentValue = 100 - value;
             _filler.style.height = Length.Percent(value);
-            _value.text = currentValue.ToString("0.##") + "%";
-            _floatVariable?.SetValue(currentValue);
+            _value.text = value.ToString("0.##") + "%";
+            if(_slider.value != _floatVariable.Value) _floatVariable?.SetValue(value);
         }
     }
 }

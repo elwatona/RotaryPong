@@ -45,6 +45,8 @@ namespace RotaryPong
         [SerializeField] CodedEventListener _afterScoreListener;
         [SerializeField] CodedEventListener _endGameListener;
         [SerializeField] CodedEventListener _backToMenuListener;
+        [SerializeField] CodedEventListener _resetGameListener;
+        [SerializeField] CodedEventListener _exitGameListener;
         
         [SerializeField, Header("Parameters")] FloatVariable _camShakeMagnitude;
         [SerializeField] BooleanVariable _didGameEnded;
@@ -56,6 +58,34 @@ namespace RotaryPong
         private Bloom _bloom;
         private ChromaticAberration _chromaticAberration;
         private LensDistortion _lensDistortion;
+
+        private void OnEnable()
+        {
+            _afterScoreListener?.OnEnable(() => _goalRoutine = StartCoroutine(VFX()));
+            _endGameListener?.OnEnable(EndGame);
+            _backToMenuListener?.OnEnable(BackToMenu);
+            _resetGameListener?.OnEnable(ResetScene);
+            _exitGameListener?.OnEnable(ExitGame);
+        }
+        private void OnDisable()
+        {
+            _afterScoreListener?.OnDisable();
+            _endGameListener?.OnDisable();
+            _backToMenuListener?.OnDisable();
+            _resetGameListener?.OnDisable();
+            _exitGameListener?.OnDisable();
+        }
+        private void Awake()
+        {
+            GetPostProcessSettings();
+        }
+        private void FixedUpdate()
+        {
+            if (!_didGameEnded.Value)
+            {
+                UpdatePostProcessing();
+            }
+        }
 
         ///<summary> Toma las configuraciones del Post Procesado </summary>
         private void GetPostProcessSettings()
@@ -94,41 +124,23 @@ namespace RotaryPong
                 _lensDistortion.intensity.value = 0f;
             }
         }
-        
-        public void BackToMenu()
+        private void BackToMenu()
         {
             Time.timeScale = 1;
             SceneManager.LoadScene(0);
         }
-        public void ResetScene()
+        private void ResetScene()
         {
             Time.timeScale = 1;
             SceneManager.LoadScene(1);
         }
-
-        private void OnEnable()
+        private void ExitGame()
         {
-            _afterScoreListener?.OnEnable(() => _goalRoutine = StartCoroutine(VFX()));
-            _endGameListener?.OnEnable(EndGame);
-            _backToMenuListener?.OnEnable(BackToMenu);
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #endif
+            Application.Quit();
+            return;
         }
-        private void OnDisable()
-        {
-            _afterScoreListener?.OnDisable();
-            _endGameListener?.OnDisable();
-            _backToMenuListener?.OnDisable();
-        }
-        private void Awake()
-        {
-            GetPostProcessSettings();
-        }
-        private void FixedUpdate()
-        {
-            if (!_didGameEnded.Value)
-            {
-                UpdatePostProcessing();
-            }
-        }
-
     }
 }

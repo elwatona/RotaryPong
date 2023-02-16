@@ -6031,7 +6031,6 @@ GameObject:
   - component: {fileID: 1301232517}
   - component: {fileID: 1301232516}
   - component: {fileID: 1301232521}
-  - component: {fileID: 1301232522}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -6164,18 +6163,6 @@ MonoBehaviour:
   _ballColorBounces: {fileID: 11400000, guid: 5db069170ab71d44a87c122f99804cf9, type: 2}
   _canBallEffect: {fileID: 11400000, guid: d82e62469907bf547a7603fb7a2f29af, type: 2}
   _ballEffectTimer: {fileID: 11400000, guid: c2a39fa184c402e46842b21ec56e719d, type: 2}
---- !u!114 &1301232522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1301232515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96880fda699f9514094132c92e5f8900, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1314057295
 GameObject:
   m_ObjectHideFlags: 0
@@ -7589,6 +7576,75 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 0
+--- !u!1001 &1591104881
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2599579109568596500, guid: 466af1e4fe930cb4ba3a7a87ba8e13ca,
+        type: 3}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599579109568596502, guid: 466af1e4fe930cb4ba3a7a87ba8e13ca,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599579109568596502, guid: 466af1e4fe930cb4ba3a7a87ba8e13ca,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -956.0808
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599579109568596502, guid: 466af1e4fe930cb4ba3a7a87ba8e13ca,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -512.0145
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599579109568596502, guid: 466af1e4fe930cb4ba3a7a87ba8e13ca,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 72.23383
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599579109568596502, guid: 466af1e4fe930cb4ba3a7a87ba8e13ca,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599579109568596502, guid: 466af1e4fe930cb4ba3a7a87ba8e13ca,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599579109568596502, guid: 466af1e4fe930cb4ba3a7a87ba8e13ca,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599579109568596502, guid: 466af1e4fe930cb4ba3a7a87ba8e13ca,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599579109568596502, guid: 466af1e4fe930cb4ba3a7a87ba8e13ca,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599579109568596502, guid: 466af1e4fe930cb4ba3a7a87ba8e13ca,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599579109568596502, guid: 466af1e4fe930cb4ba3a7a87ba8e13ca,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 466af1e4fe930cb4ba3a7a87ba8e13ca, type: 3}
 --- !u!1 &1636861753
 GameObject:
   m_ObjectHideFlags: 0
@@ -8570,7 +8626,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1301232522}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: RotaryPong.MainMenuCanvas, com.RotaryPong.Runtime
         m_MethodName: StartButton
         m_Mode: 1
@@ -10172,6 +10228,7 @@ MonoBehaviour:
   _spinMap: {fileID: 11400000, guid: 358aa74ddc597094399753c1894188c9, type: 2}
   _ballHit: {fileID: 11400000, guid: 9e91420a1058da74885c289d0218d8b7, type: 2}
   _dropBall: {fileID: 11400000, guid: 4a47656f67353e6469edf788b8a32f9c, type: 2}
+  _pause: {fileID: 0}
   Rigidbody: {fileID: 0}
   MovementInput: {x: 0, y: 0}
   LeftRotationInput: 0

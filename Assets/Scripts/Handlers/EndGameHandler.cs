@@ -12,6 +12,7 @@ namespace RotaryPong
     {
         [SerializeField] CodedEventListener _timeOutListener;
         [SerializeField] CodedEventListener _afterScoreListener;
+        [SerializeField] CodedEventListener _pauseHandler;
 
         [SerializeField, Space] IntVariable _pinkScore;
         [SerializeField] IntVariable _blueScore;
@@ -19,6 +20,8 @@ namespace RotaryPong
         [SerializeField, Space] PaintEvent _updateWinnerUI;
         [SerializeField] GameEvent _endGame;
         [SerializeField] GameStateVariable _currentGameState;
+        [SerializeField] BooleanVariable _isPaused;
+        private GameState _baseState;
         private void CheckWinner()
         {
             int pinkScore = _pinkScore.Value;
@@ -33,23 +36,32 @@ namespace RotaryPong
                 return;
             }
             _currentGameState.SetValue(GameState.SuddenDeath);
+            _baseState = GameState.SuddenDeath;
         }
         private void AfterScore()
         {
-            if(_currentGameState.Value != GameState.Versus) CheckWinner();
+            if(_currentGameState.Value == GameState.SuddenDeath) CheckWinner();
+        }
+        private void PauseToggle(bool value)
+        {
+            _isPaused.SetValue(value);
+            _currentGameState.SetValue(value ? GameState.Pause : _baseState);
         }
 
         private void OnEnable()
         {
             _timeOutListener.OnEnable(CheckWinner);
             _afterScoreListener.OnEnable(AfterScore);
+            _pauseHandler.OnEnable(() => PauseToggle(_isPaused.Value));
             
             _currentGameState?.SetValue(GameState.Versus);
+            _baseState = GameState.Versus;
         }
         private void OnDisable()
         {
             _timeOutListener.OnDisable();
             _afterScoreListener.OnDisable();
+            _pauseHandler.OnDisable();
         }
     }
 }

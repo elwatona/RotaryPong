@@ -46,6 +46,7 @@ namespace RotaryPong
         [SerializeField] SpinMapInputEvent _spinMap;
         [SerializeField] PaintEvent _ballHit;
         [SerializeField] DropBallEvent _dropBall;
+        [SerializeField] GameEvent _pause;
 
         [HideInInspector] public Rigidbody Rigidbody;
         [HideInInspector] public Vector2 MovementInput;
@@ -59,6 +60,7 @@ namespace RotaryPong
         public void OnBallEfect(InputAction.CallbackContext ctx) => BallEffect(ctx.ReadValue<Vector2>());
         public void OnRotateMap(InputAction.CallbackContext ctx) => SpinMap(ctx.ReadValue<float>());
         public void OnDropBal(InputAction.CallbackContext ctx) => DropBall();
+        public void OnPause(InputAction.CallbackContext ctx) => _pause.Raise();
     #endregion
 
         private void OnEnable()

@@ -53,28 +53,28 @@ namespace RotaryPong
         }
         private void LoadValues(Configurations configuration)
         {
-            _playerSpeed.SetValue(configuration.playerSpeed);
-            _rotationAmount.SetValue(configuration.rotationAmount);
-            _enableSmoothRotation.Value = configuration.enableSmoothRotation;
-            _smoothRotationSpeed.SetValue(configuration.smoothRotationSpeed);
-            _matchDuration.SetValue(configuration.matchDuration);
-            _enablePlayerBounce.SetValue(configuration.playerBounce);
-            _bouncePower.SetValue(configuration.bouncePower);
-            _enableGodWalls.Value = configuration.enableGodWalls;
-            _mapSpinSpeed.SetValue(configuration.mapSpinSpeed);
-            _camShakeMagnitude.SetValue(configuration.camShakeMagnitude);
-            _celebrationFireworks.SetValue(configuration.celebrationFireworks);
-            _enableMapSpinControl.SetValue(configuration.enableMapSpinControl);
-            _ballSpeed.SetValue(configuration.ballSpeed);
-            _ballMinSpeed.SetValue(configuration.ballMinSpeed);
-            _canChangeColorWithBounces.SetValue(configuration.ballCanChangeWithBounces);
-            _ballColorDuration.SetValue(configuration.ballColorDuration);
-            _ballColorBounces.SetValue(configuration.ballColorBounces);
-            _canBallEffect.SetValue(configuration.ballEffect);
-            _ballEffectTimer.SetValue(configuration.ballEffectTimer);
-            _playerShape.SetValue(configuration.playerShape);
-            _musicVolumen.SetValue(configuration.musicVolumen);
-            _sfxVolumen.SetValue(configuration.sfxVolumen);
+            _playerSpeed.SetValueWithoutNotify(configuration.playerSpeed);
+            _rotationAmount.SetValueWithoutNotify(configuration.rotationAmount);
+            _enableSmoothRotation.SetValueWithoutNotify(configuration.enableSmoothRotation);
+            _smoothRotationSpeed.SetValueWithoutNotify(configuration.smoothRotationSpeed);
+            _matchDuration.SetValueWithoutNotify(configuration.matchDuration);
+            _enablePlayerBounce.SetValueWithoutNotify(configuration.playerBounce);
+            _bouncePower.SetValueWithoutNotify(configuration.bouncePower);
+            _enableGodWalls.SetValueWithoutNotify(configuration.enableGodWalls);
+            _mapSpinSpeed.SetValueWithoutNotify(configuration.mapSpinSpeed);
+            _camShakeMagnitude.SetValueWithoutNotify(configuration.camShakeMagnitude);
+            _celebrationFireworks.SetValueWithoutNotify(configuration.celebrationFireworks);
+            _enableMapSpinControl.SetValueWithoutNotify(configuration.enableMapSpinControl);
+            _ballSpeed.SetValueWithoutNotify(configuration.ballSpeed);
+            _ballMinSpeed.SetValueWithoutNotify(configuration.ballMinSpeed);
+            _canChangeColorWithBounces.SetValueWithoutNotify(configuration.ballCanChangeWithBounces);
+            _ballColorDuration.SetValueWithoutNotify(configuration.ballColorDuration);
+            _ballColorBounces.SetValueWithoutNotify(configuration.ballColorBounces);
+            _canBallEffect.SetValueWithoutNotify(configuration.ballEffect);
+            _ballEffectTimer.SetValueWithoutNotify(configuration.ballEffectTimer);
+            _playerShape.SetValueWithoutNotify(configuration.playerShape);
+            _musicVolumen.SetValueWithoutNotify(configuration.musicVolumen);
+            _sfxVolumen.SetValueWithoutNotify(configuration.sfxVolumen);
 
             Debug.Log("Configurations loaded");
         }

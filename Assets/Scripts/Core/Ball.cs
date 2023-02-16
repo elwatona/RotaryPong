@@ -35,6 +35,7 @@ namespace RotaryPong
         [SerializeField] FloatVariable _effectTimerInSeconds;
         [SerializeField, Header("Configurations")] Material[] PlayerMaterials;
         [SerializeField] AudioClip[] _playerAudioClips;
+        [SerializeField] GameObject _currentGrabber;
         private Material _startingMaterial;
         private Color _startingColor;
         private Vector3 lastFrameVelocity;
@@ -44,7 +45,6 @@ namespace RotaryPong
         private float _colorTimer;
         private float _timeOutside;
         private float _effectTimer;
-        [SerializeField] GameObject _currentGrabber;
 
         [Header("Components")]
         private AudioSource _audioSource;
@@ -57,7 +57,7 @@ namespace RotaryPong
         {
             _afterScoreListener?.OnEnable(() => StartCoroutine(OnScoreMade()));
             _inputListener?.OnEnable(EffectMovement);
-            _playerHit?.OnEnable(CheckForTeam);
+            _playerHit?.OnEnable(ColorChange);
             _ballGrabbedListener?.OnEnable(SetGrabber);
             _dropBallListener?.OnEnable(Dropped);
         }
@@ -98,7 +98,6 @@ namespace RotaryPong
         private void SetGrabber(BallGrabbedParameters parameters)
         {
             _currentGrabber = parameters.SourceGrabber;
-            
         }
         ///<summary> Toma los componentes para cada referencia </summary>
         private void GetComponents()
@@ -143,8 +142,6 @@ namespace RotaryPong
 
             if (ballVelocity > minVelocity)
             {
-                //Vector3 ballVelocity = lastFrameVelocity.normalized;
-                //Vector3 direction = Vector3.Reflect(ballVelocity, collisionNormal);
                 if (ballVelocity <= ballSpeed) ballVelocity = ballSpeed;
 
                 _rigidbody.velocity = direction * Mathf.Max(ballVelocity, minVelocity);
@@ -154,10 +151,8 @@ namespace RotaryPong
             _rigidbody.velocity = direction * ballSpeed;
             
             _rigidbody.velocity = direction * Mathf.Max(ballSpeed, minVelocity);
-            // _rigidbody.AddForce(direction * 10, ForceMode.Impulse);
             _currentGrabber = null;
             _effectTimer = _effectTimerInSeconds.Value;
-            print("alo");
         }
         ///<summary> Comprueba si el tag corresponde a player para luego comparar el nombre de <paramref name="collision"/> y asi sonar audio a la vez que cambiar colores </summary>
         private void CheckForPlayer(GameObject gameObject)
@@ -168,19 +163,6 @@ namespace RotaryPong
                 return;
             }
             _effectTimer = _effectTimerInSeconds.Value;
-        }
-        private void CheckForTeam(Paint team)
-        {
-            ColorChange(team);
-            PlayAudio(team);
-        }
-        ///<summary> Reproduce la pista de audio cuyo index es <paramref name="who"/> </summary>
-        private void PlayAudio(Paint team)
-        {
-            int who = (int)team - 1;
-
-            _audioSource.clip = _playerAudioClips[who];
-            _audioSource.Play();
         }
         ///<summary> Cambia el color del objeto referenciando el index <paramref name="who"/> </summary>
         private void ColorChange(Paint team)
