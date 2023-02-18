@@ -9,7 +9,7 @@
 .button__back {
     flex-grow: 1;
     border-width: 10px;
-    border-color: white;
+    border-color: #333333;
     transition-duration: 0.1s;
 }
 
@@ -30,7 +30,7 @@
 .button__next {
     flex-grow: 1;
     border-width: 10px;
-    border-color: white;
+    border-color: #333333;
     transition-duration: 0.1s;
 }
 .button__next:hover {
@@ -73,9 +73,22 @@
     color: rgb(237, 0, 140);
 }
 
-.unity-button {
-    margin: 0px;
-    padding: 0px;
-    border-radius: 0px;
+.button__preset{
+    transition-duration: 0.1s;
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    -unity-text-align: middle-center;
+    font-size: 48px;
+    color: #BDCCD4;
+    border-width: 5px;
+    border-radius: 0%;
+    border-color: rgb(63, 169, 245);
+    background-color: rgba(0,0,0,0);
+}
+
+.button__preset:focus{
+    transition-duration: 0.1s;
+    border-radius: 100%;
+    border-width: 5px;
+    border-color: rgb(237, 0, 140);
     background-color: rgba(0,0,0,0);
 }

@@ -10,7 +10,8 @@ namespace RotaryPong.UI
     {
 		Menu = 0,
         Back = 1,
-        Next = 2
+        Next = 2,
+		Preset = 3
     }
     public class AspectRatioButton : Button
     {
@@ -19,6 +20,7 @@ namespace RotaryPong.UI
             private const string ussBack = "button__back";
             private const string ussNext = "button__next";
 			private const string ussMenu = "button__menu";
+			private const string ussPreset = "button__preset";
         #endregion
         
 		[UnityEngine.Scripting.Preserve]
@@ -70,6 +72,7 @@ namespace RotaryPong.UI
 			ButtonType = type;
 			text = label;
 			styleSheets.Add(Resources.Load<StyleSheet>(string.Format("08_USS/{0}", styleSheet)));
+			RemoveFromClassList("unity-button");
 			style.position = Position.Absolute;
 			style.left = 0;
 			style.top = 0;
@@ -129,17 +132,10 @@ namespace RotaryPong.UI
         {
 			switch(ButtonType)
 			{
-				case ButtonType.Back:
-					this.AddToClassList(ussBack);
-				break;
-
-				case ButtonType.Next:
-            		this.AddToClassList(ussNext);
-				break;
-
-				case ButtonType.Menu:
-            		this.AddToClassList(ussMenu);
-				break;
+				case ButtonType.Back: this.AddToClassList(ussBack); break;
+				case ButtonType.Next: this.AddToClassList(ussNext); break;
+				case ButtonType.Menu: this.AddToClassList(ussMenu); break;
+				case ButtonType.Preset: this.AddToClassList(ussPreset); break;
 			}
         }
 	}

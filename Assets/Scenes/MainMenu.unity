@@ -897,7 +897,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22542
+  m_Name: pb_Mesh22590
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2120,7 +2120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: cbf63071b7877b944b3e56a9d2e6f3fe, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 3de66f1ec11467a48a4cd1deeaacc869,
+  sourceAsset: {fileID: 9197481963319205126, guid: 0091b17eb6efcd8469ffd0848b7f26b7,
     type: 3}
   m_SortingOrder: 0
 --- !u!4 &379764398
@@ -2153,6 +2153,7 @@ MonoBehaviour:
   _settingsBtnListener:
     event: {fileID: 11400000, guid: b68651a113686eb49890e3f1487e07bb, type: 2}
   _doneButtonEvent: {fileID: 11400000, guid: 222cb7f7f2143034cbd49c47d179507e, type: 2}
+  _preset: {fileID: 11400000, guid: 737803d9d6b0fea4b9f6222d618d21b1, type: 2}
   _sfxVolumen: {fileID: 11400000, guid: 53c1f2c4ce663034f985e6e8a0aa8407, type: 2}
   _musicVolumen: {fileID: 11400000, guid: 63dc117a59c10fb4caff6803966e3055, type: 2}
   _matchDurationVariable: {fileID: 11400000, guid: 48225e0b525f8c54e85f12182800e2f2,
@@ -2497,7 +2498,6 @@ GameObject:
   - component: {fileID: 516359849}
   - component: {fileID: 516359850}
   - component: {fileID: 516359851}
-  - component: {fileID: 516359852}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -2538,6 +2538,7 @@ MonoBehaviour:
     event: {fileID: 11400000, guid: 222cb7f7f2143034cbd49c47d179507e, type: 2}
   _musicVolumen: {fileID: 11400000, guid: 63dc117a59c10fb4caff6803966e3055, type: 2}
   _sfxVolumen: {fileID: 11400000, guid: 53c1f2c4ce663034f985e6e8a0aa8407, type: 2}
+  _presetVariable: {fileID: 11400000, guid: 737803d9d6b0fea4b9f6222d618d21b1, type: 2}
   _playerSpeed: {fileID: 11400000, guid: 2f6d5bb0da8a05344b96ccb416eacc76, type: 2}
   _rotationAmount: {fileID: 11400000, guid: a33b59f1418f62346990cb2d6a512c1c, type: 2}
   _enableSmoothRotation: {fileID: 11400000, guid: 3b0fb5f47807c964abc2d0f436bf7d4c,
@@ -2582,18 +2583,6 @@ MonoBehaviour:
     event: {fileID: 11400000, guid: f1de0ae1440934e42ba2b7033cd451ee, type: 2}
   _mainMenu: {fileID: 217396800}
   _settings: {fileID: 379764396}
---- !u!114 &516359852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 516359848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 368a0043a10bfcf4ebbf1776583d864d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &545034597
 GameObject:
   m_ObjectHideFlags: 0
@@ -6137,6 +6126,7 @@ MonoBehaviour:
     event: {fileID: 0}
   _musicVolumen: {fileID: 0}
   _sfxVolumen: {fileID: 0}
+  _presetVariable: {fileID: 0}
   _playerSpeed: {fileID: 11400000, guid: 2f6d5bb0da8a05344b96ccb416eacc76, type: 2}
   _rotationAmount: {fileID: 11400000, guid: a33b59f1418f62346990cb2d6a512c1c, type: 2}
   _enableSmoothRotation: {fileID: 11400000, guid: 3b0fb5f47807c964abc2d0f436bf7d4c,

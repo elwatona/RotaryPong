@@ -6,7 +6,7 @@
     flex-grow: 1;
     flex-direction: column-reverse;
     border-width: 2.5px;
-    border-color: white;
+    border-color: #00BFF3;
     background-image: resource('01_Materials/PlayerShape');
 }
 

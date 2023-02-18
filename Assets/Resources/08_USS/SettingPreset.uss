@@ -1,0 +1,25 @@
+.setting-preset{
+    flex-grow: 1;
+}
+
+.setting-preset__btn-container{
+    flex-direction: row;
+    flex-basis: 60%;
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+.unity-label {
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+    -unity-text-align: middle-center;
+    font-size: 42px;
+    color: rgb(237, 0, 140);
+    background-color: rgb(26, 26, 26);
+    flex-basis: 40%;
+    margin: 0px;
+    padding: 0px;
+}
+.unity-button{
+    background-color: rgba(0,0,0,0);
+}

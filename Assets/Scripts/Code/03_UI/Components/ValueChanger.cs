@@ -55,10 +55,12 @@ namespace RotaryPong.UI
         private Label _valueLabel;
         private FloatVariable _floatVariable;
 
+        private bool _subscribed;
+
         public FloatVariable FloatVariable 
         {
             get { return _floatVariable; } 
-            set { _floatVariable = value; UpdateValues(); }
+            set { CheckSub(value); }
         }
         public string Definition 
         { 
@@ -68,9 +70,9 @@ namespace RotaryPong.UI
         { 
             get {return _floatVariable != null ? _floatVariable.Value : float.Parse(_valueLabel.text);}
         }
-        public float MinValue {get; private set;}
-        public float MaxValue {get; private set;}
-        public float ChangeValue {get; private set;}
+        public float MinValue {get; set;}
+        public float MaxValue {get; set;}
+        public float ChangeValue {get; set;}
 
         public ValueChanger()
         {
@@ -120,6 +122,30 @@ namespace RotaryPong.UI
         {
             _definitionLabel.text = _floatVariable != null ? _floatVariable.name : "default-text";
             _valueLabel.text = _floatVariable != null ? _floatVariable.Value.ToString("0.##") : "000";
+        }
+        private void CheckSub(FloatVariable value)
+        {
+            if(!_subscribed) 
+            {
+                _floatVariable = value;
+                Sub();
+                UpdateValues();
+                return;
+            }
+            Unsub();
+            _floatVariable = value;
+            Sub();
+            UpdateValues();
+        }
+        private void Sub()
+        {
+            _floatVariable.PropertyChanged += (x,y) => UpdateValues();
+            _subscribed = true;
+        }
+        private void Unsub()
+        {
+            _floatVariable.PropertyChanged -= (x,y) => UpdateValues();
+            _subscribed = false;
         }
     }
 }

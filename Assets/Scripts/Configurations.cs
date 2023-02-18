@@ -1,17 +1,11 @@
 using Watona.Utils;
+using Watona.Variables;
 namespace RotaryPong
 {
-    public enum Preset
-    {
-        Rotary,
-        Classic,
-        CShape,
-        Custom
-    }
     ///<summary> Contiene toda las posibles configuraciones </summary>
     public class Configurations
     {
-        public Preset configuration;
+        public Preset preset;
         public float playerSpeed;
         public float rotationAmount;
         public bool enableSmoothRotation;

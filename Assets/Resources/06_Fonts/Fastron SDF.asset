@@ -76,7 +76,7 @@ MonoBehaviour:
     m_AscentLine: 129
     m_CapLine: 120
     m_MeanLine: 86
-    m_Baseline: 0
+    m_Baseline: -10
     m_DescentLine: -43
     m_SuperscriptOffset: 129
     m_SuperscriptSize: 0.5
@@ -2560,7 +2560,7 @@ MonoBehaviour:
     atlasHeight: 1024
     characterSetSelectionMode: 0
     characterSequence: 32 - 126, 160, 8203, 8230, 9633
-    referencedFontAssetGUID: 
+    referencedFontAssetGUID: a723ef360aefa1740ad23e25f716d5de
     referencedTextAssetGUID: 
     fontStyle: 0
     fontStyleModifier: 0

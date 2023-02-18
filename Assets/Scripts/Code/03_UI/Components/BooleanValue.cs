@@ -24,10 +24,12 @@ namespace RotaryPong.UI
         private Label _definitionLabel;
         private BooleanVariable _booleanVariable;
 
+        private bool _subscribed;
+
         public BooleanVariable BooleanVariable
         {
             get { return _booleanVariable; }
-            set { _booleanVariable = value; UpdateValues(); }
+            set { CheckSub(value); }
         }
         public string Definition
         {
@@ -71,6 +73,30 @@ namespace RotaryPong.UI
         {
             _definitionLabel.text = _booleanVariable != null ? _booleanVariable.name : "default-text";
             _valueToggle.value = _booleanVariable != null ? _booleanVariable.Value : value;
+        }
+        private void CheckSub(BooleanVariable value)
+        {
+            if(!_subscribed) 
+            {
+                _booleanVariable = value;
+                Sub();
+                UpdateValues();
+                return;
+            }
+            Unsub();
+            _booleanVariable = value;
+            Sub();
+            UpdateValues();
+        }
+        private void Sub()
+        {
+            _booleanVariable.PropertyChanged += (x,y) => UpdateValues();
+            _subscribed = true;
+        }
+        private void Unsub()
+        {
+            _booleanVariable.PropertyChanged -= (x,y) => UpdateValues();
+            _subscribed = false;
         }
     }
 }

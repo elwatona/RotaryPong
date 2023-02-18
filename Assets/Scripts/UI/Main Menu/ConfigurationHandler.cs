@@ -14,6 +14,7 @@ namespace RotaryPong
     #region SOVariables
         [SerializeField, Header("Scriptable Objects")] FloatVariable _musicVolumen;
         [SerializeField] FloatVariable _sfxVolumen;
+        [SerializeField] PresetVariable _presetVariable;
         [SerializeField, Header("Player")] FloatVariable _playerSpeed;
         [SerializeField] FloatVariable _rotationAmount;
         [SerializeField] BooleanVariable _enableSmoothRotation;
@@ -53,6 +54,7 @@ namespace RotaryPong
         }
         private void LoadValues(Configurations configuration)
         {
+            _presetVariable.SetValue(configuration.preset);
             _playerSpeed.SetValueWithoutNotify(configuration.playerSpeed);
             _rotationAmount.SetValueWithoutNotify(configuration.rotationAmount);
             _enableSmoothRotation.SetValueWithoutNotify(configuration.enableSmoothRotation);
@@ -82,6 +84,7 @@ namespace RotaryPong
         {
             Configurations newConfigurations = new Configurations
             {
+                preset = _presetVariable.Value,
                 playerSpeed = _playerSpeed.Value,
                 rotationAmount = _rotationAmount.Value,
                 enableSmoothRotation = _enableSmoothRotation.Value,
