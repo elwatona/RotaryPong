@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Watona.Variables;
 using Watona.Events;
+using Watona.Utils;
 using RotaryPong.UI;
 
 namespace RotaryPong
@@ -38,15 +39,15 @@ namespace RotaryPong
         {
             _root = GetComponent<UIDocument>().rootVisualElement;
             _settings = _root.Q<Settings>();
-            _root.style.display = DisplayStyle.None;
+            _root.SetVisibility(false);
         }
         private void OnEnable()
         {
-            _settingsBtnListener.OnEnable(DisplayThis);
+            _settingsBtnListener.OnEnable(() => _root.SetVisibility(true));
 
             _settings.ColorByBounce.Q<Toggle>().RegisterValueChangedCallback((x) => { _settings.ColorDuration.FloatVariable = _colorDuration; });
 
-            _settings.Done.clicked += () => { _doneButtonEvent?.Raise(); _root.style.display = DisplayStyle.None; };
+            _settings.Done.clicked += () => { _doneButtonEvent?.Raise(); _root.SetVisibility(false); };
             _preset.PropertyChanged += (x,y) => OnPresetChanged();
 
             SetVariablesToUIElements();
@@ -57,13 +58,8 @@ namespace RotaryPong
 
             _settings.ColorByBounce.Q<Toggle>().UnregisterValueChangedCallback((x) => { _settings.ColorDuration.FloatVariable = _colorDuration; });
 
-            _settings.Done.clicked -= () => { _doneButtonEvent?.Raise(); _root.style.display = DisplayStyle.None; };
+            _settings.Done.clicked -= () => { _doneButtonEvent?.Raise(); _root.SetVisibility(false); };
             _preset.PropertyChanged -= (x,y) => OnPresetChanged();
-        }
-
-        private void DisplayThis()
-        {
-            _root.style.display = DisplayStyle.Flex;
         }
 
         private void SetVariablesToUIElements()

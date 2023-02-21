@@ -2581,8 +2581,6 @@ MonoBehaviour:
     event: {fileID: 11400000, guid: d391853b57ea77043bcabd52b00985c4, type: 2}
   _playButtonListener:
     event: {fileID: 11400000, guid: f1de0ae1440934e42ba2b7033cd451ee, type: 2}
-  _mainMenu: {fileID: 217396800}
-  _settings: {fileID: 379764396}
 --- !u!1 &545034597
 GameObject:
   m_ObjectHideFlags: 0
