@@ -658,6 +658,17 @@
                 },
                 {
                     "name": "",
+                    "id": "393e274a-1f1a-4b19-a2ac-de7efa14d981",
+                    "path": "<VirtualMouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Point",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "4faf7dc9-b979-4210-aa8c-e808e1ef89f5",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -669,11 +680,44 @@
                 },
                 {
                     "name": "",
+                    "id": "e108b225-cbf5-401a-ac59-6af581aeb115",
+                    "path": "<VirtualMouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "afed7bc2-42fe-4fa4-bd2f-b5ff45da56be",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "38c99815-14ea-4617-8627-164d27641299",
                     "path": "<Mouse>/scroll",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
+                    "action": "ScrollWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e49e0405-7374-4562-a88b-337c2572b178",
+                    "path": "<VirtualMouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "ScrollWheel",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -727,6 +771,11 @@
                 {
                     "devicePath": "<Gamepad>",
                     "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<VirtualMouse>",
+                    "isOptional": true,
                     "isOR": false
                 }
             ]

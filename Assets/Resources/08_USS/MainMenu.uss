@@ -1,6 +1,6 @@
 .main-menu{
     flex-grow: 1;
-    background-color: rgb(0,0,17);
+    /* background-color: rgb(0,0,17); */
 }
 
 .main-menu__title{
