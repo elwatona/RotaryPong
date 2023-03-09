@@ -40,7 +40,7 @@ namespace RotaryPong
             {
                 _heldObjectRigidbody = rigidbody;
                 _heldObjectRigidbody.drag = 10;
-                _heldObjectRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+                _heldObjectRigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
 
                 _heldObjectRigidbody.transform.parent = _holdArea;
                 _heldObject = pickObj;
@@ -54,7 +54,7 @@ namespace RotaryPong
             if(_heldObject != null && parameters.SourceGrabber == this.gameObject)
             {
                 _heldObjectRigidbody.drag = 1;
-                _heldObjectRigidbody.constraints = RigidbodyConstraints.None;
+                _heldObjectRigidbody.constraints = RigidbodyConstraints.FreezePositionZ;
 
                 _heldObject.transform.parent = null;
                 _heldObject = null;

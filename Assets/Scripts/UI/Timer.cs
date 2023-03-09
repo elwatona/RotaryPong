@@ -24,7 +24,7 @@ namespace RotaryPong
         private void Awake()
         {
             SetTimer();
-            _canCount = true;
+            EnableCount();
         }
         private void OnEnable()
         {
@@ -38,20 +38,9 @@ namespace RotaryPong
         {
             switch(_currentGameState.Value)
             {
-                case GameState.Versus:
-                    if(!_didGameEnded.Value && _canCount) 
-                    {
-                        UpdateTimer();
-                        return;
-                    }
-
-                break;
-                case GameState.SuddenDeath:
-                    _timer.SetValue("SUDDEN DEATH!");
-                break;
-                case GameState.Pause:
-                    _timer.SetValue("Pause");
-                break;
+                case GameState.Versus: if(!_didGameEnded.Value && _canCount) UpdateTimer(); break;
+                case GameState.SuddenDeath: _timer.SetValue( _didGameEnded.Value ? "Winner!" : "Sudden Death!"); break;
+                case GameState.Pause: _timer.SetValue("Pause"); break;
             }
         }
 
@@ -65,23 +54,18 @@ namespace RotaryPong
         {
             _canCount = true;
         }
-        ///<summary> Define el valor de <paramref name="_maxMatchTimer"/> </summary>
         private void SetTimer()
         {
-            _didGameEnded.SetValue(false);
             _maxMatchTimer = _matchDuration.Value;
         }
-        ///<summary> Actualiza la variable <paramref name="_timer"> al tiempo restante de partida </summary>
         private void UpdateTimer()
         {
             float timer =  _maxMatchTimer -= Time.deltaTime;
             float timerWholeNumbers = Mathf.Floor(timer);
             string textTimer = timer.ToString("0.00");
-            bool didGameEnded = _didGameEnded.Value;
 
-            if (timer <= 0 && !didGameEnded)
+            if (timer <= 0)
             {
-                _didGameEnded.SetValue(true);
                 _timeOutEvent.Raise();
                 return;
             }

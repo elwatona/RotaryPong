@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using Watona.Variables;
 using Watona.Events;
 using RotaryPong.Events;
+using RotaryPong.UICursor;
 
 namespace RotaryPong
 {
@@ -13,6 +14,7 @@ namespace RotaryPong
         void Rotation(PlayerController player);
     }
     [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(GamepadCursor))]
     public class PlayerController : MonoBehaviour
     {
     #region State Machine
@@ -46,9 +48,11 @@ namespace RotaryPong
         [SerializeField] SpinMapInputEvent _spinMap;
         [SerializeField] PaintEvent _ballHit;
         [SerializeField] DropBallEvent _dropBall;
-        [SerializeField] GameEvent _pause;
+        [SerializeField] PauseEvent _pause;
 
         [HideInInspector] public Rigidbody Rigidbody;
+        private PlayerInput _playerInput;
+        private GamepadCursor _gamepadCursor;
         [HideInInspector] public Vector2 MovementInput;
         [HideInInspector] public bool LeftRotationInput;
         [HideInInspector] public bool RightRotationInput;
@@ -60,7 +64,7 @@ namespace RotaryPong
         public void OnBallEfect(InputAction.CallbackContext ctx) => BallEffect(ctx.ReadValue<Vector2>());
         public void OnRotateMap(InputAction.CallbackContext ctx) => SpinMap(ctx.ReadValue<float>());
         public void OnDropBal(InputAction.CallbackContext ctx) => DropBall();
-        public void OnPause(InputAction.CallbackContext ctx) => _pause.Raise();
+        public void OnPause(InputAction.CallbackContext ctx) => Pause(ctx);
     #endregion
 
         private void OnEnable()
@@ -77,10 +81,13 @@ namespace RotaryPong
         private void Awake()
         {
             Rigidbody = GetComponent<Rigidbody>();
+            _playerInput = GetComponent<PlayerInput>();
+            _gamepadCursor = GetComponent<GamepadCursor>();
         }
         private void Start()
         {
             _startingPoint = transform.position;
+            _gamepadCursor.enabled = false;
         }
         private void Update()
         {
@@ -101,20 +108,36 @@ namespace RotaryPong
         {
             GameObject grabber = parameters.SourceGrabber;
             
-            if(grabber != _ballGrabber)
-            return;
+            if(grabber != _ballGrabber) return;
 
             CanMove = false;
             Rigidbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+
             _ballHit?.Raise(_team);
         }
         private void DropBall()
         {
+            if(DesiredShape.Value != Shape.C || CanMove) return;
+            
             DropBallParameters parameters = new DropBallParameters{SourceDirection = this.transform.right, SourceGrabber = _ballGrabber};
-            _dropBall?.Raise(parameters);
             Rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+
+            _dropBall?.Raise(parameters);
             _ballHit?.Raise(_team);
+
             CanMove = true;
+        }
+        private void Pause(InputAction.CallbackContext ctx)
+        {
+            if(ctx.phase != InputActionPhase.Performed) return;
+            
+            PauseParameters parameters = new PauseParameters 
+            {
+                sourcePlayerInput = _playerInput,
+                sourceGamepadCursor = _gamepadCursor
+            };
+
+            _pause.Raise(parameters);
         }
         private void EnableBody()
         {

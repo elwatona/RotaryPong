@@ -13,14 +13,13 @@ namespace RotaryPong
         
         [SerializeField] CodedGameEventListener<Paint> _updateScores;
         [SerializeField] CodedGameEventListener<Paint> _winner;
-        [SerializeField] CodedEventListener _pause;
 
         [SerializeField] Animator _uiCanvasAnimator;
 
         [SerializeField, Header("Parameters")] IntVariable _blueTeamPoints;
         [SerializeField] IntVariable _pinkTeamPoints;
         [SerializeField] StringVariable _timer;
-        [SerializeField] BooleanVariable _isPaused;
+        [SerializeField] GameStateVariable _currentGameState;
         
         [SerializeField, Header("Text")] Text _pinkTeamScoreText;
         [SerializeField] Text _blueTeamScoreText;
@@ -30,20 +29,18 @@ namespace RotaryPong
 
         private void Awake()
         {
-            _isPaused.SetValue(false);
             _baseColor = _timerText.color;
+            Cursor.visible = false;
         }
         private void OnEnable()
         {
             _updateScores?.OnEnable(Goal);
             _winner?.OnEnable(EndGame);
-            _pause?.OnEnable(() => HandlePause(!_isPaused.Value));
         }
         private void OnDisable()
         {
             _updateScores?.OnDisable();
             _winner?.OnDisable();
-            _pause?.OnDisable();
         }
         private void Start()
         {
@@ -52,15 +49,9 @@ namespace RotaryPong
         }
         private void Update()
         {
-            UpdateTimerText();
+            _timerText.text = _timer.Value;
         }
 
-        private void HandlePause(bool value)
-        {
-            _isPaused?.SetValue(value);
-            Time.timeScale = value ? 0 : 1;
-            Cursor.visible = _isPaused ? true : false;
-        }
         private void UpdateScoreText(Text score, int value)
         {
             score.text = value.ToString("00");
@@ -68,10 +59,6 @@ namespace RotaryPong
         private void UpdateAnnouncementText(string value)
         {
             _timer.SetValue(value);
-        }
-        private void UpdateTimerText()
-        {
-            _timerText.text = _timer.Value;
         }
         private string EndGameText(Paint team)
         {
@@ -86,8 +73,14 @@ namespace RotaryPong
             UpdateScoreText(_pinkTeamScoreText, _pinkTeamPoints.Value);
             UpdateScoreText(_blueTeamScoreText, _blueTeamPoints.Value);
 
-            Invoke("ResetColor", 2);
+            if(_currentGameState.Value != GameState.SuddenDeath) Invoke("ResetColor", 2);
         }
+        private void ResetColor()
+        {
+            _timerText.color = _baseColor;
+        }
+
+        ///<summary> Configura la UI de acuerdo a la pintura (<paramref name="Paint"/>) del equipo </summary>
         public void EndGame(Paint team)
         {
             UpdateAnnouncementText(EndGameText(team));
@@ -99,10 +92,6 @@ namespace RotaryPong
             }
             _uiCanvasAnimator.SetTrigger(string.Format("player{0}Score", (int)team));
             _timerText.color = _colors[(int)team];
-        }
-        private void ResetColor()
-        {
-            _timerText.color = _baseColor;
         }
     }
 }

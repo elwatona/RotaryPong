@@ -11,7 +11,8 @@ namespace RotaryPong.UI
 		Menu = 0,
         Back = 1,
         Next = 2,
-		Preset = 3
+		Preset = 3,
+		Icon = 4
     }
     public class AspectRatioButton : Button
     {
@@ -21,6 +22,7 @@ namespace RotaryPong.UI
             private const string ussNext = "button__next";
 			private const string ussMenu = "button__menu";
 			private const string ussPreset = "button__preset";
+			private const string ussIcon = "button__icon";
         #endregion
         
 		[UnityEngine.Scripting.Preserve]
@@ -72,16 +74,20 @@ namespace RotaryPong.UI
 			ButtonType = type;
 			text = label;
 			styleSheets.Add(Resources.Load<StyleSheet>(string.Format("08_USS/{0}", styleSheet)));
+			BaseStyle();
 			RemoveFromClassList("unity-button");
+			RegisterCallback<AttachToPanelEvent>(OnAttachToPanelEvent);
+            UpdateVisuals();
+		}
+
+		private void BaseStyle()
+		{
 			style.position = Position.Absolute;
 			style.left = 0;
 			style.top = 0;
 			style.right = StyleKeyword.Undefined;
 			style.bottom = StyleKeyword.Undefined;
-			RegisterCallback<AttachToPanelEvent>(OnAttachToPanelEvent);
-            UpdateVisuals();
 		}
-
 
 		void OnAttachToPanelEvent(AttachToPanelEvent e)
 		{
@@ -99,15 +105,13 @@ namespace RotaryPong.UI
 		void FitToParent()
 		{
 			if (parent == null) return;
+			
 			var parentW = parent.resolvedStyle.width;
 			var parentH = parent.resolvedStyle.height;
+
 			if (float.IsNaN(parentW) || float.IsNaN(parentH)) return;
 
-			style.position = Position.Absolute;
-			style.left = 0;
-			style.top = 0;
-			style.right = StyleKeyword.Undefined;
-			style.bottom = StyleKeyword.Undefined;
+			BaseStyle();
 
 			if (AspectRatioX <= 0.0f || AspectRatioY <= 0.0f)
 			{
@@ -136,6 +140,7 @@ namespace RotaryPong.UI
 				case ButtonType.Next: this.AddToClassList(ussNext); break;
 				case ButtonType.Menu: this.AddToClassList(ussMenu); break;
 				case ButtonType.Preset: this.AddToClassList(ussPreset); break;
+				case ButtonType.Icon: this.AddToClassList(ussIcon); break;
 			}
         }
 	}

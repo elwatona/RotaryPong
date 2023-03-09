@@ -6,6 +6,7 @@ using Watona.Variables;
 using Watona.Events;
 using Watona.Utils;
 using RotaryPong.UI;
+using RotaryPong.Events;
 
 namespace RotaryPong
 {
@@ -13,7 +14,7 @@ namespace RotaryPong
     public class SettingScreen : MonoBehaviour
     {
         [SerializeField] CodedEventListener _settingsBtnListener;
-        [SerializeField] GameEvent _doneButtonEvent;
+        [SerializeField] BooleanEvent _backEvent;
     #region Scriptable Objects
         [SerializeField] PresetVariable _preset;
         [Header("Volumen"), SerializeField] FloatVariable _sfxVolumen;
@@ -47,7 +48,8 @@ namespace RotaryPong
 
             _settings.ColorByBounce.Q<Toggle>().RegisterValueChangedCallback((x) => { _settings.ColorDuration.FloatVariable = _colorDuration; });
 
-            _settings.Done.clicked += () => { _doneButtonEvent?.Raise(); _root.SetVisibility(false); };
+            _settings.Save.clicked += () => { _backEvent?.Raise(true); _root.SetVisibility(false); };
+            _settings.Back.clicked += () => { _backEvent?.Raise(false); _root.SetVisibility(false); };
             _preset.PropertyChanged += (x,y) => OnPresetChanged();
 
             SetVariablesToUIElements();
@@ -58,7 +60,8 @@ namespace RotaryPong
 
             _settings.ColorByBounce.Q<Toggle>().UnregisterValueChangedCallback((x) => { _settings.ColorDuration.FloatVariable = _colorDuration; });
 
-            _settings.Done.clicked -= () => { _doneButtonEvent?.Raise(); _root.SetVisibility(false); };
+            _settings.Save.clicked -= () => { _backEvent?.Raise(true); _root.SetVisibility(false); };
+            _settings.Back.clicked -= () => { _backEvent?.Raise(false); _root.SetVisibility(false); };
             _preset.PropertyChanged -= (x,y) => OnPresetChanged();
         }
 

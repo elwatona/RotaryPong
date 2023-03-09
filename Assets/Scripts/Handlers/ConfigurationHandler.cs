@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Watona.Utils;
 using Watona.Variables;
@@ -9,8 +7,9 @@ namespace RotaryPong
 {
     public class ConfigurationHandler : MonoBehaviour
     {
-        public CodedEventListener _backButtonListener;
-        private string fileName = "configurations.json";
+        [SerializeField] CodedGameEventListener<bool> _backButtonListener;
+        [SerializeField] GameEvent _backEvent;
+        private const string FILE_NAME = "configurations.json";
     #region SOVariables
         [SerializeField, Header("Scriptable Objects")] FloatVariable _musicVolumen;
         [SerializeField] FloatVariable _sfxVolumen;
@@ -39,14 +38,13 @@ namespace RotaryPong
         // Start is called before the first frame update
         private void Awake()
         {
-            Configurations configuration = FileHandler.ReadFromJSON<Configurations>(fileName);
+            Configurations configuration = FileHandler.ReadFromJSON<Configurations>(FILE_NAME);
 
-            if(configuration != default(Configurations))
-                LoadValues(configuration);
+            if(configuration != default(Configurations)) LoadValues(configuration);
         }
         private void OnEnable()
         {
-            _backButtonListener?.OnEnable(SaveValues);
+            _backButtonListener?.OnEnable((x) => {if(x) SaveValues(); _backEvent?.Raise();});
         }
         private void OnDisable()
         {
@@ -108,7 +106,7 @@ namespace RotaryPong
                 musicVolumen = _musicVolumen.Value,
                 sfxVolumen = _sfxVolumen.Value
             };
-            FileHandler.SaveToJSON<Configurations>(newConfigurations, fileName);
+            FileHandler.SaveToJSON<Configurations>(newConfigurations, FILE_NAME);
             Debug.Log("Configurations saved");
         }
     }

@@ -60,7 +60,7 @@ namespace RotaryPong.UI
         public FloatVariable FloatVariable 
         {
             get { return _floatVariable; } 
-            set { CheckSub(value); }
+            set { SetFloatVariable(value); }
         }
         public string Definition 
         { 
@@ -123,26 +123,19 @@ namespace RotaryPong.UI
             _definitionLabel.text = _floatVariable != null ? _floatVariable.name : "default-text";
             _valueLabel.text = _floatVariable != null ? _floatVariable.Value.ToString("0.##") : "000";
         }
-        private void CheckSub(FloatVariable value)
+        private void SetFloatVariable(FloatVariable value)
         {
-            if(!_subscribed) 
-            {
-                _floatVariable = value;
-                Sub();
-                UpdateValues();
-                return;
-            }
-            Unsub();
+            if(_subscribed) UnsubscribeVariable();
             _floatVariable = value;
-            Sub();
+            SubscribeVariable();
             UpdateValues();
         }
-        private void Sub()
+        private void SubscribeVariable()
         {
             _floatVariable.PropertyChanged += (x,y) => UpdateValues();
             _subscribed = true;
         }
-        private void Unsub()
+        private void UnsubscribeVariable()
         {
             _floatVariable.PropertyChanged -= (x,y) => UpdateValues();
             _subscribed = false;

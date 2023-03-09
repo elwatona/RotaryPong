@@ -40,14 +40,12 @@ namespace RotaryPong
         private Color _startingColor;
         private Vector3 lastFrameVelocity;
         private Vector3 _startingPoint;
-        private Vector2 _effectInput;
         private float _colorBounces;
         private float _colorTimer;
         private float _timeOutside;
         private float _effectTimer;
 
         [Header("Components")]
-        private AudioSource _audioSource;
         private Rigidbody _rigidbody;
         private Collider _collider;
         private Renderer _renderer;
@@ -90,7 +88,6 @@ namespace RotaryPong
         }
         private void OnCollisionEnter(Collision collision)
         {
-            print(collision.gameObject.name);
             Bounce(collision.contacts[0].normal);
             CheckForPlayer(collision.gameObject);
         }
@@ -103,7 +100,6 @@ namespace RotaryPong
         private void GetComponents()
         {
             _rigidbody = GetComponent<Rigidbody>();
-            _audioSource = GetComponent<AudioSource>();
             _renderer = GetComponent<Renderer>();
             _collider = GetComponent<Collider>();
             _trailRenderer = GetComponent<TrailRenderer>();

@@ -1,5 +1,3 @@
-using Watona.Utils;
-using Watona.Variables;
 namespace RotaryPong
 {
     ///<summary> Contiene toda las posibles configuraciones </summary>

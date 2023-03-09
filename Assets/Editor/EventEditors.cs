@@ -19,4 +19,6 @@ namespace RotaryPong.RPEditor
     public class BallGrabbedEventEditor : GameEventEditor<BallEffectParameters>{}
     [CustomEditor(typeof(DropBallEvent))]
     public class DropBallEventEditor : GameEventEditor<DropBallParameters>{}
+    [CustomEditor(typeof(BooleanEvent))]
+    public class BooleanEventEditor : GameEventEditor<bool>{}
 }

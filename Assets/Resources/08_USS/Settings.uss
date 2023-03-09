@@ -1,6 +1,6 @@
 .settings{
     flex-grow: 1;
-    background-color: rgb(0,0,17);
+    /* background-color: rgb(0,0,17); */
 }
 
 .settings__title{
@@ -33,6 +33,7 @@
     flex-basis: 60%;
     flex-grow: 3;
     flex-direction: row;
+    margin-bottom: 50px;
 }
 
 .setting__column{

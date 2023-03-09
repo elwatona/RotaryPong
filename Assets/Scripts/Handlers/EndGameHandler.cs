@@ -11,7 +11,7 @@ namespace RotaryPong
     public class EndGameHandler : MonoBehaviour
     {
         [SerializeField] CodedEventListener _timeOutListener;
-        [SerializeField] CodedEventListener _afterScoreListener;
+        [SerializeField] CodedEventListener _scoreListener;
         [SerializeField] CodedEventListener _pauseHandler;
 
         [SerializeField, Space] IntVariable _pinkScore;
@@ -30,13 +30,13 @@ namespace RotaryPong
 
             if(winner != Paint.White)
             {
+                _didGameEnded.SetValue(true);
                 _updateWinnerUI?.Raise(winner);
                 _endGame?.Raise();
-                _didGameEnded.SetValue(true);
                 return;
             }
-            _currentGameState.SetValue(GameState.SuddenDeath);
             _baseState = GameState.SuddenDeath;
+            _currentGameState.SetValue(GameState.SuddenDeath);
         }
         private void AfterScore()
         {
@@ -51,16 +51,17 @@ namespace RotaryPong
         private void OnEnable()
         {
             _timeOutListener.OnEnable(CheckWinner);
-            _afterScoreListener.OnEnable(AfterScore);
+            _scoreListener.OnEnable(AfterScore);
             _pauseHandler.OnEnable(() => PauseToggle(_isPaused.Value));
             
             _currentGameState?.SetValue(GameState.Versus);
+            _didGameEnded.SetValue(false);
             _baseState = GameState.Versus;
         }
         private void OnDisable()
         {
             _timeOutListener.OnDisable();
-            _afterScoreListener.OnDisable();
+            _scoreListener.OnDisable();
             _pauseHandler.OnDisable();
         }
     }

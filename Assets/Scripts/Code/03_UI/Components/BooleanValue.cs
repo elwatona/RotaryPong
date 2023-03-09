@@ -76,24 +76,17 @@ namespace RotaryPong.UI
         }
         private void CheckSub(BooleanVariable value)
         {
-            if(!_subscribed) 
-            {
-                _booleanVariable = value;
-                Sub();
-                UpdateValues();
-                return;
-            }
-            Unsub();
+            if(_subscribed) UnsubscribeVariable();
             _booleanVariable = value;
-            Sub();
+            SubscribeVariable();
             UpdateValues();
         }
-        private void Sub()
+        private void SubscribeVariable()
         {
             _booleanVariable.PropertyChanged += (x,y) => UpdateValues();
             _subscribed = true;
         }
-        private void Unsub()
+        private void UnsubscribeVariable()
         {
             _booleanVariable.PropertyChanged -= (x,y) => UpdateValues();
             _subscribed = false;

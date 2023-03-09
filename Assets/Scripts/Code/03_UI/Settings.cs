@@ -44,7 +44,8 @@ namespace RotaryPong.UI
         public BooleanValue PlayerBounce;
         public BooleanValue FrontOnlyGoals;
 
-        public AspectRatioButton Done;
+        public AspectRatioButton Save;
+        public AspectRatioButton Back;
 
         private List<VisualElement> options = new();
         private PresetVariable _presetVariable;
@@ -89,13 +90,26 @@ namespace RotaryPong.UI
             _elements.Add(SFX);
 
             VisualElement btnContainer = new();
-            btnContainer.style.marginTop = 20;
-            btnContainer.style.marginBottom = 20;
-            btnContainer.style.flexBasis = Length.Percent(15);
+            btnContainer.style.position = Position.Absolute;
+            btnContainer.style.top = 25;
+            btnContainer.style.left = 25;
+            btnContainer.style.width = 250;
+            btnContainer.style.height = 100;
             hierarchy.Add(btnContainer);
 
-            Done = new(ButtonType.Menu, "DONE") { name = "Done", AspectRatioX = 5, AspectRatioY = 2 };
-            btnContainer.Add(Done);
+            Back = new(ButtonType.Icon) { name = "Back", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 0};
+            btnContainer.Add(Back);
+
+            Image backIcon = new();
+            backIcon.sprite = Resources.Load<Sprite>("07_Images/Back-icon");
+            Back.Add(backIcon);
+
+            Save = new(ButtonType.Icon) { name = "Done", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 100};
+            btnContainer.Add(Save);
+
+            Image saveIcon = new();
+            saveIcon.sprite = Resources.Load<Sprite>("07_Images/Save-icon");
+            Save.Add(saveIcon);
 
             SetOptionList();
 

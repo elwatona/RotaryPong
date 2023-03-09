@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3331691300608255223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3331691300608255224}
+  - component: {fileID: 3331691300608255226}
+  m_Layer: 0
+  m_Name: SessionDataManager
+  m_TagString: SessionDataManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3331691300608255224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3331691300608255223}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -11.1719475, y: -31.886436, z: 89.18021}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3331691300608255226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3331691300608255223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a1fdb64ba418e43a30ca0bc0f667cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tag: SessionDataManager
+  _endGameListener:
+    event: {fileID: 11400000, guid: 9a0930c7e6f208540bfb25676e2c08b9, type: 2}
+  _bluePoints: {fileID: 11400000, guid: ff76b55f5f7e33b45ac961e650422f16, type: 2}
+  _blueGames: {fileID: 11400000, guid: 94020d7d06c207a4f8708a8fd86d725d, type: 2}
+  _pinkPoints: {fileID: 11400000, guid: 70017dcda74f83141a61797d924f05b7, type: 2}
+  _pinkGames: {fileID: 11400000, guid: 4e8bde84af5114549a722c75897f3ee3, type: 2}
+  _gamesPlayed: {fileID: 11400000, guid: d52f8d6dc7011304183290197333defb, type: 2}
+  _currentBluePoints: {fileID: 11400000, guid: 5938b4c4d14eede4a8ab434963cb5529, type: 2}
+  _currentPinkPoints: {fileID: 11400000, guid: b256d8ab4db87ff4d82ce61fd1556e14, type: 2}

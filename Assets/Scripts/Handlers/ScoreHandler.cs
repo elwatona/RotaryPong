@@ -25,12 +25,8 @@ namespace RotaryPong
 
             switch((int)parameter.SourceTeam)
             {
-                case 1:
-                    _pinkScore.ApplyChange(1);
-                break;
-                case 2:
-                    _blueScore.ApplyChange(1);
-                break;
+                case 1: _pinkScore.ApplyChange(1); break;
+                case 2: _blueScore.ApplyChange(1); break;
             }
 
             _updateScores?.Raise(parameter.SourceTeam);
