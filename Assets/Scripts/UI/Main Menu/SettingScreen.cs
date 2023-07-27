@@ -5,10 +5,9 @@ using UnityEngine.UIElements;
 using Watona.Variables;
 using Watona.Events;
 using Watona.Utils;
-using RotaryPong.UI;
 using RotaryPong.Events;
 
-namespace RotaryPong
+namespace RotaryPong.UI
 {
     [RequireComponent(typeof(UIDocument))]
     public class SettingScreen : MonoBehaviour

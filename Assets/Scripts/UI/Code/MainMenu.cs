@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using RotaryPong.UI.Component;
 
 namespace RotaryPong.UI
 {
@@ -52,13 +53,13 @@ namespace RotaryPong.UI
 
             VisualElement playContainer = new();
             playContainer.AddToClassList(USS_BTN_CONTAINER);
-            playContainer.style.width = Length.Percent(50);
-            playContainer.style.paddingBottom = 20;
-            playContainer.style.paddingTop = 20;
+            // playContainer.style.width = Length.Percent(50);
+            // playContainer.style.paddingBottom = 20;
+            // playContainer.style.paddingTop = 20;
             elements.Add(playContainer);
 
-            Play = new(ButtonType.Menu, "PLAY") { name = "btn-play", AspectRatioX = 385, AspectRatioY = 133};
-            Play.style.fontSize = 63;
+            Play = new(ButtonType.Menu, "PLAY") { name = "btn-play", AspectRatioX = 361, AspectRatioY = 95};
+            Play.style.fontSize = 64;
             playContainer.Add(Play);
 
             VisualElement settingContainer = new();

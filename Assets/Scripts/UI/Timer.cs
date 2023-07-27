@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Watona.Variables;
 using Watona.Events;
-using RotaryPong.Events;
 
-namespace RotaryPong
+namespace RotaryPong.UI
 {
     public class Timer : MonoBehaviour
     {

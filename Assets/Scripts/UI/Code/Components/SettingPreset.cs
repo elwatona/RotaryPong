@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace RotaryPong.UI
+namespace RotaryPong.UI.Component
 {
     public class SettingPreset : VisualElement
     {
@@ -73,7 +73,7 @@ namespace RotaryPong.UI
         }
         private void UpdateText()
         {
-            _definition.text = _presetVariable.Value.ToString();
+            _definition.text = _presetVariable.Value != RotaryPong.Preset.Custom ? string.Format("Preset: {0}", _presetVariable.Value) : "Custom Settings";
             // Debug.Log(_presetVariable.Value);
         }
     }

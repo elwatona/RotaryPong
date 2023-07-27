@@ -7,6 +7,7 @@ TagManager:
   - Ball
   - SoundManager
   - SessionDataManager
+  - UIManager
   layers:
   - Default
   - TransparentFX

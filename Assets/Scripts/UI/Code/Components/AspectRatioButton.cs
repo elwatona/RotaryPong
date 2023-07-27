@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Watona.Variables;
+using Watona.Events;
 
-namespace RotaryPong.UI
+namespace RotaryPong.UI.Component
 {
     public enum ButtonType
     {
@@ -66,6 +66,9 @@ namespace RotaryPong.UI
 		public int BalanceX = 50;
 		public int BalanceY = 50;
         public ButtonType ButtonType;
+		private GameEvent _clicked;
+		private int currentXRatio;
+		private int currentYRatio;
 
 		public AspectRatioButton() {}
 
@@ -74,9 +77,13 @@ namespace RotaryPong.UI
 			ButtonType = type;
 			text = label;
 			styleSheets.Add(Resources.Load<StyleSheet>(string.Format("08_USS/{0}", styleSheet)));
+			_clicked = Resources.Load<GameEvent>(string.Format("09_Events/ButtonClicked"));
 			BaseStyle();
 			RemoveFromClassList("unity-button");
 			RegisterCallback<AttachToPanelEvent>(OnAttachToPanelEvent);
+			RegisterCallback<MouseEnterEvent>((x) => OnHoverEvent(true));
+			RegisterCallback<MouseOutEvent>((x) => OnHoverEvent(false));
+			this.clickable.clicked += () => _clicked.Raise();
             UpdateVisuals();
 		}
 
@@ -93,6 +100,8 @@ namespace RotaryPong.UI
 		{
 			parent?.RegisterCallback<GeometryChangedEvent>(OnGeometryChangedEvent);
 			FitToParent();
+			currentXRatio = AspectRatioX;
+			currentYRatio = AspectRatioY;
 		}
 
 
@@ -143,5 +152,12 @@ namespace RotaryPong.UI
 				case ButtonType.Icon: this.AddToClassList(ussIcon); break;
 			}
         }
+		void OnHoverEvent(bool value)
+		{
+			if(ButtonType != ButtonType.Menu) return;
+			int desiredValue = (int)(currentYRatio * 0.15);
+			AspectRatioY = value != false ? currentYRatio - desiredValue : currentYRatio;
+			FitToParent();
+		}
 	}
 }

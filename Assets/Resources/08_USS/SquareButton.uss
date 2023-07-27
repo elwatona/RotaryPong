@@ -60,10 +60,11 @@
 }
 .button__menu:hover{
     border-width: 10px;
+    font-size: 52px;
     border-color: rgb(0, 191, 243);
+    color: rgb(242, 242, 242);
 }
 .button__menu:active{
-    border-width: 5px;
     border-color: rgb(237, 0, 140);
 }
 
@@ -78,13 +79,19 @@
     border-color: rgb(63, 169, 245);
     background-color: rgba(0,0,0,0);
 }
+.button__preset:hover{
+    border-color: rgb(237, 0, 140);
+    border-width: 10px;
+}
 
 .button__preset:focus{
-    transition-duration: 0.1s;
     border-radius: 100%;
     border-width: 5px;
     border-color: rgb(237, 0, 140);
     background-color: rgba(0,0,0,0);
+}
+.button__preset:focus:hover{
+    border-width: 10px;
 }
 
 .button__icon{

@@ -6,9 +6,9 @@ using Watona.Variables;
 using UnityEngine.InputSystem;
 using RotaryPong.Events;
 
-namespace RotaryPong
+namespace RotaryPong.UI
 {
-    public class UIManager : MonoBehaviour
+    public class InGameUIHandler : MonoBehaviour
     {
         
         [SerializeField] CodedGameEventListener<Paint> _updateScores;

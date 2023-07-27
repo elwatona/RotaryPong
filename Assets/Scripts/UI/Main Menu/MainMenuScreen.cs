@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Watona.Events;
 using Watona.Utils;
-using RotaryPong.UI;
 
-namespace RotaryPong
+namespace RotaryPong.UI
 {
     [RequireComponent(typeof(UIDocument))]
     public class MainMenuScreen : MonoBehaviour

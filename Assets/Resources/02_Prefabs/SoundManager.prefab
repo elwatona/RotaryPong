@@ -152,7 +152,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2599579109568596500}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -956.0808, y: -512.0145, z: 72.23383}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -176,8 +176,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerHit:
     event: {fileID: 11400000, guid: 9e91420a1058da74885c289d0218d8b7, type: 2}
-  _fireworkSFX:
-    event: {fileID: 11400000, guid: 913ffe57a466de1438d897893c84b136, type: 2}
+  _buttonClickedListener:
+    event: {fileID: 11400000, guid: 73cf174c5686941448b14369e210a964, type: 2}
   _matchTimer: {fileID: 11400000, guid: 48225e0b525f8c54e85f12182800e2f2, type: 2}
   _musicVolumen: {fileID: 11400000, guid: 63dc117a59c10fb4caff6803966e3055, type: 2}
   _sfxVolumen: {fileID: 11400000, guid: 53c1f2c4ce663034f985e6e8a0aa8407, type: 2}
@@ -187,6 +187,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c2cda0ada976ba64bbf57dd530d0a0e3, type: 3}
   - {fileID: 8300000, guid: 88285c69db02a1947a140067b8630db3, type: 3}
   - {fileID: 8300000, guid: c84749d8dc555c349a1487dac403fd9d, type: 3}
+  - {fileID: 8300000, guid: 49b96fcabfe56b5408b5739f780efa5c, type: 3}
   _musicClips:
   - {fileID: 8300000, guid: 58982e6145563824bbb00efc7c494571, type: 3}
   - {fileID: 8300000, guid: 63aca87114b793041934896978564516, type: 3}

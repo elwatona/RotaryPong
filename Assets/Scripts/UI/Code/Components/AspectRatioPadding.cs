@@ -1,10 +1,9 @@
-namespace RotaryPong.UI
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+namespace RotaryPong.UI.Component
 {
-	using System.Collections.Generic;
-	using UnityEngine;
-	using UnityEngine.UIElements;
-
-
 	[UnityEngine.Scripting.Preserve]
 	public class AspectRatioPanel : VisualElement
 	{

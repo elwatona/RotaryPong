@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Watona.Variables;
+using Watona.Events;
 
-namespace RotaryPong.UI
+namespace RotaryPong.UI.Component
 {
     public class BooleanValue : VisualElement
     {
@@ -23,6 +24,7 @@ namespace RotaryPong.UI
         private Toggle _valueToggle;
         private Label _definitionLabel;
         private BooleanVariable _booleanVariable;
+        private GameEvent _clicked;
 
         private bool _subscribed;
 
@@ -42,6 +44,8 @@ namespace RotaryPong.UI
 
         public BooleanValue() 
         {
+			_clicked = Resources.Load<GameEvent>(string.Format("09_Events/ButtonClicked"));
+
             styleSheets.Add(Resources.Load<StyleSheet>(string.Format("08_USS/{0}", styleSheet)));
             AddToClassList(ussRootContainer);
 
@@ -56,6 +60,7 @@ namespace RotaryPong.UI
             _valueToggle = new Toggle() { name = "input" };
             toggleAR.Add(_valueToggle);
             _valueToggle.RegisterValueChangedCallback<bool>((x) => ChangeValue(x.newValue));
+            _valueToggle.RegisterCallback<ClickEvent>((x) => _clicked?.Raise());
 
             _definitionLabel = new Label() { name = "definition" };
 

@@ -9,7 +9,7 @@ namespace RotaryPong
     public class VolumenHandler : MonoBehaviour
     {
         [SerializeField] CodedGameEventListener<Paint> _playerHit;
-        [SerializeField] CodedGameEventListener<FireworksParameter> _fireworkSFX;
+        [SerializeField] CodedEventListener _buttonClickedListener;
         [SerializeField] FloatVariable _matchTimer;
         [SerializeField] FloatVariable _musicVolumen;
         [SerializeField] FloatVariable _sfxVolumen;
@@ -36,6 +36,7 @@ namespace RotaryPong
             _sfxVolumen.PropertyChanged += ChangeVolumenValue;
 
             _playerHit?.OnEnable(PlayerHit);
+            _buttonClickedListener?.OnEnable(() => PlaySFX(3));
         }
         private void OnDisable()
         {
@@ -44,8 +45,8 @@ namespace RotaryPong
             _musicVolumen.PropertyChanged -= ChangeVolumenValue;
             _sfxVolumen.PropertyChanged -= ChangeVolumenValue;
 
-            _fireworkSFX?.OnDisable();
             _playerHit?.OnDisable();
+            _buttonClickedListener?.OnDisable();
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

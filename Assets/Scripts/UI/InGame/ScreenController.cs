@@ -2,10 +2,9 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Watona.Events;
 using Watona.Variables;
-using RotaryPong.Events;
-using RotaryPong.UI;
+using RotaryPong.UI.Component;
 
-namespace RotaryPong
+namespace RotaryPong.UI
 {
     [RequireComponent(typeof(UIDocument))]
     public class ScreenController : MonoBehaviour
