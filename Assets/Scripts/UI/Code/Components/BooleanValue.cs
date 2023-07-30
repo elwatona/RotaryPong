@@ -85,6 +85,7 @@ namespace RotaryPong.UI.Component
             _booleanVariable = value;
             SubscribeVariable();
             UpdateValues();
+            this.SetTooltip(_booleanVariable.DeveloperDescription);
         }
         private void SubscribeVariable()
         {

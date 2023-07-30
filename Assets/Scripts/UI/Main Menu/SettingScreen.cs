@@ -43,7 +43,7 @@ namespace RotaryPong.UI
         }
         private void OnEnable()
         {
-            _settingsBtnListener.OnEnable(() => _root.SetVisibility(true));
+            _settingsBtnListener.OnEnable(() => {_root.SetVisibility(true); ClickPreset();});
 
             _settings.ColorByBounce.Q<Toggle>().RegisterValueChangedCallback((x) => { _settings.ColorDuration.FloatVariable = _colorDuration; });
 
@@ -63,7 +63,13 @@ namespace RotaryPong.UI
             _settings.Back.clicked -= () => { _backEvent?.Raise(false); _root.SetVisibility(false); };
             _preset.PropertyChanged -= (x,y) => OnPresetChanged();
         }
-
+        private void ClickPreset()
+        {
+            VisualElement presetBtn = _settings.SettingPreset.Buttons[(int)_settings.SettingPreset.Preset.Value];
+            PointerDownEvent pointerDownEvent = new PointerDownEvent();
+            pointerDownEvent.target = presetBtn;
+            presetBtn.SendEvent(pointerDownEvent);
+        }
         private void SetVariablesToUIElements()
         {
             _settings.ShapeChanger.ShapeVariable = _playerShapeVariable;

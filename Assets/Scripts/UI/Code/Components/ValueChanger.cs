@@ -129,6 +129,7 @@ namespace RotaryPong.UI.Component
             _floatVariable = value;
             SubscribeVariable();
             UpdateValues();
+            this.SetTooltip(_floatVariable.DeveloperDescription);
         }
         private void SubscribeVariable()
         {

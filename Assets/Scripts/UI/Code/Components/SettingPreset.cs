@@ -74,7 +74,6 @@ namespace RotaryPong.UI.Component
         private void UpdateText()
         {
             _definition.text = _presetVariable.Value != RotaryPong.Preset.Custom ? string.Format("Preset: {0}", _presetVariable.Value) : "Custom Settings";
-            // Debug.Log(_presetVariable.Value);
         }
     }
 }

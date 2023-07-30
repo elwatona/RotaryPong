@@ -76,6 +76,7 @@ namespace RotaryPong.UI.Component
                 return;
             }
             _definition.text = _shapeVariable.Value.ToString();
+            this.SetTooltip(ShapeVariable.DeveloperDescription);
         }
     }
 }

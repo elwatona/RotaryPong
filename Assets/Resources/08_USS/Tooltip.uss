@@ -1,0 +1,15 @@
+:root{
+    -unity-font: resource('06_Fonts/Fastron');
+    -unity-font-definition: resource('06_Fonts/Fastron SDF');
+}
+.tooltip{
+    position: absolute;
+    height: auto;
+    white-space: normal;
+    -unity-text-align: middle-left;
+    border-color: rgb(242, 242, 242);
+    border-bottom-width: 5px;
+    padding: 10px;
+    /* background-color: rgb(26, 26, 26); */
+    color: rgb(237, 0, 140);
+}

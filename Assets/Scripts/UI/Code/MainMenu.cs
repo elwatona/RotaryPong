@@ -101,6 +101,8 @@ namespace RotaryPong.UI
 
             AspectRatioButton achievements = new(ButtonType.Icon) {AspectRatioX = 1, AspectRatioY = 1};
             achievementsContainer.Add(achievements);
+            achievements.SetTooltip("Coming Soon!");
+            // achievements.style.fontSize = 16;
 
             Image achievementsIcon = new();
             achievementsIcon.sprite = Resources.Load<Sprite>("07_Images/Achievements-icon");
@@ -124,14 +126,13 @@ namespace RotaryPong.UI
             VisualElement creditsContainer = new();
             creditsContainer.style.height = 75;
             creditsContainer.style.width = Length.Percent(100);
-            RightBottomCorner.Add(creditsContainer);
+            // RightBottomCorner.Add(creditsContainer);
 
             AspectRatioButton credits = new AspectRatioButton(ButtonType.Menu, "CREDITS") {name = "btn-credits", AspectRatioX = 231, AspectRatioY = 75, BalanceX = 100};
             creditsContainer.Add(credits);
         }
         private void AddBottomLeftElements()
         {
-
             Label LeftBottomCorner = new("Patch " + Application.version) {name = "Absolute-Bottom-Right"};
             LeftBottomCorner.AddToClassList(USS_VERSION);
             LeftBottomCorner.RegisterCallback<ClickEvent>((x) => Application.OpenURL(PATCH_NOTES_URL));

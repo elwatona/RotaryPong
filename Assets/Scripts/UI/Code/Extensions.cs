@@ -14,8 +14,9 @@ namespace RotaryPong.UI
                 var tooltip = new Label(tooltipText);
                 tooltip.styleSheets.Add(Resources.Load<StyleSheet>(string.Format("08_USS/Tooltip")));
                 tooltip.AddToClassList("tooltip");
+                tooltip.name = "tooltip";
                 tooltip.style.width = new StyleLength(element.layout.width);
-                tooltip.style.height = new StyleLength(20);
+                // tooltip.style.height = new StyleLength(20);
 
                 float tooltipWidth = tooltip.layout.width;
                 float tooltipHeight = tooltip.layout.height;
@@ -28,26 +29,25 @@ namespace RotaryPong.UI
 
                 if (spaceAboveElement > tooltipHeight && spaceAboveElement > spaceBelowElement)
                 {
-                    // Show tooltip above element
-                    tooltip.style.top = new StyleLength(Mathf.Max(0, elementTop - tooltipHeight));
-                    tooltip.style.bottom = new StyleLength(elementHeight - element.style.borderBottomWidth.value);
-                }
-                else
-                {
                     // Show tooltip below element
                     tooltip.style.top = new StyleLength(elementHeight + element.style.borderTopWidth.value);
                     tooltip.style.bottom = new StyleLength(Mathf.Max(0, elementTop + elementHeight));
                 }
+                else
+                {
+                    // Show tooltip above element
+                    tooltip.style.top = new StyleLength(Mathf.Max(0, elementTop - tooltipHeight));
+                    tooltip.style.bottom = new StyleLength(elementHeight - element.style.borderBottomWidth.value);
+                }
 
                 // Center the tooltip horizontally
                 tooltip.style.left = new StyleLength((elementWidth - tooltipWidth) / 2);
-
-                element.Add(tooltip);
+                if(element.enabledSelf) element.Add(tooltip);
             });
 
             element.RegisterCallback<MouseLeaveEvent>(evt =>
             {
-                element.Query<Label>().ForEach(x => x.RemoveFromHierarchy());
+                element.Query<VisualElement>("tooltip").ForEach(x => x.RemoveFromHierarchy());
             });
 
             return element;
