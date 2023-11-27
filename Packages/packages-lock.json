@@ -32,7 +32,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.16",
+      "version": "2.0.22",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -147,7 +147,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "52ba30fda902117d20f8c7ef7d9e17b96e91854c"
+      "hash": "d89d40aeaec73c85c052cf40ab7fe64abe7735eb"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

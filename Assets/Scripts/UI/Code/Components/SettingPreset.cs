@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace RotaryPong.UI.Component
+namespace RotaryPong
 {
     public class SettingPreset : VisualElement
     {

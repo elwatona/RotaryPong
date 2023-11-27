@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Watona.Variables;
 
-namespace RotaryPong.UI.Component
+namespace RotaryPong
 {
     public enum Volumen
     {

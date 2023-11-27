@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace RotaryPong.UI
+namespace RotaryPong
 {
     public static class Extensions
     {

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5af477b8d17b09b45b859b911b2c8bf9, type: 3}
   m_Name: Player Shape
   m_EditorClassIdentifier: 
-  value: 1
+  value: 0
   DeveloperDescription: La forma deseada para los jugadores

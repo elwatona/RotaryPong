@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Watona.Variables;
 using Watona.Events;
 
-namespace RotaryPong.UI.Component
+namespace RotaryPong
 {
     public class BooleanValue : VisualElement
     {

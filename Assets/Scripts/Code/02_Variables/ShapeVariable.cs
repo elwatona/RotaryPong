@@ -4,7 +4,9 @@ using Watona.Variables;
 namespace RotaryPong
 {
     [CreateAssetMenu(menuName = "Variable/Shape")]
-    public class ShapeVariable : Variable<Shape>{}
+    public class ShapeVariable : Variable<Shape>
+    {
+    }
     [System.Serializable]
     public enum Shape
     {

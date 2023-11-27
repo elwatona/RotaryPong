@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using RotaryPong.UI.Component;
 
 namespace RotaryPong.UI
 {

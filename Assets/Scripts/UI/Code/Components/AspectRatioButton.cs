@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Watona.Events;
 
-namespace RotaryPong.UI.Component
+namespace RotaryPong
 {
     public enum ButtonType
     {

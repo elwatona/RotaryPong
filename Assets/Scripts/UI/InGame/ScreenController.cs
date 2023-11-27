@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Watona.Events;
 using Watona.Variables;
-using RotaryPong.UI.Component;
 
 namespace RotaryPong.UI
 {
