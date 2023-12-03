@@ -36,8 +36,7 @@ namespace RotaryPong
         public FloatVariable RotationAmmount;
         public BooleanVariable HasInterpolatedRotation;
         public FloatVariable InterpolatedRotationSpeed;
-        public FloatVariable BounceAmount;
-        public BooleanVariable CanBounce;
+        [SerializeField] private bool _hasLimit;
 
         public bool CanMove;
 
@@ -53,7 +52,7 @@ namespace RotaryPong
         [HideInInspector] public Rigidbody Rigidbody;
         private PlayerInput _playerInput;
         private GamepadCursor _gamepadCursor;
-        [HideInInspector] public Vector2 MovementInput;
+        public Vector2 MovementInput;
         [HideInInspector] public bool LeftRotationInput;
         [HideInInspector] public bool RightRotationInput;
 
@@ -92,7 +91,8 @@ namespace RotaryPong
         private void Update()
         {
             _currentShape = _currentShape.DoShape(this);
-            CheckDistanceFromCenter();
+            if(_hasLimit) CheckDistanceFromCenter();
+            else CheckPositionRelativeToScreen(0);
         }
         private void FixedUpdate()
         {
@@ -205,6 +205,21 @@ namespace RotaryPong
                 transform.position = _startingPoint;
             }
         }
+        ///<summary> Comprueba la posicion en pantalla y cambia sus valores dependiendo de la misma </summary> 
+        void CheckPositionRelativeToScreen(float offset)
+        {
+            float maxX = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x - offset;
+            float maxY = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0)).y - offset;
+            float minX = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0)).x + offset;
+            float minY = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0)).y + offset;
+
+            Vector3 currentPosition = transform.position;
+            if(currentPosition.x > maxX) currentPosition.x = minX;
+            if(currentPosition.x < minX) currentPosition.x = maxX;
+            if(currentPosition.y > maxY) currentPosition.y = minY;
+            if(currentPosition.y < minY) currentPosition.y = maxY;
+            transform.position = currentPosition;
+        }
         ///<summary> Retorna la rotacion deseada dependiendo del input apretado </summary> 
         public float ChangeRotationValue(float value, float amount)
         {
@@ -220,6 +235,10 @@ namespace RotaryPong
                 LeftRotationInput = false;
             if (RightRotationInput)
                 RightRotationInput = false;
+        }
+        public void SetPaint(Paint paint)
+        {
+            _team = paint;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace RotaryPong.UI
 
             GetAspectRatioButton("resume").clickable.clicked += () => _resumeEvent?.Raise();
             GetAspectRatioButton("reset").clickable.clicked += () => _resetEvent?.Raise();
-            GetAspectRatioButton("menu").clickable.clicked += () => _backToMenuEvent?.Raise();
+            // GetAspectRatioButton("menu").clickable.clicked += () => _backToMenuEvent?.Raise();
             GetAspectRatioButton("exit").clickable.clicked += () => _exitGameEvent?.Raise();
         }
         private void OnDisable()
@@ -41,7 +41,7 @@ namespace RotaryPong.UI
 
             GetAspectRatioButton("resume").clickable.clicked -= () => _resumeEvent?.Raise();
             GetAspectRatioButton("reset").clickable.clicked -= () => _resetEvent?.Raise();
-            GetAspectRatioButton("menu").clickable.clicked -= () => _backToMenuEvent?.Raise();
+            // GetAspectRatioButton("menu").clickable.clicked -= () => _backToMenuEvent?.Raise();
             GetAspectRatioButton("exit").clickable.clicked -= () => _exitGameEvent?.Raise();
         }
         private void Start()

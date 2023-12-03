@@ -132,7 +132,7 @@ namespace RotaryPong
         private void ResetScene()
         {
             Time.timeScale = 1;
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         private void ExitGame()
         {

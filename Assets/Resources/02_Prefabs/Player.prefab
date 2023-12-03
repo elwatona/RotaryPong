@@ -291,7 +291,7 @@ MonoBehaviour:
   _canvasRectTransform: {fileID: 0}
   _cursorSpeed: 1000
   _padding: 35
-  _playerIndex: 0
+  _lastPosition: {x: 0, y: 0}
 --- !u!1 &666314456652816405
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 8702864674646237514}
   - component: {fileID: 7922692369827301777}
   m_Layer: 0
-  m_Name: EventSystem (1)
+  m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

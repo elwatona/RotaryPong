@@ -8,10 +8,10 @@ namespace RotaryPong
     public class BooleanValue : VisualElement
     {
     #region USS names
-        private const string styleSheet = "BooleanValue";
-        private const string ussRootContainer = "boolean-value";
-        private const string ussToggleContainer = "boolean-value__toggle-container";
-        private const string ussToggleAR = "boolean-value__toggle-aspect-ratio";
+        private const string STYLE_SHEET = "BooleanValue";
+        private const string ROOT_CONTAINER = "boolean-value";
+        private const string TOGGLE_CONTAINER = "boolean-value__toggle-container";
+        private const string TOGGLE_AR = "boolean-value__toggle-aspect-ratio";
     #endregion
         public new class UxmlFactory : UxmlFactory<BooleanValue, UxmlTraits> { }
 
@@ -43,11 +43,11 @@ namespace RotaryPong
         {
 			_clicked = Resources.Load<GameEvent>(string.Format("09_Events/ButtonClicked"));
 
-            styleSheets.Add(Resources.Load<StyleSheet>(string.Format("08_USS/{0}", styleSheet)));
-            AddToClassList(ussRootContainer);
+            styleSheets.Add(Resources.Load<StyleSheet>(string.Format("08_USS/{0}", STYLE_SHEET)));
+            AddToClassList(ROOT_CONTAINER);
 
             VisualElement toggleContainer = new VisualElement() { name = "toggle-container" };
-            toggleContainer.AddToClassList(ussToggleContainer);
+            toggleContainer.AddToClassList(TOGGLE_CONTAINER);
             hierarchy.Add(toggleContainer);
 
             AspectRatioPanel toggleAR = new AspectRatioPanel() { name = "toggle-aspect-ratio", AspectRatioX = 1, AspectRatioY = 1, BalanceX = 0, BalanceY = 0 };

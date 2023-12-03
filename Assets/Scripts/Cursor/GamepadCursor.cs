@@ -26,7 +26,12 @@ namespace RotaryPong.UICursor
         private string _previousControlScheme = "";
         private const string GAMEPAD_SCHEME = "Gamepad";
         private const string MOUSE_SCHEME = "Keyboard&Mouse";
-
+        public void Inject(Canvas canvas, RectTransform canvasTransform, RectTransform cursorTransform)
+        {
+            _canvas = canvas;
+            _canvasRectTransform = canvasTransform;
+            _cursorTranform = cursorTransform;
+        }
         private void OnEnable()
         {
             _mainCamera = Camera.main;
@@ -50,7 +55,6 @@ namespace RotaryPong.UICursor
             InputSystem.onAfterUpdate += UpdateMotion;
             _playerInput.onControlsChanged += OnControlsChanged;
         }
-    
         private void OnDisable()
         {
             if(_virtualMouse != null && _virtualMouse.added) 

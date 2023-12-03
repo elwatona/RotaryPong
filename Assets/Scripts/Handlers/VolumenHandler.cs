@@ -51,7 +51,6 @@ namespace RotaryPong
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            // _musicSource.Stop();
             switch(scene.name)
             {
                 case "GameScene":
@@ -79,11 +78,10 @@ namespace RotaryPong
             _sfxSource.volume = _sfxVolumen.Value / 100;
             PlaySFX(_randomSFXClip, true);
         }
-        ///<summary> Reproduce la pista de audio cuyo index es <paramref name="who"/> </summary>
+        ///<summary> Reproduce la pista de audio cuyo index es <paramref name="team"/> </summary>
         private void PlayerHit(Paint team)
         {
-            int who = (int)team - 1;
-            PlaySFX(who);
+            PlaySFX((int)team - 1);
         }
         private void PlaySFX(int index, bool wait = false)
         {

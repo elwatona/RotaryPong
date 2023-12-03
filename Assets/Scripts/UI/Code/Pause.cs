@@ -63,8 +63,8 @@ namespace RotaryPong.UI
             rightButtons.AddToClassList(ussButtonDiv);
             RightDiv.Add(rightButtons);
 
-            AspectRatioButton menu = new(ButtonType.Menu, "GO TO MENU") {name = "menu", AspectRatioX = 11, AspectRatioY = 2, BalanceY = 15, BalanceX = 15};
-            rightButtons.Add(menu);
+            // AspectRatioButton menu = new(ButtonType.Menu, "GO TO MENU") {name = "menu", AspectRatioX = 11, AspectRatioY = 2, BalanceY = 15, BalanceX = 15};
+            // rightButtons.Add(menu);
 
             AspectRatioButton exit = new(ButtonType.Menu, "EXIT GAME") {name = "exit", AspectRatioX = 11, AspectRatioY = 2, BalanceY = 85, BalanceX = 15};
             rightButtons.Add(exit);
