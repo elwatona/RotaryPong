@@ -54,7 +54,7 @@ namespace RotaryPong
 
         private bool _isUpdatingPostProcess;
 
-        [SerializeReference] private Coroutine _goalRoutine;
+        private Coroutine _goalRoutine;
         private Bloom _bloom;
         private ChromaticAberration _chromaticAberration;
         private LensDistortion _lensDistortion;

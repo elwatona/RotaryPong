@@ -10,34 +10,42 @@ namespace RotaryPong.UICursor
     [RequireComponent(typeof(PlayerInput))]
     public class GamepadCursor : MonoBehaviour
     {
-        [SerializeField] PlayerInput _playerInput;
-        [SerializeField] RectTransform _cursorTranform;
-        [SerializeField] Canvas _canvas;
-        [SerializeField] RectTransform _canvasRectTransform;
-        [SerializeField] float _cursorSpeed = 1000f;
-        [SerializeField] float _padding = 35f;
-        
+        [SerializeField] private float _cursorSpeed = 1000f;
+        [SerializeField] private float _padding = 35f;
+        private PlayerInput _playerInput;
+        private RectTransform _cursorTranform;
+        private Canvas _canvas;
+        private RectTransform _canvasRectTransform;
+        private Vector2 _lastPosition;
         private bool _previousMouseState;
-        [SerializeField] private Vector2 _lastPosition;
         private Mouse _virtualMouse;
         private Mouse _currentMouse;
         private Camera _mainCamera;
-
         private string _previousControlScheme = "";
+
         private const string GAMEPAD_SCHEME = "Gamepad";
         private const string MOUSE_SCHEME = "Keyboard&Mouse";
-        public void Inject(Canvas canvas, RectTransform canvasTransform, RectTransform cursorTransform)
+        public void Inject()
         {
-            _canvas = canvas;
-            _canvasRectTransform = canvasTransform;
-            _cursorTranform = cursorTransform;
+            GameObject canvas = GameObject.Find("CameraCanvas");
+            if(!canvas) 
+            {
+                Debug.LogWarning("Missing CameraCanvas");
+                return;
+            }
+            _canvas = canvas.GetComponent<Canvas>();
+            _canvasRectTransform = canvas.GetComponent<RectTransform>();
+            _cursorTranform = canvas.transform.Find("Cursor").GetComponent<RectTransform>();
         }
-        private void OnEnable()
+        private void Awake()
         {
             _mainCamera = Camera.main;
             _currentMouse = Mouse.current;
             _playerInput = GetComponent<PlayerInput>();
-
+            Inject();
+        }
+        private void OnEnable()
+        {
             AddVirtualMouse();
 
             //Pair the device to the user to use PlayerInput component with the Event System & the Virtual Mouse

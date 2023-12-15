@@ -1,151 +1,45 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using Watona.Variables;
-using Watona.Events;
-using RotaryPong.Events;
-using RotaryPong.UICursor;
 
 namespace RotaryPong
 {
-    public interface CustomShape
-    {
-        CustomShape DoShape(PlayerController player);
-        void Movement(PlayerController player);
-        void Rotation(PlayerController player);
-    }
-    [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(GamepadCursor))]
+    [RequireComponent(typeof(PlayerMovement))]
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField] private Paint _team;
+        private PlayerMovement _movement;
     #region State Machine
-        [SerializeField] CustomShape _currentShape;
-        public ShapeVariable DesiredShape;
-
-        public BarShape BarShape = new BarShape();
-        public CShape CShape = new CShape();
+        [SerializeField] private ShapeVariable _shapeVariable;
+        [SerializeField] private GameObject[] _bodies;
+        private State _currentState;
+        public Shape DesiredShape => _shapeVariable.Value;
+        private Bar _bar = new Bar();
+        private C _c = new C();
     #endregion
-
-        [SerializeField] CodedGameEventListener<BallGrabbedParameters> _ballGrabbedListener;
-        [SerializeField] CodedEventListener _afterScoreListener;
-
-        [SerializeField] Paint _team;
-        [SerializeField] GameObject[] _shapes;
-        [SerializeField] GameObject _ballGrabber;
-        [SerializeField, Header("Parameters")] VariableReference<float> _distanceFromCenter;
-        public FloatVariable PlayerSpeed;
-        public FloatVariable RotationAmmount;
-        public BooleanVariable HasInterpolatedRotation;
-        public FloatVariable InterpolatedRotationSpeed;
-        [SerializeField] private bool _hasLimit;
-
-        public bool CanMove;
-
-        private Vector3 _startingPoint;
-        private float _timeOutside;
-
-        [SerializeField, Header("Events")] BallEffectEvent _ballEffect;
-        [SerializeField] SpinMapInputEvent _spinMap;
-        [SerializeField] PaintEvent _ballHit;
-        [SerializeField] DropBallEvent _dropBall;
-        [SerializeField] PauseEvent _pause;
-
-        [HideInInspector] public Rigidbody Rigidbody;
-        private PlayerInput _playerInput;
-        private GamepadCursor _gamepadCursor;
-        public Vector2 MovementInput;
-        [HideInInspector] public bool LeftRotationInput;
-        [HideInInspector] public bool RightRotationInput;
-
-    #region Input System
-        public void OnMove(InputAction.CallbackContext ctx) => MovementInput = ctx.ReadValue<Vector2>();
-        public void OnRotateLeft(InputAction.CallbackContext ctx) => LeftRotationInput = ctx.ReadValueAsButton();
-        public void OnRotateRight(InputAction.CallbackContext ctx) => RightRotationInput = ctx.ReadValueAsButton();
-        public void OnBallEfect(InputAction.CallbackContext ctx) => BallEffect(ctx.ReadValue<Vector2>());
-        public void OnRotateMap(InputAction.CallbackContext ctx) => SpinMap(ctx.ReadValue<float>());
-        public void OnDropBal(InputAction.CallbackContext ctx) => DropBall();
-        public void OnPause(InputAction.CallbackContext ctx) => Pause(ctx);
-    #endregion
-
-        private void OnEnable()
-        {
-            _currentShape = GetDesiredShape();
-            _ballGrabbedListener?.OnEnable(OnBallGrabbed);
-            _afterScoreListener?.OnEnable(DropBall);
-        }
-        private void OnDisable()
-        {
-            _ballGrabbedListener?.OnDisable();
-            _afterScoreListener?.OnDisable();
-        }
+        public Paint Team => _team;
         private void Awake()
         {
-            Rigidbody = GetComponent<Rigidbody>();
-            _playerInput = GetComponent<PlayerInput>();
-            _gamepadCursor = GetComponent<GamepadCursor>();
+            _movement = GetComponent<PlayerMovement>();
         }
-        private void Start()
+        private void OnEnable()
         {
-            _startingPoint = transform.position;
-            _gamepadCursor.enabled = false;
+            _currentState = GetDesiredShape();
         }
         private void Update()
         {
-            _currentShape = _currentShape.DoShape(this);
-            if(_hasLimit) CheckDistanceFromCenter();
-            else CheckPositionRelativeToScreen(0);
+            _currentState = _currentState.SetState(this);
         }
         private void FixedUpdate()
         {
-            _currentShape.Movement(this);
-            _currentShape.Rotation(this);
-        }
-        private void OnCollisionEnter(Collision other)
-        {
-            if(other.gameObject.name == "ball") _ballHit?.Raise(_team);
-        }
-        
-        private void OnBallGrabbed(BallGrabbedParameters parameters)
-        {
-            GameObject grabber = parameters.SourceGrabber;
-            
-            if(grabber != _ballGrabber) return;
-
-            CanMove = false;
-            Rigidbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
-
-            _ballHit?.Raise(_team);
-        }
-        private void DropBall()
-        {
-            if(DesiredShape.Value != Shape.C || CanMove) return;
-            
-            DropBallParameters parameters = new DropBallParameters{SourceDirection = this.transform.right, SourceGrabber = _ballGrabber};
-            Rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
-
-            _dropBall?.Raise(parameters);
-            _ballHit?.Raise(_team);
-
-            CanMove = true;
-        }
-        private void Pause(InputAction.CallbackContext ctx)
-        {
-            if(ctx.phase != InputActionPhase.Performed) return;
-            
-            PauseParameters parameters = new PauseParameters 
-            {
-                sourcePlayerInput = _playerInput,
-                sourceGamepadCursor = _gamepadCursor
-            };
-
-            _pause.Raise(parameters);
+            _currentState.Movement(_movement);
+            _currentState.Rotation(_movement);
         }
         private void EnableBody()
         {
-            foreach(GameObject body in _shapes)
+            foreach(GameObject body in _bodies)
             {
                 body.TryGetComponent(out Renderer renderer);
                 renderer.material = GetMaterial(_team.ToString());
-                body.SetActive(body.name == DesiredShape.Value.ToString());
+                body.SetActive(body.name == DesiredShape.ToString());
             }
             Debug.LogWarning("Player cambio su forma");
         }
@@ -153,92 +47,24 @@ namespace RotaryPong
         {
             return Resources.Load<Material>(string.Format("01_Materials/{0}", materialName));
         }
-        private void BallEffect(Vector2 input)
+        public State GetDesiredShape()
         {
-            BallEffectParameters parameters = new BallEffectParameters {SourceInput = input, SourceTeam = _team};
-            
-            _ballEffect.Raise(parameters);
-        }
-        private void SpinMap(float input)
-        {
-            SpinMapInputParameter parameters = new SpinMapInputParameter {SourceDirection = input, SourceTeam = _team};
+            State desiredShape = null;
 
-            _spinMap.Raise(parameters);
-            print(input);
-        }
-        public CustomShape GetDesiredShape()
-        {
-            CustomShape desiredShape = null;
-
-            switch(DesiredShape.Value)
+            switch(DesiredShape)
             {
                 case Shape.Bar:
-                    desiredShape = BarShape;
+                    desiredShape = _bar;
                     break;
                 case Shape.C:
-                    desiredShape = CShape;
+                    desiredShape = _c;
                     break;
                 default:
                     Debug.LogError("No existe clase para la forma pedida");
                     break;
             }
-            if(desiredShape != _currentShape)
-                EnableBody();
-
+            if(desiredShape != _currentState) EnableBody();
             return desiredShape;
-        }
-        ///<summary> Comprueba la distancia del jugador respecto al centro del mapa para considerar su posible reinicio de posicion </summary>
-        private void CheckDistanceFromCenter()
-        {
-            float distanceFromZero = Vector2.Distance(transform.position, Vector2.zero);
-            float distanceFromCenter = _distanceFromCenter.Value;
-
-            if (distanceFromZero < distanceFromCenter)
-            {
-                _timeOutside = 0;
-                return;
-            }
-
-            _timeOutside += Time.deltaTime;
-            if (_timeOutside >= 1)
-            {
-                transform.position = _startingPoint;
-            }
-        }
-        ///<summary> Comprueba la posicion en pantalla y cambia sus valores dependiendo de la misma </summary> 
-        void CheckPositionRelativeToScreen(float offset)
-        {
-            float maxX = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x - offset;
-            float maxY = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0)).y - offset;
-            float minX = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0)).x + offset;
-            float minY = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0)).y + offset;
-
-            Vector3 currentPosition = transform.position;
-            if(currentPosition.x > maxX) currentPosition.x = minX;
-            if(currentPosition.x < minX) currentPosition.x = maxX;
-            if(currentPosition.y > maxY) currentPosition.y = minY;
-            if(currentPosition.y < minY) currentPosition.y = maxY;
-            transform.position = currentPosition;
-        }
-        ///<summary> Retorna la rotacion deseada dependiendo del input apretado </summary> 
-        public float ChangeRotationValue(float value, float amount)
-        {
-            if (LeftRotationInput) return value -= amount;
-            else if (RightRotationInput) return value += amount;
-
-            return value;
-        }
-        ///<summary> Reinicia el valor de los inputs que permiten la rotacion </summary>
-        public void ResetRotationInput()
-        {
-            if (LeftRotationInput)
-                LeftRotationInput = false;
-            if (RightRotationInput)
-                RightRotationInput = false;
-        }
-        public void SetPaint(Paint paint)
-        {
-            _team = paint;
         }
     }
 }

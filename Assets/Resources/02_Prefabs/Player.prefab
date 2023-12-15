@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 300907446897748555}
   - component: {fileID: 300907446897748548}
   - component: {fileID: 300907446897748549}
+  - component: {fileID: 4573767859022604349}
   - component: {fileID: 300907446897748554}
+  - component: {fileID: 3319685652122261261}
+  - component: {fileID: 4385768999786007140}
   - component: {fileID: 6463699599985267719}
   m_Layer: 10
   m_Name: Player
@@ -82,8 +85,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 300907446897748554}
-        m_TargetAssemblyTypeName: RotaryPong.PlayerController, com.RotaryPong.Runtime
+      - m_Target: {fileID: 3319685652122261261}
+        m_TargetAssemblyTypeName: RotaryPong.PlayerMovement, com.RotaryPong.Runtime
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -98,8 +101,8 @@ MonoBehaviour:
     m_ActionName: Player/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 300907446897748554}
-        m_TargetAssemblyTypeName: RotaryPong.PlayerController, com.RotaryPong.Runtime
+      - m_Target: {fileID: 3319685652122261261}
+        m_TargetAssemblyTypeName: RotaryPong.PlayerMovement, com.RotaryPong.Runtime
         m_MethodName: OnRotateLeft
         m_Mode: 0
         m_Arguments:
@@ -114,8 +117,8 @@ MonoBehaviour:
     m_ActionName: Player/Rotate Left[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 300907446897748554}
-        m_TargetAssemblyTypeName: RotaryPong.PlayerController, com.RotaryPong.Runtime
+      - m_Target: {fileID: 3319685652122261261}
+        m_TargetAssemblyTypeName: RotaryPong.PlayerMovement, com.RotaryPong.Runtime
         m_MethodName: OnRotateRight
         m_Mode: 0
         m_Arguments:
@@ -130,8 +133,8 @@ MonoBehaviour:
     m_ActionName: Player/Rotate Right[/Keyboard/q]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 300907446897748554}
-        m_TargetAssemblyTypeName: RotaryPong.PlayerController, com.RotaryPong.Runtime
+      - m_Target: {fileID: 4573767859022604349}
+        m_TargetAssemblyTypeName: RotaryPong.PlayerActions, com.RotaryPong.Runtime
         m_MethodName: OnPause
         m_Mode: 0
         m_Arguments:
@@ -146,8 +149,8 @@ MonoBehaviour:
     m_ActionName: Player/Pause[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 300907446897748554}
-        m_TargetAssemblyTypeName: RotaryPong.PlayerController, com.RotaryPong.Runtime
+      - m_Target: {fileID: 4573767859022604349}
+        m_TargetAssemblyTypeName: RotaryPong.PlayerActions, com.RotaryPong.Runtime
         m_MethodName: OnBallEfect
         m_Mode: 0
         m_Arguments:
@@ -162,8 +165,8 @@ MonoBehaviour:
     m_ActionName: Player/Ball Effect[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 300907446897748554}
-        m_TargetAssemblyTypeName: RotaryPong.PlayerController, com.RotaryPong.Runtime
+      - m_Target: {fileID: 4573767859022604349}
+        m_TargetAssemblyTypeName: RotaryPong.PlayerActions, com.RotaryPong.Runtime
         m_MethodName: OnRotateMap
         m_Mode: 0
         m_Arguments:
@@ -210,8 +213,8 @@ MonoBehaviour:
     m_ActionName: UI/RightClick[/Mouse/rightButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 300907446897748554}
-        m_TargetAssemblyTypeName: RotaryPong.PlayerController, com.RotaryPong.Runtime
+      - m_Target: {fileID: 4573767859022604349}
+        m_TargetAssemblyTypeName: RotaryPong.PlayerActions, com.RotaryPong.Runtime
         m_MethodName: OnDropBal
         m_Mode: 0
         m_Arguments:
@@ -229,6 +232,27 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4573767859022604349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300907446897748552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb87812128cb324296bef4ee4074c22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ballGrabbedListener:
+    event: {fileID: 11400000, guid: 0cda64f6126e5954eb124355ec761376, type: 2}
+  _afterScoreListener:
+    event: {fileID: 11400000, guid: d9b68a90b6783b44b825f4f82664d0ab, type: 2}
+  _ballEffect: {fileID: 11400000, guid: f9a1d5b864c41a14fb0536c4d3eff684, type: 2}
+  _spinMap: {fileID: 11400000, guid: 358aa74ddc597094399753c1894188c9, type: 2}
+  _ballHit: {fileID: 11400000, guid: 9e91420a1058da74885c289d0218d8b7, type: 2}
+  _dropBall: {fileID: 11400000, guid: 4a47656f67353e6469edf788b8a32f9c, type: 2}
+  _pause: {fileID: 11400000, guid: 13ddb9dcb0f78ac4d92b3bd74cade343, type: 2}
 --- !u!114 &300907446897748554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,39 +265,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0554ef86a875a9a429c079dd9346f6cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DesiredShape: {fileID: 11400000, guid: 73f3c461cb538e84eb62ee91c9e709df, type: 2}
-  _ballGrabbedListener:
-    event: {fileID: 11400000, guid: 0cda64f6126e5954eb124355ec761376, type: 2}
-  _afterScoreListener:
-    event: {fileID: 11400000, guid: d9b68a90b6783b44b825f4f82664d0ab, type: 2}
   _team: 1
-  _shapes:
+  _shapeVariable: {fileID: 11400000, guid: 73f3c461cb538e84eb62ee91c9e709df, type: 2}
+  _bodies:
   - {fileID: 300907448638547915}
   - {fileID: 300907447609372208}
-  _ballGrabber: {fileID: 2698949420745743505}
-  _distanceFromCenter:
-    UseConstant: 1
-    ConstantValue: 12
-    Variable: {fileID: 0}
-  PlayerSpeed: {fileID: 11400000, guid: 2f6d5bb0da8a05344b96ccb416eacc76, type: 2}
-  RotationAmmount: {fileID: 11400000, guid: a33b59f1418f62346990cb2d6a512c1c, type: 2}
-  HasInterpolatedRotation: {fileID: 11400000, guid: 3b0fb5f47807c964abc2d0f436bf7d4c,
-    type: 2}
-  InterpolatedRotationSpeed: {fileID: 11400000, guid: c97f484627a8b38468addb9a0038058e,
-    type: 2}
-  BounceAmount: {fileID: 11400000, guid: 76f5afa2481d8274e8ec786fcb23a777, type: 2}
-  CanBounce: {fileID: 11400000, guid: 9108024fb31555a43968401c313fed33, type: 2}
-  CanMove: 1
-  _ballEffect: {fileID: 11400000, guid: f9a1d5b864c41a14fb0536c4d3eff684, type: 2}
-  _spinMap: {fileID: 11400000, guid: 358aa74ddc597094399753c1894188c9, type: 2}
-  _ballHit: {fileID: 11400000, guid: 9e91420a1058da74885c289d0218d8b7, type: 2}
-  _dropBall: {fileID: 11400000, guid: 4a47656f67353e6469edf788b8a32f9c, type: 2}
-  _pause: {fileID: 11400000, guid: 13ddb9dcb0f78ac4d92b3bd74cade343, type: 2}
-  Rigidbody: {fileID: 0}
-  MovementInput: {x: 0, y: 0}
-  LeftRotationInput: 0
-  RightRotationInput: 0
---- !u!114 &6463699599985267719
+--- !u!114 &3319685652122261261
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -282,16 +279,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 300907446897748552}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01de28d31e038c0408b4344b5d2b485c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: {fileID: 11400000, guid: 2f6d5bb0da8a05344b96ccb416eacc76, type: 2}
+  _rotationAmmount: {fileID: 11400000, guid: a33b59f1418f62346990cb2d6a512c1c, type: 2}
+  _hasInterpolatedRotation: {fileID: 11400000, guid: 3b0fb5f47807c964abc2d0f436bf7d4c,
+    type: 2}
+  _interpolatedRotationSpeed: {fileID: 11400000, guid: c97f484627a8b38468addb9a0038058e,
+    type: 2}
+--- !u!114 &4385768999786007140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300907446897748552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 752097d03b07442478c5b6c6fd52a58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _distanceFromCenter: 15
+  _useScreenLimits: 1
+--- !u!114 &6463699599985267719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300907446897748552}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbc8b0564c2f9424f9e4b7f47ed52686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInput: {fileID: 0}
-  _cursorTranform: {fileID: 0}
-  _canvas: {fileID: 0}
-  _canvasRectTransform: {fileID: 0}
   _cursorSpeed: 1000
   _padding: 35
-  _lastPosition: {x: 0, y: 0}
 --- !u!1 &666314456652816405
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,7 +607,7 @@ PrefabInstance:
     - target: {fileID: 5226578475329891795, guid: 38d1fed477c8fd540b330d6a4540cfc8,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 4611
+      value: 4770
       objectReference: {fileID: 0}
     - target: {fileID: 5226578475329891884, guid: 38d1fed477c8fd540b330d6a4540cfc8,
         type: 3}
@@ -636,12 +660,6 @@ Transform:
 --- !u!1 &300907447609372208 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5226578475329891884, guid: 38d1fed477c8fd540b330d6a4540cfc8,
-    type: 3}
-  m_PrefabInstance: {fileID: 5522962166895542300}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2698949420745743505 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7624903024060718221, guid: 38d1fed477c8fd540b330d6a4540cfc8,
     type: 3}
   m_PrefabInstance: {fileID: 5522962166895542300}
   m_PrefabAsset: {fileID: 0}

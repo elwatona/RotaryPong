@@ -5,31 +5,31 @@ using RotaryPong.Events;
 
 namespace RotaryPong
 {
-    public class BarShape : CustomShape
+    public class Bar : State
     {
-        public CustomShape DoShape(PlayerController player)
+        public State SetState(PlayerController player)
         {
             return player.GetDesiredShape();
         }
-        public void Movement(PlayerController player)
+        public void Movement(PlayerMovement player)
         {
             Rigidbody rigidbody = player.Rigidbody;
             Vector3 direction = player.MovementInput;
-            float timeSpeed = Time.deltaTime * player.PlayerSpeed.Value;
+            float timeSpeed = Time.deltaTime * player.PlayerSpeed;
             
             rigidbody.velocity = Vector3.zero;
             direction *= timeSpeed;
             rigidbody.position += direction;
         }
-        public void Rotation(PlayerController player)
+        public void Rotation(PlayerMovement player)
         {
-            bool hasInterpolatedRotation = player.HasInterpolatedRotation.Value;
+            bool hasInterpolatedRotation = player.HasInterpolatedRotation;
 
             Rigidbody rigidbody = player.Rigidbody;
 
             float currentRotation = player.transform.eulerAngles.z;
-            float rotationAmount = player.RotationAmmount.Value;
-            float rotationTimeSpeed = Time.deltaTime * player.InterpolatedRotationSpeed.Value;
+            float rotationAmount = player.RotationAmmount;
+            float rotationTimeSpeed = Time.deltaTime * player.InterpolatedRotationSpeed;
             float newRotation = player.ChangeRotationValue(currentRotation, rotationAmount);
 
             Quaternion fixedRotation = Quaternion.Euler(0, 0, newRotation);
