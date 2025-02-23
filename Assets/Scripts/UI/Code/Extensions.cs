@@ -43,6 +43,11 @@ namespace RotaryPong.UI
                 // Center the tooltip horizontally
                 tooltip.style.left = new StyleLength((elementWidth - tooltipWidth) / 2);
                 if(element.enabledSelf) element.Add(tooltip);
+
+                tooltip.RegisterCallback<MouseEnterEvent>(evt =>
+                {
+                    element.Query<VisualElement>("tooltip").ForEach(x => x.RemoveFromHierarchy());
+                });
             });
 
             element.RegisterCallback<MouseLeaveEvent>(evt =>
