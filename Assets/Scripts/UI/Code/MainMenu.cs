@@ -21,8 +21,9 @@ namespace RotaryPong.UI
         private const string USS_PABLO = "main-menu__pablo";
         private const string USS_VERSION = "main-menu__version";
 
-        private const string PATCH_NOTES_URL = "https://elwa-bazaes.itch.io/rotary-pong";
+        private const string ITCH_IO_URL = "https://elwa-bazaes.itch.io/rotary-pong";
         private const string GORIGOITIA_URL = "https://gorigoitia.itch.io";
+        private const string ELWA_URL = "https://elwa-bazaes.itch.io";
 
         public AspectRatioButton Play;
         public AspectRatioButton Settings;
@@ -108,20 +109,39 @@ namespace RotaryPong.UI
             achievementsIcon.sprite = Resources.Load<Sprite>("07_Images/Achievements-icon");
             achievements.Add(achievementsIcon);
 
-            VisualElement labelContainer = new();
-            labelContainer.style.width = Length.Percent(100);
-            labelContainer.style.flexDirection = FlexDirection.Row;
-            labelContainer.style.justifyContent = Justify.FlexEnd;
-            RightBottomCorner.Add(labelContainer);
+            VisualElement pabloContainer = new();
+            pabloContainer.style.width = Length.Percent(100);
+            pabloContainer.style.flexDirection = FlexDirection.Row;
+            pabloContainer.style.justifyContent = Justify.FlexEnd;
+            RightBottomCorner.Add(pabloContainer);
+
+            VisualElement elwaContainer = new();
+            elwaContainer.style.width = Length.Percent(100);
+            elwaContainer.style.flexDirection = FlexDirection.Row;
+            elwaContainer.style.justifyContent = Justify.FlexEnd;
+            RightBottomCorner.Add(elwaContainer);
 
             Label designByLabel = new("Design by ");
             designByLabel.AddToClassList(USS_DESIGN_BY_LABEL);
-            labelContainer.Add(designByLabel);
+            pabloContainer.Add(designByLabel);
 
             Label pablo = new("Pablo Gorigoitia");
             pablo.AddToClassList(USS_PABLO);
             pablo.RegisterCallback<ClickEvent>((x) => Application.OpenURL(GORIGOITIA_URL));
-            labelContainer.Add(pablo);
+            pabloContainer.Add(pablo);
+
+            Label developedByLabel = new("Developed by ");
+            developedByLabel.AddToClassList(USS_DESIGN_BY_LABEL);
+            elwaContainer.Add(developedByLabel);
+
+            Label elwa = new("Elwa Bazaes");
+            elwa.AddToClassList(USS_PABLO);
+            elwa.RegisterCallback<ClickEvent>((x) => Application.OpenURL(ELWA_URL));
+            elwaContainer.Add(elwa);
+
+            Label version = new("Version " + Application.version);
+            version.AddToClassList(USS_DESIGN_BY_LABEL);
+            RightBottomCorner.Add(version);
 
             VisualElement creditsContainer = new();
             creditsContainer.style.height = 75;
@@ -130,12 +150,14 @@ namespace RotaryPong.UI
 
             AspectRatioButton credits = new AspectRatioButton(ButtonType.Menu, "CREDITS") {name = "btn-credits", AspectRatioX = 231, AspectRatioY = 75, BalanceX = 100};
             creditsContainer.Add(credits);
+            
         }
         private void AddBottomLeftElements()
         {
-            Label LeftBottomCorner = new("Patch " + Application.version) {name = "Absolute-Bottom-Right"};
+
+            Label LeftBottomCorner = new("Itch.io") {name = "Absolute-Bottom-Right"};
             LeftBottomCorner.AddToClassList(USS_VERSION);
-            LeftBottomCorner.RegisterCallback<ClickEvent>((x) => Application.OpenURL(PATCH_NOTES_URL));
+            LeftBottomCorner.RegisterCallback<ClickEvent>((x) => Application.OpenURL(ITCH_IO_URL));
             Add(LeftBottomCorner);
         }
     }
