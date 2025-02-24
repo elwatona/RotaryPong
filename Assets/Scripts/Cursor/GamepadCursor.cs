@@ -1,149 +1,67 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
-using UnityEngine.InputSystem.Users;
-using UnityEngine.UIElements;
-using RotaryPong.UI;
+using System.Runtime.InteropServices;
 
 namespace RotaryPong.UICursor
 {
-    [RequireComponent(typeof(PlayerInput))]
-    public class GamepadCursor : MonoBehaviour
+    public class GamepadCursor
     {
-        [SerializeField] PlayerInput _playerInput;
-        [SerializeField] RectTransform _cursorTranform;
-        [SerializeField] Canvas _canvas;
-        [SerializeField] RectTransform _canvasRectTransform;
-        [SerializeField] float _cursorSpeed = 1000f;
-        [SerializeField] float _padding = 35f;
-        
-        private bool _previousMouseState;
-        [SerializeField] private Vector2 _lastPosition;
-        private Mouse _virtualMouse;
-        private Mouse _currentMouse;
-        private Camera _mainCamera;
-
-        private string _previousControlScheme = "";
-        private const string GAMEPAD_SCHEME = "Gamepad";
-        private const string MOUSE_SCHEME = "Keyboard&Mouse";
-
-        private void OnEnable()
+        private const string CURSOR_SUBMIT_BUTTON = "Submit";
+        private float _cursorSpeed = 1000f;
+        private float _padding = 35f;
+    #region  dll magic
+        [DllImport("user32.dll")]
+        static extern bool SetCursorPos(int X, int Y);
+        [StructLayout(LayoutKind.Sequential)]
+        public struct POINT
         {
-            _mainCamera = Camera.main;
-            _currentMouse = Mouse.current;
-            _playerInput = GetComponent<PlayerInput>();
+            public int x;
+            public int y;
 
-            AddVirtualMouse();
+            public static implicit operator Vector2(POINT p)
+            {
+                return new Vector2(p.x, p.y);
+            }
+        }
 
-            //Pair the device to the user to use PlayerInput component with the Event System & the Virtual Mouse
-            InputUser.PerformPairingWithDevice(_virtualMouse, _playerInput.user);
+        [DllImport("user32.dll")]
+        private static extern bool GetCursorPos(out POINT lpPoint);
+
+        [DllImport("user32.dll")]
+        static extern void mouse_event(uint dwFlags, int dx, int dy, uint cButtons, uint dwExtraInfo);
+        const uint MOUSEEVENTF_LEFTDOWN = 0x02, MOUSEEVENTF_LEFTUP = 0x04, MOUSEEVENTF_MOVE = 0x0001;
+    #endregion 
+        public Vector2 Position(Vector2 lastPosition)
+        {
+            float moveX = Input.GetAxis("Horizontal");
+            float moveY = Input.GetAxis("Vertical");
+
+            lastPosition.x += moveX * _cursorSpeed * Time.deltaTime; 
+            lastPosition.y += moveY * _cursorSpeed * Time.deltaTime; 
+
+            lastPosition.x = Mathf.Clamp(lastPosition.x, _padding, Screen.width - _padding);
+            lastPosition.y = Mathf.Clamp(lastPosition.y, _padding, Screen.height - _padding);
+
+            SetCursorPos((int)lastPosition.x, (int)(Screen.height - lastPosition.y));
             
-            if(_cursorTranform != null)
-            {
-                Vector2 position = _cursorTranform.anchoredPosition;
-                InputState.Change(_virtualMouse.position, position);
-            }
-
-            AnchorCursorLastPosition();
-            ShowCursor(true);
-
-            InputSystem.onAfterUpdate += UpdateMotion;
-            _playerInput.onControlsChanged += OnControlsChanged;
+            return lastPosition;
         }
-    
-        private void OnDisable()
+        public void CheckForInput()
         {
-            if(_virtualMouse != null && _virtualMouse.added) 
+            if (Input.GetButtonDown(CURSOR_SUBMIT_BUTTON))
             {
-                _lastPosition = _virtualMouse.position.ReadValue();
-
-                InputSystem.RemoveDevice(_virtualMouse);
-                print(string.Format("Se eliminó {0}", _virtualMouse));
+                mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                Debug.Log("Gamepad Click Pressed");
             }
-            InputSystem.onAfterUpdate -= UpdateMotion;
-            _playerInput.onControlsChanged -= OnControlsChanged;
 
-            ShowCursor(false);
-        }
-
-        private void AddVirtualMouse()
-        {
-            if (_virtualMouse == null)
+            if (Input.GetButtonUp(CURSOR_SUBMIT_BUTTON))
             {
-                _virtualMouse = (Mouse)InputSystem.AddDevice("VirtualMouse");
-            }
-            else if (!_virtualMouse.added)
-            {
-                InputSystem.AddDevice(_virtualMouse);
+                mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                Debug.Log("Gamepad Click Released");
             }
         }
-        private void AnchorCursorLastPosition()
+        public bool IsMoving()
         {
-            InputState.Change(_virtualMouse.position, _lastPosition);
-            AnchorCursor(_lastPosition);
-        }
-        private void ShowCursor(bool value)
-        {
-            if(_cursorTranform) _cursorTranform.gameObject.SetActive(value);
-        }
-        private void UpdateMotion()
-        {
-            Gamepad gamepad = _playerInput.GetDevice<Gamepad>();
-            
-            if(_virtualMouse == null || gamepad == null) 
-            {
-                AnchorCursor(_currentMouse.position.ReadValue());
-                return;
-            }
-            Vector2 deltaValue = gamepad.leftStick.ReadValue();
-            deltaValue *= _cursorSpeed * Time.unscaledDeltaTime;
-
-            Vector2 currentPosition = _virtualMouse.position.ReadValue();
-            Vector2 newPosition = currentPosition + deltaValue;
-
-            newPosition.x = Mathf.Clamp(newPosition.x, _padding, Screen.width - _padding);
-            newPosition.y = Mathf.Clamp(newPosition.y, _padding, Screen.height - _padding);
-
-            InputState.Change(_virtualMouse.position, newPosition);
-            InputState.Change(_virtualMouse.delta, deltaValue);
-
-            bool acceptButtonIsPressed = gamepad.buttonSouth.IsPressed();
-            if(_previousMouseState != acceptButtonIsPressed)
-            {
-                _virtualMouse.CopyState<MouseState>(out var mouseState);
-                mouseState.WithButton(UnityEngine.InputSystem.LowLevel.MouseButton.Left, acceptButtonIsPressed);
-                InputState.Change(_virtualMouse, mouseState);
-                _previousMouseState = acceptButtonIsPressed;
-            }
-
-            AnchorCursor(newPosition);
-        }
-
-        private void AnchorCursor(Vector2 position)
-        {
-            Vector2 anchoredPosition;
-            Camera camera = _canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : _mainCamera;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRectTransform, position, camera, out anchoredPosition);
-
-            _cursorTranform.anchoredPosition = anchoredPosition;
-        }
-        private void OnControlsChanged(PlayerInput input)
-        {
-            if(_playerInput.currentControlScheme == MOUSE_SCHEME && _previousControlScheme != MOUSE_SCHEME)
-            {
-                _cursorTranform.gameObject.SetActive(false);
-                _currentMouse.WarpCursorPosition(_virtualMouse.position.ReadValue());
-                _previousControlScheme = MOUSE_SCHEME;
-                print(_previousControlScheme);
-            }
-            else if(_playerInput.currentControlScheme == GAMEPAD_SCHEME && _previousControlScheme != GAMEPAD_SCHEME)
-            {
-                _cursorTranform.gameObject.SetActive(true);
-                InputState.Change(_virtualMouse.position, _currentMouse.position.ReadValue());
-                AnchorCursor(_currentMouse.position.ReadValue());
-                _previousControlScheme = GAMEPAD_SCHEME;
-                print(_previousControlScheme);
-            }
+            return Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0;
         }
     }
 }

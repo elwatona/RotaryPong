@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Watona.Events;
 using Watona.Variables;
 using RotaryPong.Events;
@@ -14,8 +11,8 @@ namespace RotaryPong
         [SerializeField] CodedEventListener _resumeListener;
         [SerializeField, Space] GameEvent _pause;
         [SerializeField, Header("Variables")] BooleanVariable _isPaused;
-        private PlayerInput _currentPlayer;
-        private UICursor.GamepadCursor _currentGamepadCursor;
+        private InputManager.Player _currentPlayer;
+        private UICursor.CursorController _currentGamepadCursor;
         private void OnEnable()
         {
             _pauseListener.OnEnable(CheckPlayer);

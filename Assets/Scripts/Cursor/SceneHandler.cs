@@ -1,17 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem;
 
 namespace RotaryPong.UICursor
 {
-    [RequireComponent(typeof(PlayerInput))]
-    [RequireComponent(typeof(GamepadCursor))]
+    [RequireComponent(typeof(CursorController))]
     public class SceneHandler : MonoBehaviour
     {
-        private PlayerInput _playerInput;
-        private GamepadCursor _gamepadCursor;
+        private InputManager.Player _playerInput;
+        private CursorController _gamepadCursor;
         private void OnEnable()
         {
             SceneManager.sceneLoaded += OnSceneChanged;
@@ -22,8 +18,8 @@ namespace RotaryPong.UICursor
         }
         private void Awake()
         {
-            _playerInput = GetComponent<PlayerInput>();
-            _gamepadCursor = GetComponent<GamepadCursor>();
+            // _playerInput = GetComponent<PlayerInput>();
+            _gamepadCursor = GetComponent<CursorController>();
         }
         private void OnSceneChanged(Scene scene, LoadSceneMode mode)
         {
@@ -31,12 +27,12 @@ namespace RotaryPong.UICursor
             switch(scene.name)
             {
                 case "MainMenu": 
-                _playerInput.enabled = true;
+                // _playerInput.enabled = true;
                 _gamepadCursor.enabled = true;
                 break;
 
                 case "GameScene":
-                _playerInput.enabled = false;
+                // _playerInput.enabled = false;
                 _gamepadCursor.enabled = false;
                 break;
             }

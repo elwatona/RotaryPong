@@ -1,10 +1,7 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Watona.Events;
 using Watona.Variables;
-using UnityEngine.InputSystem;
-using RotaryPong.Events;
 
 namespace RotaryPong.UI
 {

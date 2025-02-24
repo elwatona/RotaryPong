@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Watona.Variables;
 using Watona.Events;
 using RotaryPong.Events;
@@ -14,7 +13,7 @@ namespace RotaryPong
         void Rotation(PlayerController player);
     }
     [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(GamepadCursor))]
+    [RequireComponent(typeof(CursorController))]
     public class PlayerController : MonoBehaviour
     {
     #region State Machine
@@ -51,20 +50,20 @@ namespace RotaryPong
         [SerializeField] PauseEvent _pause;
 
         [HideInInspector] public Rigidbody Rigidbody;
-        private PlayerInput _playerInput;
-        private GamepadCursor _gamepadCursor;
+        private InputManager.Player _playerInput;
+        private CursorController _gamepadCursor;
         [HideInInspector] public Vector2 MovementInput;
         [HideInInspector] public bool LeftRotationInput;
         [HideInInspector] public bool RightRotationInput;
 
     #region Input System
-        public void OnMove(InputAction.CallbackContext ctx) => MovementInput = ctx.ReadValue<Vector2>();
-        public void OnRotateLeft(InputAction.CallbackContext ctx) => LeftRotationInput = ctx.ReadValueAsButton();
-        public void OnRotateRight(InputAction.CallbackContext ctx) => RightRotationInput = ctx.ReadValueAsButton();
-        public void OnBallEfect(InputAction.CallbackContext ctx) => BallEffect(ctx.ReadValue<Vector2>());
-        public void OnRotateMap(InputAction.CallbackContext ctx) => SpinMap(ctx.ReadValue<float>());
-        public void OnDropBal(InputAction.CallbackContext ctx) => DropBall();
-        public void OnPause(InputAction.CallbackContext ctx) => Pause(ctx);
+        // public void OnMove(InputAction.CallbackContext ctx) => MovementInput = ctx.ReadValue<Vector2>();
+        // public void OnRotateLeft(InputAction.CallbackContext ctx) => LeftRotationInput = ctx.ReadValueAsButton();
+        // public void OnRotateRight(InputAction.CallbackContext ctx) => RightRotationInput = ctx.ReadValueAsButton();
+        // public void OnBallEfect(InputAction.CallbackContext ctx) => BallEffect(ctx.ReadValue<Vector2>());
+        // public void OnRotateMap(InputAction.CallbackContext ctx) => SpinMap(ctx.ReadValue<float>());
+        // public void OnDropBal(InputAction.CallbackContext ctx) => DropBall();
+        // public void OnPause(InputAction.CallbackContext ctx) => Pause(ctx);
     #endregion
 
         private void OnEnable()
@@ -81,8 +80,8 @@ namespace RotaryPong
         private void Awake()
         {
             Rigidbody = GetComponent<Rigidbody>();
-            _playerInput = GetComponent<PlayerInput>();
-            _gamepadCursor = GetComponent<GamepadCursor>();
+            // _playerInput = GetComponent<PlayerInput>();
+            _gamepadCursor = GetComponent<CursorController>();
         }
         private void Start()
         {
@@ -127,18 +126,18 @@ namespace RotaryPong
 
             CanMove = true;
         }
-        private void Pause(InputAction.CallbackContext ctx)
-        {
-            if(ctx.phase != InputActionPhase.Performed) return;
+        // private void Pause(InputAction.CallbackContext ctx)
+        // {
+        //     if(ctx.phase != InputActionPhase.Performed) return;
             
-            PauseParameters parameters = new PauseParameters 
-            {
-                sourcePlayerInput = _playerInput,
-                sourceGamepadCursor = _gamepadCursor
-            };
+        //     PauseParameters parameters = new PauseParameters 
+        //     {
+        //         sourcePlayerInput = _playerInput,
+        //         sourceGamepadCursor = _gamepadCursor
+        //     };
 
-            _pause.Raise(parameters);
-        }
+        //     _pause.Raise(parameters);
+        // }
         private void EnableBody()
         {
             foreach(GameObject body in _shapes)

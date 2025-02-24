@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -868,6 +867,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: -1
@@ -1189,38 +1189,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1717550747}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_SendPointerHoverToParent: 1
-  m_MoveRepeatDelay: 0.5
-  m_MoveRepeatRate: 0.1
-  m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: 41b6eda3a0e0b9d429f95152f464b7aa,
-    type: 3}
-  m_PointAction: {fileID: 6198582675689609266, guid: 41b6eda3a0e0b9d429f95152f464b7aa,
-    type: 3}
-  m_MoveAction: {fileID: -7455011343103532799, guid: 41b6eda3a0e0b9d429f95152f464b7aa,
-    type: 3}
-  m_SubmitAction: {fileID: 5738439144457941530, guid: 41b6eda3a0e0b9d429f95152f464b7aa,
-    type: 3}
-  m_CancelAction: {fileID: -7399596489320987454, guid: 41b6eda3a0e0b9d429f95152f464b7aa,
-    type: 3}
-  m_LeftClickAction: {fileID: -1249562724185373774, guid: 41b6eda3a0e0b9d429f95152f464b7aa,
-    type: 3}
-  m_MiddleClickAction: {fileID: -2197138217346394983, guid: 41b6eda3a0e0b9d429f95152f464b7aa,
-    type: 3}
-  m_RightClickAction: {fileID: 3719520461822244214, guid: 41b6eda3a0e0b9d429f95152f464b7aa,
-    type: 3}
-  m_ScrollWheelAction: {fileID: -5743638867789622490, guid: 41b6eda3a0e0b9d429f95152f464b7aa,
-    type: 3}
-  m_TrackedDevicePositionAction: {fileID: -7102742658510502798, guid: 41b6eda3a0e0b9d429f95152f464b7aa,
-    type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: -6370202264884416225, guid: 41b6eda3a0e0b9d429f95152f464b7aa,
-    type: 3}
-  m_DeselectOnBackgroundClick: 0
-  m_PointerBehavior: 0
-  m_CursorLockBehavior: 0
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
 --- !u!223 &2083718376
 Canvas:
   m_ObjectHideFlags: 0
@@ -1238,6 +1217,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 1
@@ -1734,6 +1714,7 @@ GameObject:
   - component: {fileID: 7985796483030056956}
   - component: {fileID: 7985796483030056960}
   - component: {fileID: 7985796483030056959}
+  - component: {fileID: 7985796483030056961}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -1753,13 +1734,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc8b0564c2f9424f9e4b7f47ed52686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInput: {fileID: 0}
-  _cursorTranform: {fileID: 0}
-  _canvas: {fileID: 0}
-  _canvasRectTransform: {fileID: 0}
-  _cursorSpeed: 1000
-  _padding: 35
-  _lastPosition: {x: 0, y: 0}
 --- !u!114 &7985796483030056960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1772,115 +1746,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: 0}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: 
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
---- !u!114 &8234639727812595048
+--- !u!114 &7985796483030056961
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8234639727812595049}
+  m_GameObject: {fileID: 7985796483030056958}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Script: {fileID: 11500000, guid: 10750aeadfffb4245b0afd7974a6eabb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 41b6eda3a0e0b9d429f95152f464b7aa,
-    type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 1717550751}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2fd1ef20-5b02-41fe-a18f-a472ef1f9f64
-    m_ActionName: Player/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 1c42bac3-967e-447b-b0a1-0fc63204d0e0
-    m_ActionName: Player/Rotate Left[/Keyboard/e]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 827c8731-0070-4920-ba50-e773f1357af9
-    m_ActionName: Player/Rotate Right[/Keyboard/q]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f636720d-fb17-4665-b2f3-0257aaab1d38
-    m_ActionName: Player/Pause[/Keyboard/tab]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f8eecffb-d3a1-4a9d-9e1b-c6aeff2eb3b9
-    m_ActionName: Player/Ball Effect[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 93b65ede-2aa5-456e-a13d-7458bf9b795f
-    m_ActionName: Player/Change Map Rotation
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e0bf54b6-1e78-4a98-9d70-a717b1a0a6a1
-    m_ActionName: Player/Drop Ball[/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: bf402565-3015-49df-b6a9-6c3b929f33d0
-    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: ad2af8c6-ce03-4e33-86e0-c8be81c72318
-    m_ActionName: UI/Submit
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 4ef91e51-2624-43df-8e19-1d3aeaf44513
-    m_ActionName: UI/Cancel
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: db25153e-13d0-4220-a60c-5defa2a28f0e
-    m_ActionName: UI/Point[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 4425cc15-85dd-411f-9879-f16de5bee987
-    m_ActionName: UI/Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8c212979-653d-47f6-a2f2-690ab8ae9523
-    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6fbf5467-bf7a-426a-b776-fa83843872e5
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 535791e6-d6a2-4b81-b2c3-92098eec36f7
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 278136911}
+  _cursorTransform: {fileID: 0}
+  _canvas: {fileID: 0}
+  _cursorSpeed: 1000
+  _padding: 35
 --- !u!1 &8234639727812595049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1890,8 +1771,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8234639727812595050}
-  - component: {fileID: 8234639727812595048}
-  - component: {fileID: 8234639727812595051}
+  - component: {fileID: 8234639727812595052}
   - component: {fileID: 5888994402694121481}
   m_Layer: 0
   m_Name: GamepadCursor
@@ -1915,7 +1795,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8234639727812595051
+--- !u!114 &8234639727812595052
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1924,13 +1804,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8234639727812595049}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbc8b0564c2f9424f9e4b7f47ed52686, type: 3}
+  m_Script: {fileID: 11500000, guid: 10750aeadfffb4245b0afd7974a6eabb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInput: {fileID: 8234639727812595048}
-  _cursorTranform: {fileID: 509736991}
+  _cursorTransform: {fileID: 509736991}
   _canvas: {fileID: 2083718376}
-  _canvasRectTransform: {fileID: 2083718379}
   _cursorSpeed: 1000
   _padding: 35
-  _lastPosition: {x: 0, y: 0}

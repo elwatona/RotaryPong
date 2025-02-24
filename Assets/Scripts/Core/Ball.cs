@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Watona.Variables;
 using Watona.Events;
 using RotaryPong.Events;
