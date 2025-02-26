@@ -77,19 +77,17 @@ namespace RotaryPong
                 return;
             }
             _sfxSource.volume = _sfxVolumen.Value / 100;
-            PlaySFX(_randomSFXClip, true);
+            PlaySFX(3);
         }
-        ///<summary> Reproduce la pista de audio cuyo index es <paramref name="who"/> </summary>
+        ///<summary> Reproduce la pista de audio cuyo index es <paramref name="team"/></summary>
         private void PlayerHit(Paint team)
         {
             int who = (int)team - 1;
             PlaySFX(who);
         }
-        private void PlaySFX(int index, bool wait = false)
+        private void PlaySFX(int index)
         {
-            _sfxSource.clip = _sfxClips[index];
-            if(!wait) { _sfxSource.Play(); return;}
-            _sfxSource.PlayDelayed(0.1f);
+            _sfxSource.PlayOneShot(_sfxClips[index]);
         }
     }
 }
