@@ -13,7 +13,6 @@ namespace RotaryPong
         void Rotation(PlayerController player);
     }
     [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(CursorController))]
     public class PlayerController : MonoBehaviour
     {
     #region State Machine
@@ -30,6 +29,7 @@ namespace RotaryPong
         [SerializeField] Paint _team;
         [SerializeField] GameObject[] _shapes;
         [SerializeField] GameObject _ballGrabber;
+        [SerializeField] private int _playerIndex;
         [SerializeField, Header("Parameters")] VariableReference<float> _distanceFromCenter;
         public FloatVariable PlayerSpeed;
         public FloatVariable RotationAmmount;
@@ -49,21 +49,20 @@ namespace RotaryPong
         [SerializeField] DropBallEvent _dropBall;
         [SerializeField] PauseEvent _pause;
 
-        [HideInInspector] public Rigidbody Rigidbody;
-        private InputManager.Player _playerInput;
-        private CursorController _gamepadCursor;
-        [HideInInspector] public Vector2 MovementInput;
-        [HideInInspector] public bool LeftRotationInput;
-        [HideInInspector] public bool RightRotationInput;
+        public Rigidbody Rigidbody  {private set; get; }
+        public Vector2 MovementInput {private set; get; }
+        public float RotationInput {private set; get; }
+        public bool LeftRotationInput {private set; get; }
+        public bool RightRotationInput {private set; get; }
 
-    #region Input System
-        // public void OnMove(InputAction.CallbackContext ctx) => MovementInput = ctx.ReadValue<Vector2>();
-        // public void OnRotateLeft(InputAction.CallbackContext ctx) => LeftRotationInput = ctx.ReadValueAsButton();
-        // public void OnRotateRight(InputAction.CallbackContext ctx) => RightRotationInput = ctx.ReadValueAsButton();
-        // public void OnBallEfect(InputAction.CallbackContext ctx) => BallEffect(ctx.ReadValue<Vector2>());
-        // public void OnRotateMap(InputAction.CallbackContext ctx) => SpinMap(ctx.ReadValue<float>());
-        // public void OnDropBal(InputAction.CallbackContext ctx) => DropBall();
-        // public void OnPause(InputAction.CallbackContext ctx) => Pause(ctx);
+    #region Inputs
+        public void OnMove(Vector2 input) => MovementInput = input;
+        public void OnRotateLeft(float input) => LeftRotationInput = input != 0;
+        public void OnRotateRight(float input) => RightRotationInput = input != 0;
+        public void OnBallEfect(Vector2 input) => BallEffect(input);
+        public void OnRotateMap(float input) => SpinMap(input);
+        public void OnDropBall(bool input) { if(input) DropBall();} 
+        public void OnPause(bool input) => Pause(input);
     #endregion
 
         private void OnEnable()
@@ -80,13 +79,10 @@ namespace RotaryPong
         private void Awake()
         {
             Rigidbody = GetComponent<Rigidbody>();
-            // _playerInput = GetComponent<PlayerInput>();
-            _gamepadCursor = GetComponent<CursorController>();
         }
         private void Start()
         {
             _startingPoint = transform.position;
-            _gamepadCursor.enabled = false;
         }
         private void Update()
         {
@@ -126,18 +122,12 @@ namespace RotaryPong
 
             CanMove = true;
         }
-        // private void Pause(InputAction.CallbackContext ctx)
-        // {
-        //     if(ctx.phase != InputActionPhase.Performed) return;
-            
-        //     PauseParameters parameters = new PauseParameters 
-        //     {
-        //         sourcePlayerInput = _playerInput,
-        //         sourceGamepadCursor = _gamepadCursor
-        //     };
-
-        //     _pause.Raise(parameters);
-        // }
+        private void Pause(bool input)
+        {
+            if(!input) return;
+            Debug.Log($"Pause? {input}");
+            _pause.Raise(_playerIndex);
+        }
         private void EnableBody()
         {
             foreach(GameObject body in _shapes)

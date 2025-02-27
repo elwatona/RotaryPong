@@ -5,18 +5,26 @@ namespace RotaryPong
 {
     public class InputManager : MonoBehaviour
     {
+        public static readonly string[] ACTIONS = { "RotateLeft", "RotateRight", "BallEffect", "RotateMap", "Drop", "Pause"};
         [Serializable]
         public class Player
         {
             [Serializable]
-            private struct ButtonEvent
+            private struct InputEvent
             {
+                public enum ActionType { Button, Axis, Analog };
+                [SerializeField] private ActionType _type;
                 [SerializeField] private bool _continuousCallback;
-                [SerializeField] private UnityEvent<bool> _event;
+                [SerializeField] private UnityEvent<bool> _buttonEvent;
+                [SerializeField] private UnityEvent<float> _axisEvent;
+                [SerializeField] private UnityEvent<Vector2> _analogEvent;
+                public ActionType Type => _type;
                 public bool ContinuousCallback => _continuousCallback;
-                public UnityEvent<bool> Event => _event;
+                public UnityEvent<bool> ButtonEvent => _buttonEvent;
+                public UnityEvent<float> AxisEvent => _axisEvent;
+                public UnityEvent<Vector2> AnalogEvent => _analogEvent;
             }
-            [SerializeField] private ButtonEvent[] _buttonEvents;
+            [SerializeField] private InputEvent[] _inputEvents;
             [SerializeField] private UnityEvent<Vector2> _joystickEvent;
             private string _playerPrefix;
             private Vector2 _joystick => new Vector2(Input.GetAxis(_playerPrefix + "Horizontal"), Input.GetAxis(_playerPrefix + "Vertical"));
@@ -26,30 +34,48 @@ namespace RotaryPong
                 _playerPrefix = value;
             }
 
-            private bool GetButton(int index, bool continuous)
+            private bool GetInput(int index, bool continuous)
             {
-                string action = _playerPrefix;
-                switch (index)
-                {
-                    case 0:
-                        action += "Fire1";
-                        break;
-                    case 1:
-                        action += "Fire2";
-                        break;
-                    default:
-                        Debug.LogAssertion("El input ingresado no está registrado.");
-                        return false;
-                }
+                string action = _playerPrefix + ACTIONS[index];
+                Debug.Log(action + " " + index);
                 return continuous ? Input.GetButton(action) : Input.GetButtonDown(action);
             }
-
-            public void CheckButtons()
+            private float GetAxis(int index)
             {
-                for (int i = 0; i < _buttonEvents.Length; i++)
+                string action = _playerPrefix + ACTIONS[index];
+                Debug.Log(action + " " + index);
+                return Input.GetAxis(action);
+            }
+            private Vector2 GetAnalog(int index)
+            {
+                string action = _playerPrefix + ACTIONS[index];
+                Debug.Log(action + " " + index);
+                Vector2 input = new Vector2(Input.GetAxis(action + "_Horizontal"), Input.GetAxis(action + "_Vertical"));
+                if(input != Vector2.zero) Debug.Log(input);
+                return input;
+            }
+            public void CheckInputs()
+            {
+                for (int i = 0; i < _inputEvents.Length; i++)
                 {
-                    ButtonEvent buttonEvent = _buttonEvents[i];
-                    buttonEvent.Event?.Invoke(GetButton(i, buttonEvent.ContinuousCallback));
+                    if(i >= ACTIONS.Length)
+                    {
+                        Debug.LogAssertion("El input ingresado no está registrado.");
+                        break;
+                    }
+                    InputEvent inputEvent = _inputEvents[i];
+                    switch(inputEvent.Type)
+                    {
+                        case InputEvent.ActionType.Axis:
+                            inputEvent.AxisEvent?.Invoke(GetAxis(i));
+                            continue;
+                        case InputEvent.ActionType.Button:
+                            inputEvent.ButtonEvent?.Invoke(GetInput(i, inputEvent.ContinuousCallback));
+                            continue;
+                        case InputEvent.ActionType.Analog:
+                            inputEvent.AnalogEvent?.Invoke(GetAnalog(i));
+                            continue;
+                    }
                 }
             }
 
@@ -64,7 +90,7 @@ namespace RotaryPong
         {
             for (int i = 0; i < _players.Length; i++)
             {
-                _players[i].SetPrefix($"P{i+1}_");
+                _players[i].SetPrefix($"Player{i+1}_");
             }
         }
         private void Update()
@@ -72,7 +98,7 @@ namespace RotaryPong
             foreach(Player player in _players)
             {
                 player.CheckJoystick();
-                player.CheckButtons();
+                player.CheckInputs();
             }
         }
         public void TestInput(Vector2 input)

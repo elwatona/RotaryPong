@@ -5,6 +5,7 @@ namespace RotaryPong.UICursor
 {
     public class GamepadCursor
     {
+        public int PlayerIndex = 0;
         private const string CURSOR_SUBMIT_BUTTON = "Submit";
         private float _cursorSpeed = 1000f;
         private float _padding = 35f;
@@ -30,13 +31,17 @@ namespace RotaryPong.UICursor
         static extern void mouse_event(uint dwFlags, int dx, int dy, uint cButtons, uint dwExtraInfo);
         const uint MOUSEEVENTF_LEFTDOWN = 0x02, MOUSEEVENTF_LEFTUP = 0x04, MOUSEEVENTF_MOVE = 0x0001;
     #endregion 
+        public GamepadCursor()
+        {
+            PlayerIndex = 0;
+        }
         public Vector2 Position(Vector2 lastPosition)
         {
-            float moveX = Input.GetAxis("Horizontal");
-            float moveY = Input.GetAxis("Vertical");
+            float moveX = Input.GetAxisRaw(Horizontal());
+            float moveY = Input.GetAxisRaw(Vertical());
 
-            lastPosition.x += moveX * _cursorSpeed * Time.deltaTime; 
-            lastPosition.y += moveY * _cursorSpeed * Time.deltaTime; 
+            lastPosition.x += moveX * _cursorSpeed * Time.unscaledDeltaTime; 
+            lastPosition.y += moveY * _cursorSpeed * Time.unscaledDeltaTime; 
 
             lastPosition.x = Mathf.Clamp(lastPosition.x, _padding, Screen.width - _padding);
             lastPosition.y = Mathf.Clamp(lastPosition.y, _padding, Screen.height - _padding);
@@ -59,9 +64,17 @@ namespace RotaryPong.UICursor
                 Debug.Log("Gamepad Click Released");
             }
         }
+        private string Horizontal()
+        {
+            return PlayerIndex != 0 ? $"Player{PlayerIndex}_Horizontal" : "Horizontal";
+        }
+        private string Vertical()
+        {
+            return PlayerIndex != 0 ? $"Player{PlayerIndex}_Vertical" : "Vertical";
+        }
         public bool IsMoving()
         {
-            return Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0;
+            return Input.GetAxisRaw(Vertical()) != 0 || Input.GetAxisRaw(Horizontal()) != 0;
         }
     }
 }
