@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab94602edb7699b45821ddec58868be7, type: 3}
   m_Name: VFX Cam Shake Magnitude
   m_EditorClassIdentifier: 
-  Value: 0.3
+  value: 0
   DeveloperDescription: Magnitud con la que la camara se agita

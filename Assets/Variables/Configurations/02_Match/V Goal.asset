@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: V Goal
   m_EditorClassIdentifier: 
   value: 0
-  DeveloperDescription: Cambia la forma de los arcos a una tipo V
+  DeveloperDescription: Sets the goal's shape to a 'V'

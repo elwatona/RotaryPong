@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Control Direction
   m_EditorClassIdentifier: 
   value: 1
-  DeveloperDescription: Define si el jugador puede cambiar la direccion de movimiento
+  DeveloperDescription: Allows players to control the map direction after hitting
+    the ball

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Color by Bounces
   m_EditorClassIdentifier: 
   value: 1
-  DeveloperDescription: Define si la pelota puede cambiar su color a base de la cantidad
-    de rebotes
+  DeveloperDescription: Allows the ball to change color relative to the amount of
+    bounces it does

@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Ball Color Bounces
   m_EditorClassIdentifier: 
   value: 2
-  DeveloperDescription: La cantidad de rebotes que tiene la pelota para volver al
-    color neutro
+  DeveloperDescription: The amount of ball bounces before it turns neutral

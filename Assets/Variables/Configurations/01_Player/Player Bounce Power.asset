@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Player Bounce Power
   m_EditorClassIdentifier: 
   value: 125
-  DeveloperDescription: La fuerza con la que los jugadores son impulsados uno del
-    otro
+  DeveloperDescription: Force to apply when the players collide

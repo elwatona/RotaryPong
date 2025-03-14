@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab94602edb7699b45821ddec58868be7, type: 3}
   m_Name: Player Speed
   m_EditorClassIdentifier: 
-  value: 10
-  DeveloperDescription: La velocidad deseada del jugador
+  value: 12
+  DeveloperDescription: Desired player speed (units per second)

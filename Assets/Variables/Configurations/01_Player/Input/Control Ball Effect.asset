@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Control Ball Effect
   m_EditorClassIdentifier: 
   value: 1
-  DeveloperDescription: Permite al jugador tener control de la direccion de la pelota
+  DeveloperDescription: Allows players to control the ball movement after hitting
+    it

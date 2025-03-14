@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Effect Timer
   m_EditorClassIdentifier: 
   value: 0.5
-  DeveloperDescription: El tiempo en segudos donde se permite aplicar efecto a la
-    pelota
+  DeveloperDescription: The amount of seconds the player can apply a effect to the
+    ball after hitting it

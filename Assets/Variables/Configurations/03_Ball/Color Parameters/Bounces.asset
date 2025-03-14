@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab94602edb7699b45821ddec58868be7, type: 3}
   m_Name: Bounces
   m_EditorClassIdentifier: 
-  value: 3
-  DeveloperDescription: La cantidad de rebotes que tiene la pelota para volver al
-    color neutro
+  value: 4
+  DeveloperDescription: The amount of ball bounces before it turns neutral

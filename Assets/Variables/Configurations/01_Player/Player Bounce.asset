@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f9b5f6fc2f7d6346baa42a53bce61b5, type: 3}
   m_Name: Player Bounce
   m_EditorClassIdentifier: 
-  value: 1
-  DeveloperDescription: Define si los jugadores rebotan al impactar entre ellos
+  value: 0
+  DeveloperDescription: Allows player to bounce while colliding with eachother

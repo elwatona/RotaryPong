@@ -9,6 +9,7 @@ namespace RotaryPong.UI
     {
         public static VisualElement SetTooltip(this VisualElement element, string tooltipText)
         {
+            if(string.IsNullOrEmpty(tooltipText)) return element;
             element.RegisterCallback<MouseEnterEvent>(evt =>
             {
                 var tooltip = new Label(tooltipText);

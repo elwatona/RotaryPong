@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Rotation Speed
   m_EditorClassIdentifier: 
   value: 5
-  DeveloperDescription: Valor a sumar a la rotacion gradual
+  DeveloperDescription: Gradual rotation value

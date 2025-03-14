@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Smooth Rotation
   m_EditorClassIdentifier: 
   value: 1
-  DeveloperDescription: Define si se aplicara rotacion gradual o predefinida
+  DeveloperDescription: Allows a to rotate per seconds instead of a clamped one
